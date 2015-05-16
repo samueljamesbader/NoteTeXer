@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.2"
+  },
+  "applications": {
+    "NoteTeXer": {
+      "applicationId": "BpecqAIXnfUMeHOvOUBbK1VhAUkds9tw9aX2UzXA",
+      "masterKey": "8FNq9XdhEenKPZqhWEE3lx4udqCOPL4tXNCy8lV7"
+    },
+    "_default": {
+      "link": "NoteTeXer"
+    }
+  }
+}
