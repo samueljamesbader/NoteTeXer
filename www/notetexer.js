@@ -15,6 +15,7 @@ function initNoteTeXer(){
     viewBinder.init();
     viewNote.init();
     addLink.init();
+    forgotten.init();
 
     Pager.takeControl("#splashPage");
 }
@@ -68,6 +69,7 @@ function configurePager(){
     Pager.registerPageHandler("#viewBinderPage",viewBinder.pageHandler);
     Pager.registerPageHandler("#viewNotePage",viewNote.pageHandler);
     Pager.registerPageHandler("#addLinkPage",addLink.pageHandler);
+    Pager.registerPageHandler("#forgottenPage",forgotten.pageHandler);
 }
 
 var main = new function(){
@@ -117,7 +119,7 @@ var splash = new function(){
                         localStorage["hasAccount"]=true;
                         cur_user=user;
                         self.popupLogin.popup("close");
-                        self.continueToMain();
+                        self.gotUser();
                     },
                     error: function (user,error) {
                         var w=$("#login_submit").width();
@@ -151,7 +153,7 @@ var splash = new function(){
                     localStorage["hasAccount"]=true;
                     cur_user=user;
                     $("#popupSignup").popup("close");
-                    self.continueToMain();
+                    self.gotUser();
                 },
                 error: function(user,error) {
                     var w=$("#signup_submit").width();
@@ -190,6 +192,14 @@ var splash = new function(){
         });
     }
 
+    self.gotUser=function(){
+        cur_user.get("mainbinder").fetch().then(self.continueToMain,
+            function(error){
+                alert(error.message);
+                Parse.User.logOut();
+            });
+    }
+
     self.continueToMain=function(){
         self.welcome.css("display","block");
         setTimeout(function(){Pager.goTo("#mainpage");},1500);
@@ -199,7 +209,7 @@ var splash = new function(){
         self.welcome.css("display","none");
         $("#splashPage form").trigger('reset');
         cur_user=Parse.User.current();
-        if(cur_user) self.continueToMain();
+        if(cur_user) self.gotUser();
         else
             if (localStorage["hasAccount"]=="true")
                 setTimeout(function(){self.popupLogin.popup("open");},500);
@@ -255,29 +265,35 @@ var viewBinder = new function(){
                 name: name,
                 user: cur_user,
                 type: type
-            }).save().then(function(n){
-                n.relation("linkedBy").add(self.owner);
-                return n.save();
-            }).then(function(){
+            });
+            new_item.relation("linkedBy").add(self.cur_binder);
+            new_item.save().then(function(){
+                self.clearPage();
                 self.renderPage();
                 self.popupNew.popup("close");
-            });
+            },
+            function(err){alert(err.message)}
+            );
         });
     };
     self.pageHandler=function(){
         self.clearPage();
+        self.cur_binder=cur_user.get("mainbinder");
         if(Pager.stateData.cur_item_id)
             new Parse.Query(Item).get(Pager.stateData.cur_item_id)
                 .then(function(result){
-                    self.owner=self.cur_binder=result;
+                    self.cur_binder=result;
+                    self.renderPage();
+                },
+                function(){
                     self.renderPage();
                 });
-        else self.renderPage();
+        else
+            self.renderPage();
     };
     self.clearPage=function(){
-        self.cur_binder=null;
-        self.owner=cur_user;
         self.list.html("");
+        $("#viewBinderPage form").trigger("reset");
     };
     self.makeClickHandler=function(child){
         return function(e){
@@ -290,14 +306,13 @@ var viewBinder = new function(){
     self.makeDeleteHandler=function(child){
         return function(e){
             e.preventDefault();
-            child.relation("linkedBy").remove(self.owner);
-            self.owner.save().then(self.renderPage);
+            child.relation("linkedBy").remove(self.cur_binder);
+            child.save().then(self.renderPage,function(err){alert(err.message)});
         }
     };
     self.renderPage=function(){
-        $("#viewBinder_title").text(
-            self.cur_binder ? self.cur_binder.get("name") : "Your Notes");
-        new Parse.Query(Item).equalTo("linkedBy",self.owner)
+        $("#viewBinder_title").text(self.cur_binder.get("name"));
+        new Parse.Query(Item).equalTo("linkedBy",self.cur_binder)
             .find().then(fillList);
 
         function fillList(children){
@@ -411,34 +426,36 @@ var addLink = new function(){
 
     self.pageHandler=function(){
         self.clearPage();
+        self.cur_binder=cur_user.get("mainbinder");
         if(Pager.stateData.cur_item_id)
             new Parse.Query(Item).get(Pager.stateData.cur_item_id)
                 .then(function(result){
-                    self.owner=self.cur_binder=result;
+                    self.cur_binder=result;
+                    self.renderPage();
+                },
+                function(){
                     self.renderPage();
                 });
-        else self.renderPage();
+        else
+            self.renderPage();
     };
 
     self.clearPage=function(){
-        self.owner=cur_user;
-        self.cur_binder=null;
         self.list.html("");
     };
 
     self.makeClickHandler=function(child){
         return function(e){
             e.preventDefault();
-            alert("adding "+child.get("name"));
-            child.owner.relation("linkedBy").add(self.owner);
-            self.owner.save().then(Pager.goBack);
+            child.relation("linkedBy").add(self.cur_binder);
+            child.save().then(Pager.goBack);
         }
     };
     self.renderPage=function(){
-        console.log(self.owner.id);
         var query=new Parse.Query(Item);
         query.equalTo("user",cur_user);
         query.select("name");
+        query.select("type");
         query.find().then(fillList);
     
         function fillList(children){
@@ -454,12 +471,11 @@ var addLink = new function(){
                     var child=children[c];
                     if ($.inArray(child.id,Pager.stateData.children_ids)!=-1)
                         continue;
-                    self.list.append($("<li class='ui-field-contain'></li>")
+                    self.list.append($("<li></li>")
                         .addClass(
                             (c==0)? "ui-first-child":
                             (c==children.length-1)? "ui-last-child":
                             "")
-                        .addClass("ui-li-has-alt")
                         .append($("<a href='#'></a>")
                             .addClass(child.get("type")=="binder" ?
                                 "ui-btn ui-btn-icon-left ui-icon-bars":
@@ -473,7 +489,79 @@ var addLink = new function(){
     }
 }
 
-//////////////////
+var forgotten = new function(){
+    var self = this;
+
+    self.init=function(){
+        self.list=$("#forgotten_list");
+    };
+
+    self.pageHandler=function(){
+        self.clearPage();
+        self.renderPage();
+    };
+
+    self.clearPage=function(){
+        self.list.html("");
+    };
+
+    self.makeClickHandler=function(child){
+        return function(e){
+            e.preventDefault();
+            Pager.stateData.cur_item_id=child.id;
+            if(child.get("type")=="binder") Pager.goTo("#viewBinderPage");
+            else if(child.get("type")=="note") Pager.goTo("#viewNotePage");
+        }
+    };
+
+    self.makeDeleteHandler=function(child){
+        return function(e){
+            e.preventDefault();
+            child.destroy()
+                .then(self.renderPage,function(err){alert(err.message)});
+        }
+    };
+
+
+    self.renderPage=function(){
+        var query=new Parse.Query(Item);
+        query.equalTo("user",cur_user);
+        query.equalTo("numLinkedBy",0);
+        query.select("name");
+        query.select("type");
+        query.find().then(fillList);
+    
+        function fillList(children){
+            self.list.html("");
+            console.log(Pager.stateData.children_ids);
+            console.log("children:");
+            console.log(children);
+            if (children.length==0) {
+                self.list.append("No notes or binders!");
+            }
+            else{
+                for (var c=0;c<children.length;c++){
+                    var child=children[c];
+                    self.list.append($("<li class='ui-li-has-alt'></li>")
+                        .addClass(
+                            (c==0)? "ui-first-child":
+                            (c==children.length-1)? "ui-last-child": "")
+                        .append($("<a href='#'></a>")
+                            .addClass(child.get("type")=="binder" ?
+                                "ui-btn ui-btn-icon-left ui-icon-bars":
+                                "ui-btn ui-btn-icon-left ui-icon-comment")
+                            .click(self.makeClickHandler(child))
+                            .text(children[c].get("name")))
+                        .append($("<a href='#'></a>")
+                            .addClass(
+                                "ui-btn ui-btn-icon-notext ui-icon-delete")
+                            .click(self.makeDeleteHandler(child)))
+                        );
+                }
+            }
+        }
+    }
+}
 
 
 

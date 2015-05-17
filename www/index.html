@@ -33,7 +33,7 @@
                         <p style="text-align: right">
                             (Or <a href="#" id="signup_login">log in</a>)
                         </p>
-                        <p id="signup_error" style="margin: 0 auto;text-align:center;color:red;overflow:auto;"></p>
+                        <p id="signup_error" style="width: 100%;margin: 0 auto;text-align:center;color:red;overflow:auto;word-wrap:break-word;"></p>
                         <label for="un" class="ui-hidden-accessible">Username:</label>
                         <input type="text" name="user" id="signup_un" value="" placeholder="username"/>
                         <label for="pw" class="ui-hidden-accessible">Password:</label>
@@ -91,7 +91,7 @@
             <div data-role="main" class="ui-content">
                 <ul data-role="listview">
                     <li><a href="#viewBinderPage" class="ui-btn ui-btn-icon-left ui-icon-bullets hijack">View/edit your notes</a></li>
-                    <li><a href="#orphansPage">Orphaned Items</a></li>
+                    <li><a href="#forgottenPage" class="ui-btn ui-btn-icon-left ui-icon-heart hijack">Forgotten Notes</a></li>
                 </ul>
             </div>
 
@@ -178,6 +178,20 @@
             <div data-role="footer" data-position="fixed" style="text-align:center; display: none;" id="viewNote_footer">
                 <a href="#" class="ui-btn ui-icon-eye ui-btn-icon-left" id="viewNote_preview">Preview</a>
                 <a href="#" class="ui-btn ui-icon-check ui-btn-icon-left" id="viewNote_save">Save</a>
+            </div>
+        </div>
+
+        <div data-role="page" id="forgottenPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1 id="forgotten_title">Forgotten Notes</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form class="ui-filterable">
+                    <input id="forgotten_filter" data-type="search" placeholder="Find one"/>
+                </form>
+                <ul data-role="listview" id="forgotten_list" data-filter="true" data-input="#forgotten_filter">
+                </ul>
             </div>
         </div>
     </body>
