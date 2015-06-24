@@ -1,0 +1,7 @@
+.ui-icon-fb:after {
+    background-size: 18px;
+    moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-image: url("images/FB.png");
+}

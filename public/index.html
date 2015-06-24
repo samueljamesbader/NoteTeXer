@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>NoteTeXer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jqm_themes/notetexer_jquerytheme.min.css" />
+    <link rel="stylesheet" href="css/jqm_themes/jquery.mobile.icons.min.css" />     
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+        <link rel="stylesheet" href="plugins/jquery.textcomplete/jquery.textcomplete.css" />
+        <link rel="stylesheet" href="css/custom/notetexer.css" />
+        <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="https://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+        <script src="plugins/jquery.textcomplete/jquery.textcomplete.min.js"></script>
+        <script src ="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script>
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\\\(','\\\\)']],
+            processEscapes: true},
+          messageStyle: "none",
+          imageFont: null,
+        });
+        </script>
+
+        <script src="js/pager.js"></script>
+        <script src="js/latexcommands.js"></script>
+        <script src="js/notetexer.js"></script>
+
+    </head>
+    <body>
+
+        <div id="splashPage" data-role="page">
+            <div data-role="header">
+                <h1>Note$\TeX$er</h1>
+            </div>
+            <div data-role="main" class="ui-content" style="text-align:center">
+                <div id="splash_welcome">
+                    <h2>Welcome!</h2>
+                    <p>to your new</p>
+                    <p>quick-reference</p>
+                    <p><strong>solution</strong></p>
+                </div>
+                <div data-role="navbar" style="width: 20em; margin: auto" id="splash_fornew">
+                    <ul>
+                        <li><a href="#aboutPage" class="hijack">About</a></li>
+                        <li><a href="#" id="splash_letsgo">Let's go</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="popup" id="popupLetsGo" data-history="false" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                        <button type="button" id="fb-connect" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-fb authbtn">Connect with Facebook</button>
+                    <form>
+                        <fieldset style="border-top: 1px solid black"><legend style="text-align:center">Or</legend>
+                        <span class="login">New user?...<a href="#" style="margin: 5px;min-height:1em" id="letsgo_showsignup">Sign up here</a></span><h3 style="margin: 5px;min-height:1em" class="signup">Sign up</h3>
+                        <div id="letsgo_signupdiv">
+                            <p id="letsgo_signuperror" style="width: 100%;margin: 0 auto;text-align:center;color:red;overflow:auto;word-wrap:break-word;"></p>
+                            <label for="letsgo_signupun" class="ui-hidden-accessible">Username:</label>
+                            <input type="text" name="user" id="letsgo_signupun" value="" placeholder="username"/>
+                            <label for="letsgo_signuppass" class="ui-hidden-accessible">Password:</label>
+                            <input type="password" name="pass" id="letsgo_signuppass" value="" placeholder="password" />
+                            <label for="letsgo_signupemail" class="ui-hidden-accessible">Email:</label>
+                            <input type="text" name="email" id="letsgo_signupemail" value="" placeholder="email" />
+                            <button type="submit" id="letsgo_signupsubmit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-alt-icon ui-btn-icon-left ui-icon-check authbtn">Submit</button>
+                        </div>
+                    </form>
+                    <form>
+                        <fieldset style="border-top: 1px solid black"><legend style="text-align:center">Or</legend>
+                            <span style="margin: 5px;min-height:1em" class="signup">Returning user?...<a href="#" id="letsgo_showlogin">Log in</a></span><h3 style="margin: 5px;min-height:1em" class="login">Log in</span></h3>
+                            <div id="letsgo_logindiv">
+                            <p id="letsgo_loginerror" style="margin: 0 auto;text-align:center;color:red;overflow:auto;"></p>
+                            <label for="letsgo_loginun" class="ui-hidden-accessible">Username:</label>
+                            <input type="text" name="user" id="letsgo_loginun" value="" placeholder="username" />
+                            <label for="letsgo_loginpass" class="ui-hidden-accessible">Password:</label>
+                            <input type="password" name="pass" id="letsgo_loginpass" value="" placeholder="password" />
+                            <button type="submit" id="letsgo_loginsubmit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-alt-icon ui-btn-icon-left ui-icon-check authbtn">Log in</button>
+                            <p style="text-align: right">
+                                ...<a href="#" id="login_resetpass">forgot</a>?
+                            </p>
+                        </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div data-role="popup" id="popupResetPass" data-history="false" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <form>
+                        <h3>Reset password</h3>
+                        <p id="resetpass_error" style="margin: 0 auto;text-align:center;color:red;overflow:auto;"></p>
+                        <label for="email" class="ui-hidden-accessible">Email:</label>
+                        <input type="text" name="email" id="resetpass_email" value="" placeholder="email" >
+                        <button type="submit" id="resetpass_reset" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-alt-icon ui-btn-icon-left ui-icon-check">Send reset link</button>
+                        <p style="text-align: right">
+                            (Go <a href="#" id="resetpass_login">log in</a>)
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- HOMEPAGE -->
+        <div id="mainPage" data-role="page" style="background-color:#012612">
+            <div data-role="header">
+                <!--<a href="#" class="ui-btn-left">Back</a>-->
+                <a href="#helpPage" class="ui-btn-left ui-btn  ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-info">Help</a>
+                <!--<h1>Note$\TeX$er</h1>-->
+                <h1 id="main_title">Note$\TeX$er</h1>
+                <a id="main_logout" href="#" class="ui-btn-right ui-btn  ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-lock">Log out</a>
+            </div>
+
+            <div data-role="main" class="ui-content" style="padding-left:0px;padding-right:0px">
+                <ul data-role="listview" style="max-width:700px;margin-left:auto;margin-right:auto;">
+                    <li data-role="data-divider" style="background-color: #b3b3b3;color:#013e22;"><h2 style="margin:0px;">Notes:</h2></li>
+                    <li><a href="#viewLinkerPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-bullets hijack">View/edit your notes<span style="color:green; font-size:small; margin-left:.5em;background-color:white; display: none" id="main_starthere">Start here!</span></a></li>
+                    <li><a href="#searchPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-search hijack">Search Notes</a></li>
+                    <li><a href="#recycledPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-recycle hijack">Recycle Bin</a></li>
+                    <li data-role="data-divider" style="background-color: #b3b3b3;color:#013e22;"><h2 style="margin:0px;">Settings:</h2></li>
+                    <li><a href="#userPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-user hijack">Your Profile<span style="color:green; font-size:small; margin-left:.5em;background-color:white; display: none" id="main_addbio">Add info</span></a></a></li>
+                    <li><a href="#latexPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-gear hijack">LaTeX Settings</a></li>
+                    <li><a href="#aboutPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-carat-r hijack">About NoteTeXer</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div data-role="page" id="viewLinkerPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1 id="viewLinker_title">View Linker</h1>
+                <a id="viewLinker_add" href="#popupNew" data-rel="popup" class="ui-btn-right ui-btn  ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-plus">Add</a>
+            </div>
+            <div data-role="main" class="ui-content">
+                <ul data-role="listview" id="viewLinker_list">
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed" id="viewLinker_footer">
+                <div data-role="navbar">
+                    <ul id="viewLinker_minefooter">
+                        <li><a href="#" class="ui-btn ui-icon-cloud ui-alt-icon ui-btn-icon-top" id="viewLinker_share">Private</a></li>
+                    </ul>
+                    <ul id="viewLinker_sharedfooter">
+                        <li style="display:none"><a href="#" class="ui-btn ui-icon-carat-d ui-alt-icon ui-btn-icon-top" id="viewLinker_copy">Copy To Own</a></li>
+                    </ul>
+                    <ul id="viewLinker_fromsearch">
+                        <li style="display:none"><a href="#" class="ui-btn ui-icon-location ui-alt-icon ui-btn-icon-top" id="viewLinker_link">Link Here</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="popupAdd" data-role="popup" data-history="false" class="ui-corner-all" data-position-to="window">
+                <div style="padding: 10px 20px">
+                    <h2>Add link here</h2>
+                    <ul data-role="listview" data-inset="true">
+                        <li><a href="#" id="popupAdd_new">New note/linker</a></li>
+                        <li><a href="#" id="popupAdd_existing">Or link to existing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="popupNew" data-role="popup" data-history="false" class="ui-corner-all" data-position-to="window">
+                <form style="padding: 10px 20px;">
+                    <h2>New Note/Linker</h2>
+                    <p id="popupNew_error" style="width: 100%;margin: 0 auto;text-align:center;color:red;overflow:auto;word-wrap:break-word;"></p>
+                    <input type="text" name="popupNew_name" id="popupNew_name" placeholder="Name"/>
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>It will be a:</legend>
+                        <label for="popupNew_note">Note</label>
+                        <input type="radio" name="popupNew_radio" id="popupNew_note" value="note" checked="checked"/>
+                        <label for="popupNew_linker">Linker</label>
+                        <input type="radio" name="popupNew_radio" id="popupNew_linker" value="linker"/>
+                    </fieldset><br/>
+                    <div id="popupNew_submitwrapper">
+                    <button type="submit" id="popupNew_submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-alt-icon ui-btn-icon-left ui-icon-check">Create</button>
+                    </div>
+                </form>
+            </div>
+            <div data-role="popup" id="popupRenameLinker" data-history="false">
+                <form style="padding: 5px">
+                    <h2>Rename Linker</h2>
+                    <input type="text" id="renameLinker_newname" placeholder="New name?"></input>
+                    <input type="submit" value="Go" id="renameLinker_go"></input>
+                </form>
+            </div>
+        </div>
+
+        <div data-role="page" id="addLinkPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1 id="addLink_title">Add link</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form class="ui-filterable">
+                    <input id="addLink_filter" data-type="search" placeholder="Link to?"/>
+                </form>
+                <ul data-role="listview" id="addLink_list" data-filter="true" data-input="#addLink_filter">
+                </ul>
+            </div>
+        </div>
+
+        <div data-role="page" id="searchPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1 id="search_title">All Notes</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <input id="search_name" data-type="search" placeholder="Name?"/>
+                <input id="search_tag" type="text" data-type="search" placeholder="Tags?"/>
+                    <fieldset data-role="controlgroup" data-type="horizontal" style="display: block; text-align: center; min-height: 3em;" id="search_fieldset">
+                    <label for="search_sourceMine">My notes</label>
+                    <input type="radio" name="search_source" value="mine" id="search_sourceMine" checked="checked" data-mini="true"/>
+                    <label for="search_sourceShared">Shared notes</label>
+                    <input type="radio" name="search_source" value="shared" id="search_sourceShared" data-mini="true"/>
+                </fieldset>
+                <ul data-role="listview" id="search_list"> <!--data-input="#search_filter">-->
+                </ul>
+            </div>
+        </div>
+
+
+        <div data-role="page" id="viewNotePage">
+            <div data-role="header" data-position="fixed">
+                <a data-rel="back" href="#">Back</a>
+                <h1 id="viewNote_title">View Note</h1>
+                <a id="viewNote_edit" href="#" data-rel="popup" class="ui-btn-right ui-btn  ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-edit">Edit</a>
+                <div data-role="navbar">
+                    <ul id="viewNote_editfooter" style="display: none">
+                        <li><a href="#" class="ui-btn" data-mini="true" id="viewNote_insert">Insert</a></li>
+                        <li><a href="#" class="ui-btn" data-mini="true" id="viewNote_save">Save</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form class="whenEditingNote">
+                    <label for="viewNote_input">Your note:</label>
+                    <textarea id="viewNote_input" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
+                </form>
+                <div class="ui-body ui-body-a ui-corner-all">
+                    <h3 class="whenEditingNote" style="margin-top: 5px; margin-bottom:0px">Preview</h3>
+                    <hr class="whenEditingNote"/>
+                    <p id="viewNote_content"></p>
+                </div>
+                <div data-role="fieldcontain" style="margin-bottom: 40px; opacity: 1;" id="viewNote_tagsWrapper" class="whenEditingNote">
+                    <label for="viewNote_tags">Tags:</label>
+                    <textarea id="viewNote_tags"></textarea>
+                </div>
+                <p id="viewNote_tagsp" class="whenViewingNote" style="text-align:right"></p>
+            </div>
+            <div data-role="footer" data-position="fixed" id="viewNote_footer">
+                <div data-role="navbar">
+                    <ul id="viewNote_minefooter">
+                        <li><a href="#" class="ui-btn ui-icon-cloud ui-alt-icon ui-btn-icon-top" id="viewNote_share">Share</a></li>
+                    </ul>
+                    <ul id="viewNote_sharedfooter">
+                        <li style="display:none"><a href="#" class="ui-btn ui-icon-carat-d ui-alt-icon ui-btn-icon-top" id="viewNote_copy">Copy To Own</a></li>
+                    </ul>
+                    <ul id="viewNote_fromsearch">
+                        <li style="display:none"><a href="#" class="ui-btn ui-icon-location ui-alt-icon ui-btn-icon-top" id="viewNote_link">Link Here</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="popup" id="popupInsert" data-history="false">
+                <form style="padding: 5px">
+                    <h2>Quick Insert</h2>
+                    <select data-mini="false">
+                        <option>Greek Letters</option>
+                        <option value="\alpha">$\alpha$</option>
+                        <option value="\beta">$\beta$</option>
+                        <option value="\gamma">$\gamma$</option>
+                    </select>
+                    <select data-mini="false" name="GLWD">
+                        <option>Greek With \$</option>
+                        <option value="$\alpha$">\$$\alpha\$$</option>
+                        <option value="$\beta$">\$$\beta\$$</option>
+                        <option value="$\gamma$">\$$\gamma\$$</option>
+                    </select>
+                    <select data-mini="false">
+                        <option>Big Operators</option>
+                        <option value="\int_{/#/}^{/#/}/#/">$\int$</option>
+                        <option value="\sum_{/#/}/#/">$\sum$</option>
+                        <option value="\prod_{/#/}/#/">$\prod$</option>
+                    </select>
+                    <input type="submit" value="Insert"></input>
+                </form>
+            </div>
+            <div data-role="popup" id="popupRenameNote" data-history="false">
+                <form style="padding: 5px">
+                    <h2>Rename Note</h2>
+                    <input type="text" id="renameNote_newname" placeholder="New name?"></input>
+                    <input type="submit" value="Go" id="renameNote_go"></input>
+                </form>
+            </div>
+        </div>
+
+        <div data-role="page" id="recycledPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1 id="recycled_title">Forgotten notes</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form class="ui-filterable">
+                    <input id="recycled_filter" data-type="search" placeholder="Find one"/>
+                </form>
+                <ul data-role="listview" id="recycled_list" data-filter="true" data-input="#recycled_filter">
+                </ul>
+            </div>
+        </div>
+        <div data-role="page" id="latexPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1>LaTeX Settings</h1>
+            </div>
+            <div data-role="main" class="ui-content" style="margin-bottom: 40px">
+                <form>
+                    <div data-role="collapsible">
+                        <h2>Macros</h2>
+                        <label for="latex_preInput">Define your macros here. <a href="#" class="ui-btn ui-icon-check ui-alt-icon ui-btn-icon-left ui-btn-inline ui-corner-all ui-mini" id="latex_preview">Preview</a>
+</label>
+                        <textarea id="latex_preInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
+                        <p id="latex_preContent"></p>
+                        <p>You can put any LaTeX above to run it, and it will be run before rendering your notes, so this is a good place to define macros.  You can also test the macros and the results will be shown below. Include the $$ around everything!  See MathJax documentation for what will work (eg. you can't import arbitrary packages, sorry!)</p>
+                    </div>
+                    <div data-role="collapsible">
+                        <h2>Autocomplete</h2>
+                        <label for="latex_autoInput">List the LaTeX commands you want to add to the autocomplete.</label> 
+                        <textarea id="latex_autoInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
+                        <p>One command per line.  If there's a space in the line, that's where the cursor will end after the command is autocompleted. So, for instance, a line <code>braket{ }{ }</code> would autocomplete the physicists' <code>braket</code> command, placing the cursor in between the (first) curly brackets. </p>
+                    </div>
+                    <div data-role="collapsible">
+                        <h2>Shortcuts</h2>
+                        <label for="latex_autoInput">List the shortcuts you want to use.</label> 
+                        <textarea id="latex_shortInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
+                        <p>One shortcut per line.  First the shortcut (eg. <code>uufr</code>), then a space, then the text which should replace it (eg. <code>\frac{/#/}{/#/}</code>).  As above, the "anchor" (<code>/#/</code>) can be used to provide convenient navigation points.  When the shortcut runs, the first anchor on the line will be selected, so that you may begin typing to replace it. Lines beginning with space are ignored.</p>
+                    </div>
+                </form>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul id="latex_footer">
+                        <li><a href="#" class="ui-btn ui-icon-check ui-alt-icon ui-btn-icon-top" id="latex_save">Save</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="aboutPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1>About</h1>
+            </div>
+            <div data-role="main" class="ui-content" style="max-width: 800px; margin: auto;">
+                <div id="about_tagline" style="text-align: center; text-indent: 0">
+                <h2>Note$\TeX$er</h2>
+                <p style='font-style: italic'>Make your own formula quick-reference.<br/>
+                Search your knowledge web in seconds.<br/>
+                Speedtype LaTeX by laptop or phone.</p>
+                </div>
+                <h3>What is this?</h3>
+                <p style='font-style: italic'>This is a tool for quickly taking notes with LaTeX, on both desktop and mobile devices.</p>
+                <p style="text-indent: 2em">Hi, I'm <a href="http://sambader.net">Sam Bader</a>, a soon-to-be PhD student in Engineering Physics, and I designed Note$\TeX$er as a resource for students in the math and science community. I started this project because I couldn't find any free tools out there which would let me build my own LaTeX-based quick-references, to have with me anywhere, on any device.</p>
+                <p style="text-indent: 2em">That's really all this is, a simple note-taking app, with live LaTeX rendering built in. It includes an autocomplete and a user-configurable mobile-friendly array of shortcuts, so you can even type LaTeX quickly on your phone's native keyboard.  In addition, there's a note-sharing feature so you can make selected formulas searchable to others and save them some effort! :)</p>
+
+                <h3>Can I try?</h3>
+                <p style='font-style: italic'>Yes, literally right now!</p>
+                <p style="text-indent: 2em">If you want to try this out, go back to the home page and sign up (takes just a few seconds), and your account will automatically be populated by a series of notes that form a ten-minute tutorial on NoteTeXing efficiently.</p>
+
+                <p style="text-indent: 2em">The tool is provided free, as is, with no guarantees whatsoever.  If you have suggestions, or would like to contribute to the project, follow the link above and talk to me! If this tool becomes popular, and requires more space on the Parse server, then I may have make it donation-supported, but in the meantime, it's available at no cost, because I just love you.  </p>
+                <h3>Acknowledgements</h3>
+                <p style='font-style: italic'>Many thanks to these projects!</p>
+                <p style="text-indent: 2em">The software makes use of <a href="https://www.mathjax.org/" data-rel="external" data-ajax="false" target="_blank">MathJax</a> to live-render your LaTeX, <a href="https://jquerymobile.com/" data-rel="external" data-ajax="false" target="_blank">jQuery Mobile</a> for the smooth front-end, <a href="https://parse.com/" data-rel="external" data-ajax="false" target="_blank">Parse</a> for the simple backend, and <a href="https://github.com/yuku-t/jquery-textcomplete" data-rel="external" data-ajax="false" target="_blank">Jquery Text Complete</a> to auto-complete your LaTeX. The licenses for each of these wonderful tools can be found on their respective websites. </p>
+            </div>
+        </div>
+        <div data-role="page" id="userPage">
+            <div data-role="header" >
+                <a data-rel="back" href="#">Back</a>
+                <h1>Profile</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form style="max-width:500px; margin-left: auto; margin-right:auto;">
+                    <label for="user_name">Username</label>
+                    <input type="text" id="user_name" placeholder="Who am I?"></input>
+                    <label for="user_pass">Password</label>
+                    <input type="password" id="user_pass" placeholder="(Only if you want to change it)"></input>
+                    <label for="user_email">Email</label>
+                    <input type="text" id="user_email" placeholder="someone@something.co.uk.edu.tk"></input>
+                    <label for="user_bio">One-sentence bio</label>
+                    <textarea id="user_bio" placeholder="Are you a student?  An instructor?  A researcher? Do you have some academic or corporate affiliation? Do you love LaTeX so much it hurts sometimes?  This is just for my own curiousity, so I know whom I'm developing this tool for.  I want to know you!"></textarea>
+                    <p id="user_message"></p>
+                    <input type="submit" id="user_save" value="Save"></input>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
