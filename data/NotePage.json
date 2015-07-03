@@ -1,0 +1,1292 @@
+{ "results": [
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-06T20:35:18.747Z",
+        "lowercase_name": "sam",
+        "name": "Sam",
+        "numLinkedBy": 1,
+        "objectId": "HB4ZVXf6tk",
+        "type": "linker",
+        "updatedAt": "2015-06-24T00:37:16.195Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "This is just a simple note about something you want to remember.  Hit \"Edit\" (at the top right) to make changes, and then \"Save\" (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]Go ahead and practice by editing this note, then move on to the more complex example to learn about autocompleting speedups, advanced topics, and possible pitfalls.",
+        "createdAt": "2015-06-06T20:35:19.084Z",
+        "lowercase_name": "tweak simple ",
+        "name": "Tweak Simple ",
+        "numLinkedBy": 1,
+        "objectId": "Ldk2kjKYme",
+        "type": "note",
+        "updatedAt": "2015-06-20T19:34:30.410Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "z8A3H0FxTZ": {
+                "read": true
+            }
+        },
+        "content": "This is a simple note about something you want to remember.  Hit \"Edit\" (at the top right) to make changes, and then \"Save\" (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]Go ahead and practice by editing this note. When finished, save your work.  Then hit \"Back\" and move on to the more complex example to learn about autocompleting speedups, advanced topics, and possible pitfalls.",
+        "createdAt": "2015-06-12T18:19:49.220Z",
+        "lowercase_name": "tutorial 1",
+        "name": "Tutorial 1",
+        "numLinkedBy": 1,
+        "objectId": "iBKSykNDPv",
+        "type": "note",
+        "updatedAt": "2015-06-17T00:58:44.877Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "z8A3H0FxTZ"
+        }
+    },
+	{
+        "ACL": {
+            "SOrRrDwzQd": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-15T21:29:42.303Z",
+        "lowercase_name": "main linker page",
+        "name": "Main Linker Page",
+        "numLinkedBy": 1,
+        "objectId": "yuc6u8pGx0",
+        "type": "linker",
+        "updatedAt": "2015-06-15T21:29:45.555Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "SOrRrDwzQd"
+        }
+    },
+	{
+        "ACL": {
+            "ZxlILnH0qg": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-16T02:05:32.687Z",
+        "lowercase_name": "main linker page",
+        "name": "Main Linker Page",
+        "numLinkedBy": 1,
+        "objectId": "1cIgNr3b98",
+        "type": "linker",
+        "updatedAt": "2015-06-16T02:05:34.120Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "ZxlILnH0qg"
+        }
+    },
+	{
+        "ACL": {
+            "ZxlILnH0qg": {
+                "read": true
+            }
+        },
+        "content": "This is a simple note about something you want to remember.  Hit \"Edit\" (at the top right) to make changes, and then \"Save\" (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]Go ahead and practice by editing this note. When finished, save your work.  Then hit \"Back\" and move on to the more complex example to learn about autocompleting speedups, advanced topics, and possible pitfalls.",
+        "createdAt": "2015-06-16T02:05:33.009Z",
+        "lowercase_name": "simple example",
+        "name": "Simple Example",
+        "numLinkedBy": 1,
+        "objectId": "UmPfu8XzLi",
+        "type": "note",
+        "updatedAt": "2015-06-16T02:05:33.451Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "ZxlILnH0qg"
+        }
+    },
+	{
+        "ACL": {
+            "xFcIIfZBHy": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-16T02:26:31.574Z",
+        "lowercase_name": "main linker page",
+        "name": "Main Linker Page",
+        "numLinkedBy": 1,
+        "objectId": "j3EO0srDkz",
+        "type": "linker",
+        "updatedAt": "2015-06-16T23:43:03.885Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xFcIIfZBHy"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "z8A3H0FxTZ": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-16T21:39:49.682Z",
+        "lowercase_name": "tutorial",
+        "name": "Tutorial",
+        "numLinkedBy": 1,
+        "objectId": "gcCPxkBnZZ",
+        "type": "linker",
+        "updatedAt": "2015-06-20T18:47:41.907Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "z8A3H0FxTZ"
+        }
+    },
+	{
+        "ACL": {
+            "1CfiLlo3IJ": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-17T01:24:21.341Z",
+        "lowercase_name": "main linker page",
+        "name": "Main Linker Page",
+        "numLinkedBy": 1,
+        "objectId": "kbx88PhzBJ",
+        "type": "linker",
+        "updatedAt": "2015-06-17T01:24:22.341Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "1CfiLlo3IJ"
+        }
+    },
+	{
+        "ACL": {
+            "UqdPgmF3xT": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-18T20:41:20.934Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "WZE5fw8VsZ",
+        "type": "linker",
+        "updatedAt": "2015-06-18T20:41:22.265Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "UqdPgmF3xT"
+        }
+    },
+	{
+        "ACL": {
+            "BfkSre658D": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-18T20:43:32.601Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "UifV0slweH",
+        "type": "linker",
+        "updatedAt": "2015-06-18T20:43:33.714Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "BfkSre658D"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:32:32.379Z",
+        "lowercase_name": "wkb",
+        "name": "WKB",
+        "numLinkedBy": 1,
+        "objectId": "kpSt5IKTCK",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:26:17.054Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\n\n\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\n\n\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-06T20:35:19.681Z",
+        "lowercase_name": "tweak complex",
+        "name": "Tweak Complex",
+        "numLinkedBy": 1,
+        "objectId": "NxPW8KhUNT",
+        "type": "note",
+        "updatedAt": "2015-06-20T19:34:31.344Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "z8A3H0FxTZ": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  If you don't want to use that stuff, don't worry about it. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-12T18:19:50.139Z",
+        "lowercase_name": "tutorial 2",
+        "name": "Tutorial 2",
+        "numLinkedBy": 1,
+        "objectId": "JRecVlien7",
+        "type": "note",
+        "updatedAt": "2015-06-17T00:58:44.762Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "z8A3H0FxTZ"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  If you don't want to use that stuff, don't worry about it. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-13T16:48:53.952Z",
+        "lowercase_name": "complicated example",
+        "name": "Complicated Example",
+        "numLinkedBy": 1,
+        "objectId": "DYtH5j0Bk6",
+        "type": "note",
+        "updatedAt": "2015-06-20T19:34:29.907Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "SOrRrDwzQd": {
+                "read": true
+            }
+        },
+        "content": "This is a simple note about something you want to remember.  Hit \"Edit\" (at the top right) to make changes, and then \"Save\" (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]Go ahead and practice by editing this note. When finished, save your work.  Then hit \"Back\" and move on to the more complex example to learn about autocompleting speedups, advanced topics, and possible pitfalls.",
+        "createdAt": "2015-06-15T21:29:42.921Z",
+        "lowercase_name": "simple example",
+        "name": "Simple Example",
+        "numLinkedBy": 1,
+        "objectId": "51hufAOoPT",
+        "type": "note",
+        "updatedAt": "2015-06-15T21:29:43.521Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "SOrRrDwzQd"
+        }
+    },
+	{
+        "ACL": {
+            "SOrRrDwzQd": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  If you don't want to use that stuff, don't worry about it. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-15T21:29:43.841Z",
+        "lowercase_name": "complex example",
+        "name": "Complex Example",
+        "numLinkedBy": 1,
+        "objectId": "AGTnb32vRc",
+        "type": "note",
+        "updatedAt": "2015-06-15T21:29:45.457Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "SOrRrDwzQd"
+        }
+    },
+	{
+        "ACL": {
+            "ZxlILnH0qg": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  If you don't want to use that stuff, don't worry about it. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-16T02:05:33.645Z",
+        "lowercase_name": "complex example",
+        "name": "Complex Example",
+        "numLinkedBy": 1,
+        "objectId": "2U846mZwg3",
+        "type": "note",
+        "updatedAt": "2015-06-16T02:05:34.054Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "ZxlILnH0qg"
+        }
+    },
+	{
+        "ACL": {
+            "xFcIIfZBHy": {
+                "read": true
+            }
+        },
+        "content": "This is a simple note about something you want to remember.  Hit \"Edit\" (at the top right) to make changes, and then \"Save\" (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]Go ahead and practice by editing this note. When finished, save your work.  Then hit \"Back\" and move on to the more complex example to learn about autocompleting speedups, advanced topics, and possible pitfalls.",
+        "createdAt": "2015-06-16T02:26:31.934Z",
+        "lowercase_name": "simple",
+        "name": "Simple",
+        "numLinkedBy": 1,
+        "objectId": "ygvV8Bjlp1",
+        "type": "note",
+        "updatedAt": "2015-06-16T22:57:01.835Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xFcIIfZBHy"
+        }
+    },
+	{
+        "ACL": {
+            "xFcIIfZBHy": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  If you don't want to use that stuff, don't worry about it. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-16T02:26:33.045Z",
+        "lowercase_name": "complex",
+        "name": "Complex",
+        "numLinkedBy": 1,
+        "objectId": "iM0kL9Z8Hw",
+        "type": "note",
+        "updatedAt": "2015-06-16T22:56:52.622Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xFcIIfZBHy"
+        }
+    },
+	{
+        "ACL": {
+            "z8A3H0FxTZ": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-12T18:19:48.666Z",
+        "lowercase_name": "demo linker page",
+        "name": "Demo Linker Page",
+        "numLinkedBy": 1,
+        "objectId": "RJkkth0lW9",
+        "type": "linker",
+        "updatedAt": "2015-06-17T00:58:36.431Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "z8A3H0FxTZ"
+        }
+    },
+	{
+        "ACL": {
+            "xFcIIfZBHy": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  If you don't want to use that stuff, don't worry about it. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-16T23:06:13.766Z",
+        "lowercase_name": "complex example",
+        "name": "Complex Example",
+        "numLinkedBy": 0,
+        "objectId": "0nkK3Q7ZOn",
+        "type": "note",
+        "updatedAt": "2015-06-16T23:14:55.770Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xFcIIfZBHy"
+        }
+    },
+	{
+        "ACL": {
+            "hYxLSZh3L5": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-18T20:46:11.783Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "XMt5XAfIlm",
+        "type": "linker",
+        "updatedAt": "2015-06-18T20:46:13.083Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "hYxLSZh3L5"
+        }
+    },
+	{
+        "ACL": {
+            "7bqB9izCd5": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T01:15:05.363Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "9xlHy54NEq",
+        "type": "linker",
+        "updatedAt": "2015-06-19T01:15:06.095Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "7bqB9izCd5"
+        }
+    },
+	{
+        "ACL": {
+            "xPeBTRp8Bz": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T20:27:47.022Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "ZqXFxqpQYU",
+        "type": "linker",
+        "updatedAt": "2015-06-19T20:31:38.267Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xPeBTRp8Bz"
+        }
+    },
+	{
+        "ACL": {
+            "Bi9pNIDsbR": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T20:29:03.204Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "AtlsFhd6o3",
+        "type": "linker",
+        "updatedAt": "2015-06-19T20:29:05.307Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "Bi9pNIDsbR"
+        }
+    },
+	{
+        "ACL": {
+            "xPeBTRp8Bz": {
+                "read": true
+            }
+        },
+        "content": "\u003ch3\u003eFor example\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eThis is thoroughly formatted note about something you want to remember.  Hit \u003ccode\u003eEdit\u003c/code\u003e (at the top right) to make changes, and then \u003ccode\u003eSave\u003c/code\u003e (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. You can include HTML tags in your note if you want, eg \u003ccode\u003e\u0026lt;p\u0026gt;\u0026lt;/p\u0026gt;\u003c/code\u003e for paragraphs or \u003ccode\u003e\u0026lt;h3\u0026gt;\u0026lt;/h3\u0026gt;\u003c/code\u003e for headers or \u003ccode\u003e\u0026lt;br/\u0026gt;\u003c/code\u003e for line breaks.  If you don't want to use that stuff, don't worry about it. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]\u003c/p\u003e\u003ch3\u003eMoving faster\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eAutocomplete is enabled for your rapid $TeX$ing convenience:\u003cul\u003e\u003cli\u003eType a slash (\u003ccode\u003e\u003c/code\u003e) to start autocompleting a command\u003c/li\u003e\u003cli\u003eType underscore twice (\u003ccode\u003e__\u003c/code\u003e) to get \u003ccode\u003e_{ }\u003c/code\u003e or caret twice (\u003ccode\u003e^^\u003c/code\u003e) to get \u003ccode\u003e^{ }\u003c/code\u003e\u003c/li\u003e\u003cli\u003e The \u003ccode\u003eLaTeX Settings\u003c/code\u003e link (from the home page) allows you to define macros or expand the autocomplete\u003c/li\u003e\u003cli\u003eClicking somewhere else on the screen will show/hide the \u003ccode\u003eSave\u003c/code\u003e button\u003c/li\u003e\u003c/ul\u003e\u003ch3\u003eWarnings:\u003c/h3\u003e\u003cp style=\"text-indent: 1em\"\u003eBe careful with characters that are special to HTML, such as angle brackets: \u0026lt; \u0026gt;.  If you put these symbols into your LaTeX code, definitely put spaces around them, or, if that doesn't work, use the HTML codes \u003ccode\u003e\u0026amp;lt; \u0026amp;gt;\u003c/code\u003e instead, which will render as \u0026lt; \u0026gt;.  Also, if you want \\$ signs in your text, you'll have to write them as \\\\$, since \\$ is used to start a LaTeX region.\u003c/p\u003e",
+        "createdAt": "2015-06-19T20:32:13.194Z",
+        "lowercase_name": "tutorial 2",
+        "name": "Tutorial 2",
+        "numLinkedBy": 0,
+        "objectId": "InK9HCIMTJ",
+        "type": "note",
+        "updatedAt": "2015-06-19T20:32:13.837Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xPeBTRp8Bz"
+        }
+    },
+	{
+        "ACL": {
+            "m6dNWC0Yo4": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T20:34:14.620Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "GYlutcU1Pb",
+        "type": "linker",
+        "updatedAt": "2015-06-19T20:34:15.552Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "m6dNWC0Yo4"
+        }
+    },
+	{
+        "ACL": {
+            "dEoEXuUdRJ": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T21:02:32.079Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "HjDYoqm04n",
+        "type": "linker",
+        "updatedAt": "2015-06-19T21:02:32.079Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "dEoEXuUdRJ"
+        }
+    },
+	{
+        "ACL": {
+            "98FzCop79p": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T21:04:41.875Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "Nl6juYcH2w",
+        "type": "linker",
+        "updatedAt": "2015-06-19T21:04:42.460Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "98FzCop79p"
+        }
+    },
+	{
+        "ACL": {
+            "k1mgEoM0Qg": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T21:05:15.618Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "znl8E2CETT",
+        "type": "linker",
+        "updatedAt": "2015-06-19T21:05:17.053Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "k1mgEoM0Qg"
+        }
+    },
+	{
+        "ACL": {
+            "TrVWhXJsSU": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T21:06:00.916Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "coawaLCNIy",
+        "type": "linker",
+        "updatedAt": "2015-06-19T21:06:03.117Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "TrVWhXJsSU"
+        }
+    },
+	{
+        "ACL": {
+            "EuncxH55HB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T21:06:27.249Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "rAJvhKTJYd",
+        "type": "linker",
+        "updatedAt": "2015-06-19T21:06:27.900Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "EuncxH55HB"
+        }
+    },
+	{
+        "ACL": {
+            "N09IZNJnG6": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T21:48:26.086Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "ofyCroWeF1",
+        "type": "linker",
+        "updatedAt": "2015-06-19T21:48:26.911Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "N09IZNJnG6"
+        }
+    },
+	{
+        "ACL": {
+            "VfXHODu9Yw": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T21:54:17.770Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "aJ1VloJuwt",
+        "type": "linker",
+        "updatedAt": "2015-06-19T21:54:18.714Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "VfXHODu9Yw"
+        }
+    },
+	{
+        "ACL": {
+            "ZHiiAMsgC5": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T22:28:22.928Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "SXSEZfxV2p",
+        "type": "linker",
+        "updatedAt": "2015-06-19T22:28:22.928Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "ZHiiAMsgC5"
+        }
+    },
+	{
+        "ACL": {
+            "e1fvcEv0DN": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T22:29:00.666Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "8WHDEaeQaL",
+        "type": "linker",
+        "updatedAt": "2015-06-19T22:29:00.666Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "e1fvcEv0DN"
+        }
+    },
+	{
+        "ACL": {
+            "hqrcuLKbTx": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-19T22:29:23.516Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "5FEa8hWwbH",
+        "type": "linker",
+        "updatedAt": "2015-06-19T22:29:23.516Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "hqrcuLKbTx"
+        }
+    },
+	{
+        "ACL": {
+            "bvSW0s76eu": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T18:18:51.289Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "sfHiU4ooan",
+        "type": "linker",
+        "updatedAt": "2015-06-20T18:18:51.289Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "bvSW0s76eu"
+        }
+    },
+	{
+        "ACL": {
+            "z8A3H0FxTZ": {
+                "read": true
+            }
+        },
+        "content": "Welcome to your first note.",
+        "createdAt": "2015-06-20T18:47:41.325Z",
+        "lowercase_name": "tutorial 1: intro to notes",
+        "name": "Tutorial 1: Intro to Notes",
+        "numLinkedBy": 1,
+        "objectId": "90QJq6oFJM",
+        "type": "note",
+        "updatedAt": "2015-06-20T18:48:00.103Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "z8A3H0FxTZ"
+        }
+    },
+	{
+        "ACL": {
+            "xFcIIfZBHy": {
+                "read": true
+            }
+        },
+        "content": "This is a simple note about something you want to remember.  Hit \"Edit\" (at the top right) to make changes, and then \"Save\" (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]Go ahead and practice by editing this note. When finished, save your work.  Then hit \"Back\" and move on to the more complex example to learn about autocompleting speedups, advanced topics, and possible pitfalls.",
+        "createdAt": "2015-06-20T19:26:18.471Z",
+        "lowercase_name": "tutorial 1",
+        "name": "Tutorial 1",
+        "numLinkedBy": 0,
+        "objectId": "xaukIzYX47",
+        "type": "note",
+        "updatedAt": "2015-06-20T19:26:18.898Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xFcIIfZBHy"
+        }
+    },
+	{
+        "ACL": {
+            "xFcIIfZBHy": {
+                "read": true
+            }
+        },
+        "content": "This is a simple note about something you want to remember.  Hit \"Edit\" (at the top right) to make changes, and then \"Save\" (which will appear at the bottom right) to make your changes permanent.  A preview of your formatted note will remain on screen, updating whenever you stop typing. Your note can contain inline $\\LaTeX$ inside \\$...\\$ signs, or Display Mode $\\LaTeX$ inside \\ [...\\ ] delimeters, eg \\[ e^{i\\pi}=-1,\\quad \\text{frac}=\\frac{\\text{num}}{\\text{denom}}\\]Go ahead and practice by editing this note. When finished, save your work.  Then hit \"Back\" and move on to the more complex example to learn about autocompleting speedups, advanced topics, and possible pitfalls.",
+        "createdAt": "2015-06-20T19:26:47.368Z",
+        "lowercase_name": "tutorial 1",
+        "name": "Tutorial 1",
+        "numLinkedBy": 0,
+        "objectId": "1F7tzcTKA4",
+        "type": "note",
+        "updatedAt": "2015-06-20T19:26:48.020Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "xFcIIfZBHy"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-13T03:30:22.201Z",
+        "lowercase_name": "math",
+        "name": "math",
+        "numLinkedBy": 1,
+        "objectId": "5JCnulNHbg",
+        "type": "linker",
+        "updatedAt": "2015-06-20T19:34:29.682Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "Note about Cauchy and his theorems.",
+        "createdAt": "2015-06-13T03:30:34.091Z",
+        "lowercase_name": "cauchy",
+        "name": "cauchy",
+        "numLinkedBy": 1,
+        "objectId": "K29EFHPcCn",
+        "type": "note",
+        "updatedAt": "2015-06-20T19:34:30.174Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:32:45.767Z",
+        "lowercase_name": "wkb-",
+        "name": "WKB-",
+        "numLinkedBy": 1,
+        "objectId": "NmqKvlTIkh",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:26:16.920Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:32:01.230Z",
+        "lowercase_name": "semi-classical",
+        "name": "Semi-classical",
+        "numLinkedBy": 1,
+        "objectId": "NPuj09pfAm",
+        "type": "linker",
+        "updatedAt": "2015-06-24T03:26:12.838Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:27:54.966Z",
+        "lowercase_name": "phys",
+        "name": "phys",
+        "numLinkedBy": 1,
+        "objectId": "UMVW7X3q9O",
+        "type": "linker",
+        "updatedAt": "2015-06-24T03:12:28.987Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:30:43.933Z",
+        "lowercase_name": "quantum",
+        "name": "Quantum",
+        "numLinkedBy": 1,
+        "objectId": "8HBBMHCW8F",
+        "type": "linker",
+        "updatedAt": "2015-06-24T03:27:15.642Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:31:13.304Z",
+        "lowercase_name": "bohr",
+        "name": "Bohr",
+        "numLinkedBy": 1,
+        "objectId": "CfrSDb2064",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:26:12.445Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:28:17.774Z",
+        "lowercase_name": "gauss",
+        "name": "Gauss",
+        "numLinkedBy": 2,
+        "objectId": "PktKMdpaL6",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:26:12.967Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "*": {
+                "read": true
+            },
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:30:51.678Z",
+        "lowercase_name": "schro",
+        "name": "Schro",
+        "numLinkedBy": 1,
+        "objectId": "s99QfMRysG",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:26:13.089Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:28:04.461Z",
+        "lowercase_name": "e\u0026m",
+        "name": "E\u0026M",
+        "numLinkedBy": 1,
+        "objectId": "c2bhfy3hQT",
+        "type": "linker",
+        "updatedAt": "2015-06-24T03:12:55.023Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:28:39.984Z",
+        "lowercase_name": "nomono",
+        "name": "NoMono",
+        "numLinkedBy": 1,
+        "objectId": "HtOvfttdNm",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:13:04.938Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:28:33.818Z",
+        "lowercase_name": "faraday",
+        "name": "Faraday",
+        "numLinkedBy": 1,
+        "objectId": "ZRaomOpUoh",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:13:03.964Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T19:28:28.411Z",
+        "lowercase_name": "ampere",
+        "name": "Ampere",
+        "numLinkedBy": 1,
+        "objectId": "rYhA5Rophm",
+        "type": "note",
+        "updatedAt": "2015-06-24T03:13:03.806Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "5U5WiNOykB"
+        }
+    },
+	{
+        "ACL": {
+            "Nc74ZJJEOf": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:34:21.176Z",
+        "lowercase_name": "tutorial",
+        "name": "Tutorial",
+        "numLinkedBy": 1,
+        "objectId": "yNY67pOjOR",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:34:21.176Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "Nc74ZJJEOf"
+        }
+    },
+	{
+        "ACL": {
+            "Nc74ZJJEOf": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:34:21.287Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "cz2SRZoIPC",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:34:21.287Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "Nc74ZJJEOf"
+        }
+    },
+	{
+        "ACL": {
+            "GygaF2Hg53": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:35:09.978Z",
+        "lowercase_name": "tutorial",
+        "name": "Tutorial",
+        "numLinkedBy": 1,
+        "objectId": "9FSTNQHg3y",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:35:09.978Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "GygaF2Hg53"
+        }
+    },
+	{
+        "ACL": {
+            "GygaF2Hg53": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:35:10.043Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "XQWMm4Iccd",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:35:10.043Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "GygaF2Hg53"
+        }
+    },
+	{
+        "ACL": {
+            "A8HN9wvJgm": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:38:20.380Z",
+        "lowercase_name": "tutorial",
+        "name": "Tutorial",
+        "numLinkedBy": 1,
+        "objectId": "XXC0iFptcF",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:38:20.380Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "A8HN9wvJgm"
+        }
+    },
+	{
+        "ACL": {
+            "A8HN9wvJgm": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:38:20.469Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "E9PCbHV0ra",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:38:20.469Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "A8HN9wvJgm"
+        }
+    },
+	{
+        "ACL": {
+            "X3ekNdbX4V": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:39:27.462Z",
+        "lowercase_name": "tutorial",
+        "name": "Tutorial",
+        "numLinkedBy": 1,
+        "objectId": "4xVBVorUTs",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:39:27.462Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "X3ekNdbX4V"
+        }
+    },
+	{
+        "ACL": {
+            "X3ekNdbX4V": {
+                "read": true
+            }
+        },
+        "content": "",
+        "createdAt": "2015-06-20T22:39:27.568Z",
+        "lowercase_name": "your page",
+        "name": "Your Page",
+        "numLinkedBy": 1,
+        "objectId": "PMdtMlg9uw",
+        "type": "linker",
+        "updatedAt": "2015-06-20T22:39:27.568Z",
+        "user": {
+            "__type": "Pointer",
+            "className": "_User",
+            "objectId": "X3ekNdbX4V"
+        }
+    }
+] }

@@ -2,10 +2,12 @@
 
 var cur_user;
 var glob;
+var prodmode=false;
 
 
 function initNoteTeXer(){
 
+    console.log('Starting NoteTeXer');
     configureParse();
     configureMathJax();
     configurePager();
@@ -22,9 +24,15 @@ var NotePage;
 var Tag;
 var Tagging;
 function configureParse(){
-    Parse.initialize(
-        "BpecqAIXnfUMeHOvOUBbK1VhAUkds9tw9aX2UzXA",
-        "Gfyrs59Z5tUBTrQzF4WwJ0tdfgAABgES9urTB6Lo");
+
+    if(prodmode)
+        Parse.initialize(
+            "BpecqAIXnfUMeHOvOUBbK1VhAUkds9tw9aX2UzXA",
+            "Gfyrs59Z5tUBTrQzF4WwJ0tdfgAABgES9urTB6Lo");
+    else
+        Parse.initialize(
+            "AwwBjiQvHGPB5AG3vHKRFBkYWeguCQxKw00Xjhgv",
+            "PdQ0zew4gYw85fiQGMMmXq0OAAIhnycytkCmPtx3");
     NotePage=Parse.Object.extend("NotePage");
     Tag=Parse.Object.extend("Tag");
     Tagging=Parse.Object.extend("Tagging");
@@ -71,7 +79,7 @@ function configurePager(){
 function configureFacebook(){
     window.fbAsyncInit = function() {
         Parse.FacebookUtils.init({
-            appId      : '587019388103546',
+            appId      : prodmode?'587019388103546':'594303047375180',
             xfbml      : true,
             version    : 'v2.3'
         });
@@ -90,6 +98,9 @@ function monkeyPatchStrings(){
     };
     String.prototype.endsWith = function(suffix) {
         return this.match(suffix.escapeRegExp()+"$") == suffix;
+    };
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
     };
 }
 
@@ -437,18 +448,27 @@ var viewLinkerPage = new function(){
         });
         $("#viewLinker_link").click(function(e){
             e.preventDefault();
-            Parse.Cloud.run("addLink",
-                {fromId: Pager.stateData.addToNP.id, toId: self.cur_linker.id})
-            .then(function(){
-                Pager.goBackTo("addTo")
-            },function(error){
-                alert(error.message);
-            });
+            if(Pager.stateData.addToNP.type=="linker")
+                Parse.Cloud.run("addLink",
+                    {fromId: Pager.stateData.addToNP.id,
+                        toId: self.cur_linker.id})
+                .then(function(){
+                    Pager.goBackTo("addTo")
+                },function(error){
+                    alert(error.message);
+                });
+            else
+                Pager.goBackTo("addTo",
+                {   toPage:
+                        {id:self.cur_linker.id,
+                        type:self.cur_linker.get("type"),
+                        name:self.cur_linker.get("name")}});
         });
         $("#viewLinker_copy").click(function(e){
             Parse.Cloud.run("copyNotePage",{noteId:self.cur_linker.id})
             .then(function(res){
                 Pager.stateData.cur_item_id=res.id;
+                Pager._historyStates[Pager._historyPointer][1].cur_item_id=res.id;
                 self.cur_linker=res;
                 self.renderPage();
             },
@@ -489,7 +509,7 @@ var viewLinkerPage = new function(){
             self.popupAdd.popup("close");
             Pager.anchor("addTo");
             Pager.stateData.addToNP=
-                {id:self.cur_linker.id,type:self.cur_linker.get("type")};
+                {id:self.cur_linker.id,type:"linker"};
             Pager.goTo("#searchPage");
         });
 
@@ -627,6 +647,7 @@ var viewNotePage = new function(){
             Parse.Cloud.run("copyNotePage",{noteId:self.cur_note.id})
             .then(function(res){
                 Pager.stateData.cur_item_id=res.id;
+                Pager._historyStates[Pager._historyPointer][1].cur_item_id=res.id;
                 self.cur_note=res;
                 self.renderPage();
             },
@@ -643,12 +664,25 @@ var viewNotePage = new function(){
             var xKeyCode=88;
             var jKeyCode=74;
             var kKeyCode=75;
+            var lbracKeyCode=219;
 
             // For tracking live preview
             var prevText=self.inp.val();
+            var prevdelay = (function(){
+              var timer = 0;
+              return function(callback, ms){
+                clearTimeout(timer);
+                timer = setTimeout(callback, ms);
+              };
+            })();
 
             // keyup in the note input
             self.inp.on("keyup",function(e){
+
+                // Ignore arrow keys
+                if([37,38,39,40].indexOf(e.keyCode)!=-1)
+                    return;
+
                 var text=self.inp.val();
                 var pos=self.inp.getCursorPosition();
 
@@ -676,6 +710,16 @@ var viewNotePage = new function(){
                     prevKey=-1;
                     return;
                 }
+                if (prevKey==lbracKeyCode && e.keyCode==prevKey && (now-prevKeyTime)<1000){
+                    Pager._historyStates[Pager._historyPointer][1].noteState={text:text,pos:pos};
+                    Pager.stateData.addToNP={
+                        id:self.cur_note.id,
+                        type:"note",
+                        text:text, pos:pos};
+                    Pager.stateData.children_ids=[];
+                    Pager.anchor("addTo");
+                    Pager.goTo("#searchPage");
+                }
                 prevKey=e.keyCode;
                 prevKeyTime=now;
 
@@ -702,20 +746,11 @@ var viewNotePage = new function(){
                 }
                 
 
-                // For live-preview
-                var delay = (function(){
-                  var timer = 0;
-                  return function(callback, ms){
-                    clearTimeout (timer);
-                    timer = setTimeout(callback, ms);
-                  };
-                })();
                 if(prevText!=self.inp.val()){
                     prevText=self.inp.val();
-                    delay(function(){
+                    prevdelay(function(){
                         if (self.inp.val()!=self.content.html()){
-                            self.content.html(self.inp.val()); 
-                            self.content.typeset();
+                            self.preview();
                         }
                     },1000);
                 }
@@ -875,13 +910,24 @@ var viewNotePage = new function(){
         });
         $("#viewNote_link").click(function(e){
             e.preventDefault();
-            Parse.Cloud.run("addLink",
-                {fromId: Pager.stateData.addToNP.id, toId: self.cur_note.id})
-            .then(function(){
-                Pager.goBackTo("addTo")
-            },function(error){
-                alert(error.message);
-            });
+            console.log('vnl');
+            if(Pager.stateData.addToNP.type=="linker"){console.log('tl');
+                Parse.Cloud.run("addLink",
+                    {   fromId: Pager.stateData.addToNP.id,
+                        toId: self.cur_note.id})
+                .then(function(){
+                    Pager.goBackTo("addTo",{})
+                },function(error){
+                    alert(error.message);
+                });}
+            else{
+                console.log('abouttogobackto');
+                Pager.goBackTo("addTo",
+                    {   toPage:
+                            {id:self.cur_note.id,
+                            type:self.cur_note.get("type"),
+                            name:self.cur_note.get("name")}});
+            }
         });
 
     }
@@ -893,13 +939,49 @@ var viewNotePage = new function(){
     }
 
     self.preview=function(){
-        self.content.html(self.inp.val()); 
-        self.content.typeset();
+        var cont=self.inp.val();
+
+        var firstline=cont.split('\n')[0];
+        var htmlmode=firstline.match(/\[html\]/);
+        var latexmode=!(firstline.match(/\[nolatex\]/));
+        var previewmode=!(firstline.match(/\[nopreview\]/));
+        if(htmlmode||(!latexmode)||(!previewmode))
+            cont=cont.substring(cont.indexOf('\n')+1);
+
+        console.log(cont);
+        console.log([htmlmode,latexmode,previewmode]);
+        if(previewmode || self.editbtn.text()=="Edit"){
+            $("#viewNote_contentwrap").css("display","block");
+            if(!htmlmode)
+                cont=$("<div></div>").text(cont).html()
+                    .replace(/\n/g,"<br/>")
+                    .replace(/''''(.+?)''''/g,"<h3 style='margin-bottom:0'>$1</h3>")
+                    .replace(/'''(.+?)'''/g,"<strong>$1</strong>")
+                    .replace(/''(.+?)''/g  ,"<em>$1</em>");
+            cont=cont
+                .replace(/\[\[([^\|]+)\|([^\|]+)\|([^\]]+)\]\]/g,
+                    '<a class="internal" href="#view$1Page?id=$2">$3</a>');
+            self.content.html(cont); 
+            if(latexmode)
+                self.content.typeset();
+            $(".internal").click(function(e){
+                e.preventDefault();
+                try {
+                    Pager.stateData.cur_item_id=$(this).prop("href").split("=")[1];
+                    Pager.goTo($(this).prop("href").split("?")[0]);
+                } catch(e) {
+                    alert("Invalid link!  Maybe this page was deleted"+
+                        " or maybe you you should try recreating the link?");
+                }
+            });
+        }
+        else
+            $("#viewNote_contentwrap").css("display","none");
     }
     
     self.onPage=function(){
         self.clearPage();
-        new Parse.Query(NotePage).get(Pager.stateData.cur_item_id)
+        new Parse.Query(NotePage).include("user").get(Pager.stateData.cur_item_id)
         .then(function(result){
             self.cur_note=result;
             return new Parse.Query(Tagging)
@@ -933,6 +1015,8 @@ var viewNotePage = new function(){
         self.tagsinp.val(self.cur_tags.join("; "));
         $("#viewNote_tagsp")
             .html("<strong>Tags</strong>: "+self.tagsinp.val());
+        $("#viewNote_ownerp")
+            .html("<strong>Owner</strong>: "+self.cur_note.get("user").get("displayname"));
 
         var cur_share=self.cur_note.getACL().getPublicReadAccess();
         var cur_owner=(self.cur_note.get('user').id==cur_user.id);
@@ -958,6 +1042,30 @@ var viewNotePage = new function(){
         }
         self.inp.text( self.cur_note.get("content"));
         self.inp.val(  self.cur_note.get("content"));
+
+        if(Pager.stateData.noteState){
+            console.log('has nS');
+            var text=Pager.stateData.noteState.text;
+            var pos=Pager.stateData.noteState.pos;
+            var textBefore=text.substring(0,pos);
+            var textAfter=text.substring(pos);
+            var linkText=
+                Pager.stateData.toPage ?
+                    Pager.stateData.toPage.type.capitalize()+"|"+
+                    Pager.stateData.toPage.id+
+                    "|"+Pager.stateData.toPage.name+"]]"
+                    : "";
+            self.inp.val(textBefore+linkText+textAfter);
+            self.editbtn.click();
+            self.inp.selectRange(pos+linkText.length);
+            Pager.stateData.noteState=null;
+            Pager.stateData.toPage=null;
+            Pager._historyStates[Pager._historyPointer][1].noteState=null;
+            Pager._historyStates[Pager._historyPointer][1].toPage=null;
+        }
+
+
+
         self.preview();
     }
 }
@@ -1107,8 +1215,18 @@ var latexPage = new function() {
             cur_user.set("preamble",self.pre_input.val());
             cur_user.set("autocomplete",self.auto_input.val());
             cur_user.set("shortcuts",self.short_input.val());
-            cur_user.save();
+            cur_user.save()
+            .then(function(res){
+                $("#latex_message")
+                    .html("<span style='color:green'>Changes saved</span>");
+                setTimeout(function(){Pager.goTo("#mainPage");},500);
+            },function(err){
+                $("#latex_message")
+                    .html("<span style='color:red'>"+err.message+"</span>");
+            })
         });
+        $("#latexPage form").on("change",function(e){
+                $("#latex_message").html("");});
 
     };
 
@@ -1120,6 +1238,7 @@ var latexPage = new function() {
         self.pre_input.val(cur_user.get("preamble"));
         self.auto_input.val(cur_user.get("autocomplete"));
         self.short_input.val(cur_user.get("shortcuts"));
+        $("#latex_message").html("");
         self.preview.click();
     }
 

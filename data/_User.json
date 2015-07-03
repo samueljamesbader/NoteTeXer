@@ -1,0 +1,749 @@
+{ "results": [
+	{
+        "ACL": {
+            "SOrRrDwzQd": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$Z20u5ow4e8k00DiUqqQba.SuyTmQlLJGXBhwFy0ZQH/LxIFMNB0G2",
+        "bio": "Nope.",
+        "createdAt": "2015-06-15T21:29:42.150Z",
+        "displayname": "SamBar",
+        "email": "s@b.edu",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "yuc6u8pGx0"
+        },
+        "objectId": "SOrRrDwzQd",
+        "sessionToken": "NVOowMdJ5GnXyajVCbuGEAQ3l",
+        "updatedAt": "2015-06-15T21:31:06.713Z",
+        "username": "sambar"
+    },
+	{
+        "ACL": {
+            "ZxlILnH0qg": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$P9ZlJQ3gpfSX/BQFjstAVu8KfDjRtXU2KmRAKyhBeO6YDI6mjtOOi",
+        "createdAt": "2015-06-16T02:05:32.526Z",
+        "displayname": "sam bader",
+        "email": "sb2@mt.edu",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "1cIgNr3b98"
+        },
+        "objectId": "ZxlILnH0qg",
+        "sessionToken": "4EOXoqvNHRECpcAXQD3TXL01O",
+        "updatedAt": "2015-06-16T02:06:00.964Z",
+        "username": "sam bader"
+    },
+	{
+        "ACL": {
+            "1CfiLlo3IJ": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$i5MNawsi5q6zAEm2VBNBJecRM3bqpNzMyglvCBFJ.CyFfkFT7bOSS",
+        "createdAt": "2015-06-17T01:24:21.190Z",
+        "displayname": "test1",
+        "email": "test1@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "kbx88PhzBJ"
+        },
+        "objectId": "1CfiLlo3IJ",
+        "sessionToken": "XDrsC6LPt9onKnHWspdsvh9he",
+        "updatedAt": "2015-06-17T01:24:21.803Z",
+        "username": "test1"
+    },
+	{
+        "ACL": {
+            "UqdPgmF3xT": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$z5fY/WOfegjTqhxa8MeHMOuXHRdzc01W161uPX3EX6x.407gDtV5y",
+        "createdAt": "2015-06-18T20:41:20.737Z",
+        "displayname": "test2",
+        "email": "test2@gmail.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "WZE5fw8VsZ"
+        },
+        "objectId": "UqdPgmF3xT",
+        "sessionToken": "Gn4PVyBYI8C3diKD9yj3qe97g",
+        "updatedAt": "2015-06-18T20:41:21.238Z",
+        "username": "test2"
+    },
+	{
+        "ACL": {
+            "z8A3H0FxTZ": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$VtY6bAf9fFZg9NCMSck6nO9Sth8y57Sjp4JE/FBFgsog7sjCoiLye",
+        "createdAt": "2015-06-12T18:19:48.447Z",
+        "displayname": "demo",
+        "email": "sbader@mit.edu",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "RJkkth0lW9"
+        },
+        "objectId": "z8A3H0FxTZ",
+        "preamble": "demomacro",
+        "sessionToken": "GZ4lQ6TWYM4CQkdXmsVQ4F3WX",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-18T20:42:54.046Z",
+        "username": "demo"
+    },
+	{
+        "ACL": {
+            "BfkSre658D": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$WZn7MdCyrkYjIfC8iE8ThOcxzv4FGF72I7u1RYDagM0.oB8teRFzO",
+        "createdAt": "2015-06-18T20:43:32.456Z",
+        "displayname": "test3",
+        "email": "t3@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "UifV0slweH"
+        },
+        "objectId": "BfkSre658D",
+        "sessionToken": "Z0tTI1XhbT2Yv8BfLLTzlE7hn",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-18T20:43:33.009Z",
+        "username": "test3"
+    },
+	{
+        "ACL": {
+            "5U5WiNOykB": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\div{/#/}\n\\bra{/#/}\n\\ket{/#/}",
+        "bcryptPassword": "$2a$10$sNelCi7tdJFjJiWkhR/tf.8uOcMX/ijV5kQb/IKBRndoG6Ceg.6cq",
+        "bio": "I AM SAM.",
+        "createdAt": "2015-06-06T20:35:18.602Z",
+        "displayname": "sam",
+        "email": "sb@mit.edu",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "HB4ZVXf6tk"
+        },
+        "objectId": "5U5WiNOykB",
+        "preamble": "samb",
+        "sessionToken": "4niHXrgu9kdOd86DtT8ICn3XW",
+        "shortcuts": " Some common operators\nuufr  \\frac{/#/}{/#/}/#/\nuuint \\int_{/#/}^{/#/}/#/\nuusum \\sum_{/#/}^{/#/}/#/\nuuhat \\hat{/#/}\nuuvec \\vec{/#/}\nuudot \\dot{/#/}\n\n Sub/superscripts\n__    _{/#/}\n^^    ^{/#/}\n\n The LaTeX delimiters\n$$    $/#/$/#/\n\\[    \\[/#/\\]/#/\n\n HTML\nuu\u003c   \u0026lt;\nuu\u003e   \u0026gt;\nuubr  \u003cbr/\u003e\n\n Greek letters\nqqa   \\alpha\nqqb   \\beta\nqqg   \\gamma\nqqd   \\delta\nqqe   \\epsilon\nqqz   \\zeta\nqqh   \\eta\nqqq   \\theta\nqqk   \\kappa\nqql   \\lambda\nqqm   \\mu\nqqn   \\nu\nqqx   \\xi\nqqp   \\pi\nqqr   \\rho\nqqs   \\sigma\nqqt   \\tau\nqqu   \\upsilon\nqqf   \\phi\nqqv   \\varphi\nqqc   \\chi\nqqy   \\psi\nqqo   \\omega\nqqG   \\Gamma\nqqD   \\Delta\nqqQ   \\Theta\nqqL   \\Lambda\nqqX   \\Xi\nqqP   \\Pi\nqqS   \\Sigma\nqqU   \\Upsilon\nqqF   \\Phi\nqqY   \\Psi\nqqO   \\Omega\n\n Greek letters with $$\nqq$a   $\\alpha$\nqq$b   $\\beta$\nqq$g   $\\gamma$\nqq$d   $\\delta$\nqq$e   $\\epsilon$\nqq$z   $\\zeta$\nqq$h   $\\eta$\nqq$q   $\\theta$\nqq$k   $\\kappa$\nqq$l   $\\lambda$\nqq$m   $\\mu$\nqq$n   $\\nu$\nqq$x   $\\xi$\nqq$p   $\\pi$\nqq$r   $\\rho$\nqq$s   $\\sigma$\nqq$t   $\\tau$\nqq$u   $\\upsilon$\nqq$f   $\\phi$\nqq$v   $\\varphi$\nqq$c   $\\chi$\nqq$y   $\\psi$\nqq$o   $\\omega$\nqq$G   $\\Gamma$\nqq$D   $\\Delta$\nqq$Q   $\\Theta$\nqq$L   $\\Lambda$\nqq$X   $\\Xi$\nqq$P   $\\Pi$\nqq$S   $\\Sigma$\nqq$U   $\\Upsilon$\nqq$F   $\\Phi$\nqq$Y   $\\Psi$\nqq$O   $\\Omega$",
+        "updatedAt": "2015-06-24T03:44:19.971Z",
+        "username": "sam"
+    },
+	{
+        "ACL": {
+            "xFcIIfZBHy": {
+                "read": true,
+                "write": true
+            }
+        },
+        "authData": {
+            "facebook": {
+                "access_token": "CAAIV5Boaq3oBAI5IxzU4cmOMmptTSyx4Cnt91eCWx38NDJb95dZBYm8BkZBYO3tZBz6M2OYtONMvn0gJeQrN0NY2mtPTSyG1U4j8skU6IVdtwGy7ElqmcBTeZBZCEaeUZCbakn8dkcRY1ZC3wbkVi3zvZBdhPnYvExWcAZAldJ0FuV3ZBEFZAonOL5TZAhXfOZCP5VzAxNmuBC8kqluPBAqx34UxcBMRCeKvJfDYZD",
+                "expiration_date": "2015-06-24T02:00:03.744Z",
+                "id": "10152815813465493"
+            }
+        },
+        "bcryptPassword": "$2a$10$Av3Q2z9idSv4slurPNAlcO626rB4/NBbkFvpiRz2xH0kpAT6p.i.K",
+        "bio": "",
+        "createdAt": "2015-06-16T02:26:31.393Z",
+        "displayname": "Sam James Bader xFcIIfZBHy",
+        "email": "samuel.james.bader@gmail.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "j3EO0srDkz"
+        },
+        "objectId": "xFcIIfZBHy",
+        "sessionToken": "jAUcPH9fHJVs5zdlkpFhkLiEP",
+        "updatedAt": "2015-06-24T00:36:16.444Z",
+        "username": "sam james bader xfciifzbhy"
+    },
+	{
+        "ACL": {
+            "hYxLSZh3L5": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$2dHJUogegEMmmL4I7ecBg.5XjU/s5RQDdVA4JDkEm/QLuOMHRtR6e",
+        "bio": "",
+        "createdAt": "2015-06-18T20:46:11.574Z",
+        "displayname": "t4",
+        "email": "t4@g.com",
+        "macros": "demomacro",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "XMt5XAfIlm"
+        },
+        "objectId": "hYxLSZh3L5",
+        "sessionToken": "QUk5pA9Z0GwmtgAu74iZ8ZP6A",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-18T20:46:37.938Z",
+        "username": "t4"
+    },
+	{
+        "ACL": {
+            "7bqB9izCd5": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$d4nGczvjyW/PDXds8zuyq.wJkx1vs4W4m9UW7cdYcxbn7FHJgT1E.",
+        "createdAt": "2015-06-19T01:15:05.225Z",
+        "displayname": "badera",
+        "email": "badera@bc.edu",
+        "macros": "demomacro",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "9xlHy54NEq"
+        },
+        "objectId": "7bqB9izCd5",
+        "sessionToken": "XB5t9OMTu8H4YSKU3mYyzwOkS",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T01:15:05.688Z",
+        "username": "badera"
+    },
+	{
+        "ACL": {
+            "xPeBTRp8Bz": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$Iv1yMezNLjnEB/QLBfrRJeNs5ulznqgPc2SSC12mlR11DPFkaG5OW",
+        "createdAt": "2015-06-19T20:27:46.717Z",
+        "displayname": "Ladymary00@aol.com",
+        "email": "",
+        "macros": "demomacro",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "ZqXFxqpQYU"
+        },
+        "objectId": "xPeBTRp8Bz",
+        "sessionToken": "4EItB8VFCLmY9D8jfu6ImUAHU",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T20:27:47.359Z",
+        "username": "ladymary00@aol.com"
+    },
+	{
+        "ACL": {
+            "Bi9pNIDsbR": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$vdVGjx4XKbQ.qZv37N4hNe2umY5p65gwKZTJleGaqVgueSbmymBLi",
+        "createdAt": "2015-06-19T20:29:02.915Z",
+        "displayname": "Test11",
+        "email": "s@g.com",
+        "macros": "demomacro",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "AtlsFhd6o3"
+        },
+        "objectId": "Bi9pNIDsbR",
+        "sessionToken": "h0j8pGeviLH1wOMQDtI6wqmNb",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T20:29:03.537Z",
+        "username": "test11"
+    },
+	{
+        "ACL": {
+            "m6dNWC0Yo4": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$gnaPZN1ZzHEsbOmv3Z4jruCeKwkff0akQH6MnINEHxB6tfNR.KGw.",
+        "createdAt": "2015-06-19T20:34:14.529Z",
+        "displayname": "Te",
+        "email": "te@g.com",
+        "macros": "demomacro",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "GYlutcU1Pb"
+        },
+        "objectId": "m6dNWC0Yo4",
+        "sessionToken": "d0vTZruwDSBK2QrFd97dEgqqN",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T20:34:14.901Z",
+        "username": "te"
+    },
+	{
+        "ACL": {
+            "dEoEXuUdRJ": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$UyU6kmFNshTc9DVVSzmuPufx0DOJKGF5PpBN9YRZA/oHkFngFKtv.",
+        "createdAt": "2015-06-19T21:02:31.841Z",
+        "displayname": "te1",
+        "email": "te2@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "HjDYoqm04n"
+        },
+        "objectId": "dEoEXuUdRJ",
+        "preamble": "demomacro",
+        "sessionToken": "8Mc0b0WtAZgUvlqvjMCmNIYvW",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T21:02:32.497Z",
+        "username": "te1"
+    },
+	{
+        "ACL": {
+            "98FzCop79p": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$SivG468o9xTu8G3VbYNat.U//p7J7ITSTb.rAUKrsAH6Kn4Acy4UG",
+        "createdAt": "2015-06-19T21:04:41.794Z",
+        "displayname": "te3",
+        "email": "te3@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "Nl6juYcH2w"
+        },
+        "objectId": "98FzCop79p",
+        "preamble": "demomacro",
+        "sessionToken": "khZHYrm4hKNgsLL2DMLc9w029",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T21:04:42.133Z",
+        "username": "te3"
+    },
+	{
+        "ACL": {
+            "k1mgEoM0Qg": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$3IAtJ0vz01QFp9n/CLkIKe.Kfr9knQvUK56zzaiF0I5CVzvAV2a7W",
+        "createdAt": "2015-06-19T21:05:15.472Z",
+        "displayname": "te4",
+        "email": "te4@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "znl8E2CETT"
+        },
+        "objectId": "k1mgEoM0Qg",
+        "preamble": "demomacro",
+        "sessionToken": "F27z8z3uFTbERKYwKsAuZ5AT9",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T21:05:16.051Z",
+        "username": "te4"
+    },
+	{
+        "ACL": {
+            "TrVWhXJsSU": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$OXL3e86rIu3NU7uzyJFEhuZdPNde47n9Idk4C/IbMXBXk3Psh1D6S",
+        "createdAt": "2015-06-19T21:06:00.682Z",
+        "displayname": "te5",
+        "email": "te5@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "coawaLCNIy"
+        },
+        "objectId": "TrVWhXJsSU",
+        "preamble": "demomacro",
+        "sessionToken": "W8tBzXhRJodRf0MRyFywkKWWI",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T21:06:01.934Z",
+        "username": "te5"
+    },
+	{
+        "ACL": {
+            "EuncxH55HB": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$MgIhRuKYTRFtWGWQeo1ftODdICGYSMxPHvgPe4DR9FUFAyzhXHLrm",
+        "createdAt": "2015-06-19T21:06:26.913Z",
+        "displayname": "te6",
+        "email": "te6@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "rAJvhKTJYd"
+        },
+        "objectId": "EuncxH55HB",
+        "preamble": "demomacro",
+        "sessionToken": "yGunzcLOUTsJczobzeEX35dc5",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T21:06:27.558Z",
+        "username": "te6"
+    },
+	{
+        "ACL": {
+            "N09IZNJnG6": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$iVVyyPeJPIjnpI1ju8eAceC3g//dqifvqGfsn8TuTgtsQPGrE41bW",
+        "createdAt": "2015-06-19T21:48:25.940Z",
+        "displayname": "te7",
+        "email": "te7@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "ofyCroWeF1"
+        },
+        "objectId": "N09IZNJnG6",
+        "preamble": "demomacro",
+        "sessionToken": "E4W4BxpLfa09OPIG4EUZEeFr4",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T21:48:26.501Z",
+        "username": "te7"
+    },
+	{
+        "ACL": {
+            "VfXHODu9Yw": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$suF8NAyP4WrHzhkvjJNx5uDK3qPAm7n5ZVjtDojN4pW2pStgfJ08S",
+        "createdAt": "2015-06-19T21:54:17.579Z",
+        "displayname": "te8",
+        "email": "te8@gmail.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "aJ1VloJuwt"
+        },
+        "objectId": "VfXHODu9Yw",
+        "preamble": "demomacro",
+        "sessionToken": "EOIddf74vxjQDmjKrmnV5MFG6",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T21:54:18.436Z",
+        "username": "te8"
+    },
+	{
+        "ACL": {
+            "QwD0Zdd2Ky": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$TuZrIp3q/CGGQjEEs3Tx8uE8nVutKZxaSJHbsNakH67rWEQFbPHPe",
+        "createdAt": "2015-06-19T22:16:23.821Z",
+        "displayname": "te9",
+        "email": "te9@a.com",
+        "objectId": "QwD0Zdd2Ky",
+        "sessionToken": "dJugTPb41MkWlruXbNeYIUHg6",
+        "updatedAt": "2015-06-19T22:16:23.821Z",
+        "username": "te9"
+    },
+	{
+        "ACL": {
+            "xXKVMzpB0T": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$sbcDQBSJAsFw7bydWcRJ1O1275Ipq0vX9PNC/HBG2E/f6lUnqwHE2",
+        "createdAt": "2015-06-19T22:20:36.233Z",
+        "displayname": "te10",
+        "email": "te10@gm.com",
+        "objectId": "xXKVMzpB0T",
+        "sessionToken": "sjUJRT1jf2m8xIOjpK4lIbrgZ",
+        "updatedAt": "2015-06-19T22:20:36.233Z",
+        "username": "te10"
+    },
+	{
+        "ACL": {
+            "ZHiiAMsgC5": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$AqERrGvPl8bfEDtVyKISmeHYFr0P8ix6C2BN/QmkLbs8GyEoWHDoS",
+        "createdAt": "2015-06-19T22:28:22.599Z",
+        "displayname": "te12",
+        "email": "te12@gmail.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "SXSEZfxV2p"
+        },
+        "objectId": "ZHiiAMsgC5",
+        "preamble": "demomacro",
+        "sessionToken": "o3scKu73J3hVDeyxwUQ7jHJuh",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T22:28:23.261Z",
+        "username": "te12"
+    },
+	{
+        "ACL": {
+            "e1fvcEv0DN": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$OtyqJrYaql583qUtw36G1.oSfwZqass/A8U3YuX6yVO2g2C4fMqBq",
+        "createdAt": "2015-06-19T22:29:00.453Z",
+        "displayname": "te13",
+        "email": "te13@gm.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "8WHDEaeQaL"
+        },
+        "objectId": "e1fvcEv0DN",
+        "preamble": "demomacro",
+        "sessionToken": "TcVe5yT1IfcnhkksVDbQlJxzl",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T22:29:01.003Z",
+        "username": "te13"
+    },
+	{
+        "ACL": {
+            "hqrcuLKbTx": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$Fw3hUZoppl.XmyHwz1bI3u5DaUc2QN9K496gkimZsUKf1YJAw/x5q",
+        "createdAt": "2015-06-19T22:29:23.315Z",
+        "displayname": "te15",
+        "email": "te15@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "5FEa8hWwbH"
+        },
+        "objectId": "hqrcuLKbTx",
+        "preamble": "demomacro",
+        "sessionToken": "dw7HBVDJ4RrlKA9x3MxhgeB3k",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-19T22:29:23.856Z",
+        "username": "te15"
+    },
+	{
+        "ACL": {
+            "bvSW0s76eu": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$Ue7j8k1YzNmS4i6pHNrAruApK.JuYBmxS7xsUKqcC/0K93cDJMCPu",
+        "createdAt": "2015-06-20T18:18:50.989Z",
+        "displayname": "te16",
+        "email": "te16@gmail.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "sfHiU4ooan"
+        },
+        "objectId": "bvSW0s76eu",
+        "preamble": "demomacro",
+        "sessionToken": "Xp2oeHlC6uKMYpTafsBAxqanL",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-20T18:18:51.721Z",
+        "username": "te16"
+    },
+	{
+        "ACL": {
+            "PQ4Zzy8LVy": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$5jnRzrCaSyzvUzztQbfOfum6T0BgqPzV8/ttyMjsvxkkV9EAAsQRO",
+        "createdAt": "2015-06-20T22:30:12.103Z",
+        "displayname": "te17",
+        "email": "te17@g.com",
+        "objectId": "PQ4Zzy8LVy",
+        "sessionToken": "s1cuSDJotdrPi9h8k8nb5A2Gb",
+        "updatedAt": "2015-06-20T22:30:12.103Z",
+        "username": "te17"
+    },
+	{
+        "ACL": {
+            "YwJ0W9IHTd": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$JhbZDvicFy9ADgyk/unqW.XQQhSjQHeBJQd7QLoili9gIv5m1QqeG",
+        "createdAt": "2015-06-20T22:31:11.755Z",
+        "displayname": "te18",
+        "email": "te18@g.com",
+        "objectId": "YwJ0W9IHTd",
+        "sessionToken": "ICbS76hT1hUgIwqm6KjO1729n",
+        "updatedAt": "2015-06-20T22:31:11.755Z",
+        "username": "te18"
+    },
+	{
+        "ACL": {
+            "h1Ucch65Tt": {
+                "read": true,
+                "write": true
+            }
+        },
+        "bcryptPassword": "$2a$10$dGEM.XJN7E10X8E3zrHLO..7qvkiafs1IICLfnuOD9jDY5juhJaCq",
+        "createdAt": "2015-06-20T22:32:15.399Z",
+        "displayname": "te19",
+        "email": "te19@g.com",
+        "objectId": "h1Ucch65Tt",
+        "sessionToken": "YTAJRCX83U7F5Si2XXMhjpDfR",
+        "updatedAt": "2015-06-20T22:32:15.399Z",
+        "username": "te19"
+    },
+	{
+        "ACL": {
+            "Nc74ZJJEOf": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$v7T5qgqURV.S07U.WqwsVuPD4gkIhCrS6jQd.u89o2DtoGksGNnYK",
+        "createdAt": "2015-06-20T22:34:20.999Z",
+        "displayname": "te20",
+        "email": "te20@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "cz2SRZoIPC"
+        },
+        "objectId": "Nc74ZJJEOf",
+        "preamble": "demomacro",
+        "sessionToken": "RfxmEGZ0keh7DvPqU3ZQCpYUW",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-20T22:34:21.562Z",
+        "username": "te20"
+    },
+	{
+        "ACL": {
+            "GygaF2Hg53": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$XDY20VsyGzT/7VK/Px7JEOntWK6pvHBXRGLXXIeOeiUm1K68hRL76",
+        "createdAt": "2015-06-20T22:35:09.773Z",
+        "displayname": "te21",
+        "email": "te21@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "XQWMm4Iccd"
+        },
+        "objectId": "GygaF2Hg53",
+        "preamble": "demomacro",
+        "sessionToken": "2jk8iCkKTZxLUYwV4anLZ5mXg",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-20T22:35:10.380Z",
+        "username": "te21"
+    },
+	{
+        "ACL": {
+            "A8HN9wvJgm": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$XUxQYDczr..Yljp4.dRoGukUFO2ppNDSFiUTQhj69D6qPXkE54dYy",
+        "createdAt": "2015-06-20T22:38:20.108Z",
+        "displayname": "te22",
+        "email": "te22@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "E9PCbHV0ra"
+        },
+        "objectId": "A8HN9wvJgm",
+        "preamble": "demomacro",
+        "sessionToken": "tuE70xVlqsPi6tejba9EAiYZ0",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-20T22:38:20.768Z",
+        "username": "te22"
+    },
+	{
+        "ACL": {
+            "X3ekNdbX4V": {
+                "read": true,
+                "write": true
+            }
+        },
+        "autocomplete": "\\demoauto",
+        "bcryptPassword": "$2a$10$/YJkkggPm/62PC7qZ5B44OiR2P4nEkuIUVy4L.9sIQlCL0M/ggkUC",
+        "createdAt": "2015-06-20T22:39:27.279Z",
+        "displayname": "te23",
+        "email": "te23@g.com",
+        "mainpage": {
+            "__type": "Pointer",
+            "className": "NotePage",
+            "objectId": "PMdtMlg9uw"
+        },
+        "objectId": "X3ekNdbX4V",
+        "preamble": "demomacro",
+        "sessionToken": "9q4fWuYV7G1q6qiiDqZtyGfl7",
+        "shortcuts": "uudemo \\demonstrations{/#/}",
+        "updatedAt": "2015-06-20T22:39:28.003Z",
+        "username": "te23"
+    }
+] }

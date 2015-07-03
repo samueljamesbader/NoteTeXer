@@ -20,19 +20,36 @@ window.Pager= window.Pager || new function(){
         self._counter++;
         console.log(page+"?"+self._counter.toString());
         $.mobile.navigate(page+"?"+self._counter.toString(),{});
+
+        /*
+        var qstring="?"
+        for (k in data)
+            if (data.hasOwnProperty(k))
+                qstring+=k+"="+data[k];
+
+        console.log(page+qstring);
+        $.mobile.navigate(page+qstring,{});
+        */
     };
 
     self.goBack=function(){
         window.history.back()
     };
 
-    self.goBackTo=function(anchor){
+    self.goBackTo=function(anchor,dataUpdate){
+        console.log('gbt');
+        var target=self._historyAnchors[anchor];
+        if (target){
+           for ( var k in dataUpdate){console.log(k);
+               if (dataUpdate.hasOwnProperty(k))
+                   self._historyStates[target][1][k]=dataUpdate[k];
+           }
 
-       var target=self._historyAnchors[anchor];
-       if (target){
            self._historyPointer=target+1;
+           console.log('historystates')
+           console.log(self._historyStates);
            window.history.go(target-self._historyPointer-1);
-       }
+        }
 
     };
 

@@ -7,7 +7,17 @@
       "applicationId": "BpecqAIXnfUMeHOvOUBbK1VhAUkds9tw9aX2UzXA",
       "masterKey": "8FNq9XdhEenKPZqhWEE3lx4udqCOPL4tXNCy8lV7"
     },
+    "NoteTeXerDev": {
+      "applicationId": "AwwBjiQvHGPB5AG3vHKRFBkYWeguCQxKw00Xjhgv",
+      "masterKey": "4tBIVkup5dFnCuQiFL4RkgsGwM8N6JKhiUB7IiJR"
+    },
     "_default": {
+      "link": "NoteTeXerDev"
+    },
+    "development": {
+      "link": "NoteTeXerDev"
+    },
+    "production": {
       "link": "NoteTeXer"
     }
   }

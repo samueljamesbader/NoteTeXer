@@ -5,3 +5,7 @@
     border-radius: 0px;
     background-image: url("images/FB.png");
 }
+
+#viewNote_content p {
+    text-indent: 1em;
+}

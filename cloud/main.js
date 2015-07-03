@@ -1,17 +1,16 @@
 var NotePage=Parse.Object.extend("NotePage");
 var Tag=Parse.Object.extend("Tag");
 var Tagging=Parse.Object.extend("Tagging");
-var ShareCommand=Parse.Object.extend("ShareCommand");
+//var ShareCommand=Parse.Object.extend("ShareCommand");
+var Update=Parse.Object.extend("Update");
 
 // Whenever a user is saved, make sure there's a corresponding MainPage
 Parse.Cloud.beforeSave(Parse.User, function(request,response){
     var user=request.object;
     var acl=new Parse.ACL();
-    acl.setPublicReadAccess(false);
+    acl.setPublicReadAccess(true);
+    acl.setPublicWriteAccess(false);
     user.setACL(acl);
-    console.log('bs');
-    console.log(user.get('username'));
-    console.log(user.get('displayname'));
     if (!user.get("displayname")
             || user.get("username")!=user.get("displayname").toLowerCase())
         user.set("displayname",user.get("username"));
@@ -32,7 +31,7 @@ Parse.Cloud.define("startOffUser",function(request,response){
     acl.setReadAccess(request.user.id,true);
 
     var mainpage=new NotePage({
-        name: "Your Page",
+        name: request.user.get("displayname")+"'s Links",
         content: "",
         type: "linker",
         numLinkedBy: 1});
@@ -49,7 +48,14 @@ Parse.Cloud.define("startOffUser",function(request,response){
 
 
     var demotut=new NotePage();
+    //switch (Parse.applicationId) {
+        //case "BpecqAIXnfUMeHOvOUBbK1VhAUkds9tw9aX2UzXA":
     demotut.id="gcCPxkBnZZ";
+            //break;
+        //case "AwwBjiQvHGPB5AG3vHKRFBkYWeguCQxKw00Xjhgv":
+            //demotut.id="gcCPxkBnZZ";
+            //break;
+    //}
     demotut.relation("linksTo").query()
     .each(function(t){
         console.log(t.get('name'));
@@ -147,10 +153,11 @@ Parse.Cloud.define("addLink",function(request,response){
         toObj=res;
         return fromObj.relation("linksTo").query()
             .equalTo("objectId",toObj.id)
-            .first();
+            .limit(1)
+            .find()
     })
     .then(function(res){
-        if(res) return Parse.Promise.error("This link already exists");
+        if(res.length) return Parse.Promise.error("This link already exists");
     })
     .then(function(res){
         return addLink(fromObj,toObj,request.user);
@@ -163,22 +170,16 @@ Parse.Cloud.define("addLink",function(request,response){
 
 });
 function addLink(fromObj,toObj,user){
-    
-    return fromObj.relation("linksTo").query()
-        .equalTo("objectId",toObj.id)
-        .limit(1)
-        .find()
-    .then(function(res){
-        if(res.length)
-            return Parse.Promise.error("This link already exists");
-    })
-    .then(function(res){
+    return (function(){
         if(toObj.get("user").id==user.id){
-            toObj.increment("numLinkedBy");
-            return toObj.save(null,{useMasterKey: true});
+            console.log('one of mine');
+            return new Update({note: toObj, change: "recount"})
+                .save(null,{useMasterKey: true});
         }
-    })
+        else return Parse.Promise.as();
+    })()
     .then(function(res){
+        console.log('at the relation part');
         fromObj.relation("linksTo").add(toObj);
         return fromObj.save(null,{useMasterKey: true});
     })
@@ -194,23 +195,18 @@ Parse.Cloud.define("removeLink",function(request,response){
     .then(function(res){
         fromObj=res;
         return fromObj.relation("linksTo").query()
-            .equalTo("objectId",request.params.toId).
-            first();
+            .equalTo("objectId",request.params.toId)
+            .limit(1)
+            .find();
     })
     .then(function(res){
-        toObj=res;
-        if(!toObj)
-            Parse.Promise.error("This link does not exist.");
+        if(!res.length)
+            return Parse.Promise.error("This link does not exist.");
+        else
+            toObj=res[0];
     })
     .then(function(res){
-        if(toObj.get("user").id==request.user.id){
-            toObj.increment("numLinkedBy",-1);
-            return toObj.save(null,{useMasterKey: true});
-        }
-    })
-    .then(function(res){
-        fromObj.relation("linksTo").remove(toObj);
-        return fromObj.save(null,{useMasterKey: true});
+        return removeLink(fromObj,toObj,request.user);
     })
     .then(function(res){
         response.success();
@@ -219,6 +215,20 @@ Parse.Cloud.define("removeLink",function(request,response){
     });
 
 });
+
+function removeLink(fromObj,toObj,user){
+    return (function(){
+        if(toObj.get("user").id==user.id){
+            return new Update({note: toObj, change: "recount"})
+                .save(null,{useMasterKey: true});
+        }
+        else return Parse.Promise.as();
+    })()
+    .then(function(res){
+        fromObj.relation("linksTo").remove(toObj);
+        return fromObj.save(null,{useMasterKey: true});
+    })
+};
 
 Parse.Cloud.define("renameNotePage",function(request,response){
     if(!(request.params.noteId && request.params.newName)){
@@ -246,9 +256,6 @@ Parse.Cloud.define("renameNotePage",function(request,response){
 
 Parse.Cloud.define("editText",function(request,response){
     var notePage;
-    var newTagNames=request.params.newTags.split(";")
-        .map(function(t){return t.replace(/^\s*|\s*$/g,"").toLowerCase()})
-        .filter(function(t){return (t!="")});
 
     new Parse.Query(NotePage).get(request.params.noteId)
     .then(function(res){
@@ -256,32 +263,26 @@ Parse.Cloud.define("editText",function(request,response){
         if(notePage.get("user").id!=request.user.id)
             return Parse.Promise.error("You don't own this note.");
         else {
-            notePage.set("content",request.params.newText);
-            return notePage.save(null, {useMasterKey:true});
+            return new Update({
+                    note:notePage,
+                    change:"retag",
+                    details:request.params.newTags})
+                .save(null,{useMasterKey:true})
+            .then(function(res){
+                if(notePage.get("content")!=request.params.newText){
+                    notePage.set("content",request.params.newText);
+                    return new Update({note:new NotePage({objectId: notePage.id}),change:"editText"})
+                        .save(null,{useMasterKey:true})
+                    .then(function(res){
+                        return notePage.save(null, {useMasterKey:true});
+                    });
+                }
+                else return Parse.Promise.as();
+            })
         }
     })
     .then(function(res){
-        return new Parse.Query(Tagging)
-            .equalTo("note",notePage)
-            .include("tag")
-            .find();
-    })
-    .then(function(res){
-        var oldTagNames=res.map(function(t){return t.get("tag").get("name")});
-        var destructionPromises=[];
-        for(var ot=0; ot<oldTagNames.length; ot++)
-            if(newTagNames.indexOf(oldTagNames[ot])==-1)
-                destructionPromises.push(
-                    res[ot].destroy({useMasterKey:true}));
-        var creationPromises=[];
-        for(var nt=0; nt<newTagNames.length; nt++)
-            if(oldTagNames.indexOf(newTagNames[nt])==-1)
-                creationPromises.push(addTag(notePage,newTagNames[nt]));
-        return Parse.Promise.when(
-            destructionPromises.concat(creationPromises));
-    })
-    .then(function(res){
-        response.success();
+        response.success('Edits saved');
     },function(error){
         response.error(error);
     });
@@ -304,40 +305,29 @@ Parse.Cloud.define("copyNotePage",function(request,response){
         var acl=new Parse.ACL();
         acl.setReadAccess(request.user.id,true);
         mine.setACL(acl);
-        return mine.save(null,{useMasterKey: true})
-    })
-    .then(function(res){
+
         return other.relation("linksTo").query()
         .each(function(target){
-            return addLink(mine,target,request.user);
+            mine.relation("linksTo").add(target);
         })
     })
     .then(function(res){
+        return mine.save(null,{useMasterKey: true})
+    })
+    .then(function(res){
+        var taggings=[];
         return new Parse.Query(Tagging)
             .equalTo("note",other)
             .include("tag")
         .each(function(tag){
-            return new Tagging({tag:tag.get("tag"),note:mine})
-                .save(null,{useMasterKey:true});
+            taggings.push(new Tagging({tag:tag.get("tag"),note:mine}));
         })
+        .then(function(res){
+                return Parse.Object.saveAll(taggings,{useMasterKey:true});
+        });
     })
     .then(function(res){
-        return new Parse.Query(NotePage)
-            .equalTo("linksTo",other.id)
-        .each(function(lf){
-            if (lf.get("user").id==request.user.id){
-                lf.relation("linksTo").remove(other);
-                lf.relation("linksTo").add(mine);
-                numLinks++;
-                return lf.save(null,{useMasterKey:true});
-            }
-            else return Parse.Promise.as();
-        })
-    })
-    .then(function(res){
-        console.log("about to set nlb");
-        mine.set("numLinkedBy",numLinks);
-        mine.save(null,{useMasterKey: true});
+        return new Update({note: mine, change:"finishCopy", details: other.id}).save(null,{useMasterKey:true});
     })
     .then(function(res){
         console.log("Took time");
@@ -392,6 +382,7 @@ Parse.Cloud.define("deleteNotePage",function(request,response){
 });
 
 Parse.Cloud.define("shareNotePage",function(request,response){
+    console.log('snp');
     new Parse.Query("NotePage").get(request.params.noteId)
     .then(function(res){
         page=res;
@@ -403,12 +394,13 @@ Parse.Cloud.define("shareNotePage",function(request,response){
         }
     })
     .then(function(page){
-        return new ShareCommand(
-            {note: page, toshare: request.params.share})
+        console.log('abttomakeshareupdate');
+        return new Update(
+            {note: page, change: request.params.share ? "share" : "unshare"})
             .save(null,{useMasterKey: true})
     })
     .then(function(res){
-        response.success();
+        response.success("Succeeded");
     },function(error){
         response.error(error);
     });
@@ -442,7 +434,7 @@ Parse.Cloud.beforeDelete("NotePage",function(request,response){
 });
 
 
-Parse.Cloud.afterDelete("Tagging",function(request){
+Parse.Cloud.beforeDelete("Tagging",function(request,response){
     console.log('deleting');
     console.log(request.object);
     var tag;
@@ -453,15 +445,18 @@ Parse.Cloud.afterDelete("Tagging",function(request){
         console.log(tag);
         return new Parse.Query(Tagging)
             .equalTo("tag",tag)
-            .limit(1)
+            .limit(2)
             .find()
     })
     .then(function(res){
-        if (!res.length)
+        if (res.length==1)
             return tag.destroy({useMasterKey:true})
     })
-    .fail(function(err){
-        console.log(err.message);
+    .then(function(res){
+        response.success();
+    },
+    function(err){
+        response.error(err.message);
     });
 });
 
@@ -507,66 +502,271 @@ Parse.Cloud.define("fbLoggedIn",function(request,response){
     })
 });
 
-Parse.Cloud.job("cleanTags",function(request,status){
-    Parse.Cloud.useMasterKey();
-    status.success();
-});
-
-Parse.Cloud.job("updateShares",function(request,status){
+Parse.Cloud.job("checkUpdates",function(request,status){
+    console.log(request.params);
     var startTime=new Date().getTime();
     var loopStartTime=0;
-    (function updateSharesLoop(){
+    var maxTime=null;
+    try{
+        var maxTime=JSON.parse(request.params).maxTime;
+    } catch(e){console.log('No maxTime given.');}
+    maxTime=maxTime||(900000-3000);
+
+    console.log("maxTime"+maxTime);
+    (function updatesLoop(){
         loopStartTime=new Date().getTime();
         //console.log("started a loop");
-        new Parse.Query(ShareCommand)
-            .include("note")
-            .each(function(sc){
-                var note=sc.get("note");
-                return (function(){
-                    console.log(note.get('name'));
-                    if (note.get("type")=="linker")
-                        return note.relation("linksTo").query()
-                        .each(function(childnote){
-                            if(childnote.getACL().getPublicReadAccess()!=sc.get("toshare")
-                                && note.get('user').id==childnote.get('user').id)
-                                return new ShareCommand(
-                                    { note: childnote, toshare: sc.get("toshare")})
-                                    .save(null,{useMasterKey:true});
-                            else
-                                return Parse.Promise.as();
-                        },{useMasterKey:true})
-                    else
-                        return Parse.Promise.as();
-                })()
-                .then(function(){
-                    if(note.getACL().getPublicReadAccess()!=sc.get("toshare")){
-                        note.getACL().setPublicReadAccess(sc.get("toshare"));
-                        return note.save(null,{useMasterKey:true})
+        myEach(
+            new Parse.Query(Update)
+                .include("note")
+                .addAscending("updatedAt"),
+            function(up){
+                if (up.get("note"))
+                    switch(up.get("change")) {
+                        case "share":
+                        case "unshare":
+                            return updateSharing(up);
+                        case "retag":
+                            return updateTagging(up);
+                        case "editText":
+                            return updateLinks(up);
+                        case "finishCopy":
+                            return finishCopy(up);
+                        case "recount":
+                            return updateCount(up);
                     }
+                else
+                    return up.destroy({useMasterKey:true});
+            },
+            startTime,maxTime,
+            {useMasterKey:true}
+            )
+        .then(function(){
+            if ((new Date().getTime()-startTime)>maxTime)
+                status.success("running over time");
+            //console.log("completed a loop");
+            //console.log(loopStartTime);
+            //console.log(new Date().getTime());
+            while((new Date().getTime()-loopStartTime)<500)
+                1+1;
+            loopStartTime=new Date().getTime();
+            updatesLoop();
+        });
+    })();
+
+
+    function updateSharing(sc){
+        var note=sc.get("note");
+        var toShare=sc.get("change")=="share";
+        return (function(){
+            //console.log(sc.get("change")+"  "+note.get('name'));
+            if (note.get("type")=="linker")
+                return note.relation("linksTo").query()
+                .each(function(childnote){
+                    if(childnote.getACL().getPublicReadAccess()!=toShare
+                        && note.get('user').id==childnote.get('user').id)
+                        return new Update(
+                            { note: childnote, change: sc.get("change")})
+                            .save(null,{useMasterKey:true});
                     else
                         return Parse.Promise.as();
-                })
-                .then(function(){
-                    return sc.destroy({useMasterKey:true});
-                })
-                .then(function(res){
-                    return Parse.Promise.as(res);
-                },
-                function(err){
-                    console.log(err.message);
-                    return Parse.Promise.as();
-                });
+                },{useMasterKey:true})
+            else
+                return Parse.Promise.as();
+        })()
+        .then(function(){
+            if(note.getACL().getPublicReadAccess()!=toShare){
+                note.getACL().setPublicReadAccess(toShare);
+                return note.save(null,{useMasterKey:true})
+            }
+            else
+                return Parse.Promise.as();
+        })
+        .then(function(){
+            return sc.destroy({useMasterKey:true});
+        })
+        .then(function(res){
+            return Parse.Promise.as(res);
+        },
+        function(err){
+            console.log(err.message);
+            return sc.save();
+        });
+    }
+
+    function updateTagging(up){
+        var newTagNames=up.get("details").split(";")
+            .map(function(t){return t.replace(/^\s*|\s*$/g,"").toLowerCase()})
+            .filter(function(t){return (t!="")});
+        return new Parse.Query(Tagging)
+            .equalTo("note",up.get("note"))
+            .include("tag")
+            .find()
+        .then(function(res){
+            var oldTagNames=res.map(function(t){return t.get("tag").get("name")});
+            var destructions=[];
+            for(var ot=0; ot<oldTagNames.length; ot++)
+                if(newTagNames.indexOf(oldTagNames[ot])==-1)
+                    destructions.push(res[ot]);
+            var creationPromises=[];
+            for(var nt=0; nt<newTagNames.length; nt++)
+                if(oldTagNames.indexOf(newTagNames[nt])==-1)
+                    creationPromises.push(addTag(up.get("note"),newTagNames[nt]));
+            return Parse.Promise.when(
+                creationPromises.concat([Parse.Object.destroyAll(destructions,{useMasterKey:true})]));
+        })
+        .then(function(res){
+            return up.destroy({useMasterKey:true});
+        })
+        .then(function(res){
+            return Parse.Promise.as(res);
+        },
+        function(err){
+            console.log(err.message);
+            return up.save(null,{useMasterKey:true});
+        });
+    }
+
+    function updateLinks(up){
+        var newLinks=(up.get("note").get("content").match(/\[\[[^\]]+\]\]/g) || [])
+            .map(function(ls){return ls.substring(2,ls.length-2).split('|')[0]})
+            .filter(onlyUnique);
+        console.log('newlinks');
+        console.log(newLinks);
+        return up.get("note").relation("linksTo").query().find({useMasterKey:true})
+        .then(function(res){
+            var oldLinks=res.map(function(l){return l.id});
+            var removalPromises=[];
+            for(var ol=0;ol<oldLinks.length; ol++)
+                if(newLinks.indexOf(oldLinks[ol])==-1)
+                    removalPromises.push(
+                        removeLink(up.get("note"),res[ol],up.get("note").get("user")));
+            var additionPromises=[];
+            for(var nl=0; nl<newLinks.length; nl++)
+                if(oldLinks.indexOf(newLinks[nl])==-1){
+                    additionPromises.push(
+                        new Parse.Query(NotePage).get(newLinks[nl],{useMasterKey:true})
+                        .then(function(toObj){
+                            return addLink(up.get("note"),toObj,up.get("note").get("user"))
+                        },
+                        function(err){
+                            if(err.code==Parse.Error.OBJECT_NOT_FOUND){
+                                console.log("Linking to unfound id.");
+                                return Parse.Promise.as("Linking to unfound id");
+                            }
+                            else return Parse.Promise.error(err);
+                        })
+                    );
+                }
+            return Parse.Promise.when(
+                removalPromises.concat(additionPromises));
+        })
+        .then(function(res){
+            return up.destroy({useMasterKey:true});
+        })
+        .then(function(res){
+            return Parse.Promise.as(res);
+        },
+        function(err){
+            console.log(err.message ? err.message : err)
+            return up.save(null,{useMasterKey:true});
+        });
+    };
+
+    function finishCopy(up){
+        var mine=up.get("note");
+        var other;
+        console.log('in fC');
+        return new Parse.Query(NotePage).get(up.get("details"))
+        .then(function(res){
+            other=res;
+            var newups=[];
+            console.log('about to linkto');
+            return other.relation("linksTo").query()
+            .each(function(target){
+                newups.push(new Update({note:target,change:"recount"}));
+                mine.relation("linksTo").add(target);
+                return Parse.Promise.as();
+            })
+            .then(function(res){
+                console.log('about to save linkto');
+                newups.push(mine);
+                return Parse.Object.saveAll(newups);
+            })
+        })
+        /*.then(function(res){     ////////////////////////////////////////////// DON'T DUPLICATE TAGS
+            return new Parse.Query(Tagging)
+                .equalTo("note",other)
+                .include("tag")
+            .each(function(tag){
+                return new Tagging({tag:tag.get("tag"),note:mine})
+                    .save(null,{useMasterKey:true});
+            })
+        })*/
+        .then(function(res){
+            return new Parse.Query(NotePage)
+                .equalTo("linksTo",other.id)
+                .equalTo("user",mine.get("user"))
+            .each(function(lf){
+                lf.relation("linksTo").remove(other);
+                lf.relation("linksTo").add(mine);
+                return lf.save(null,{useMasterKey:true});
             },{useMasterKey:true})
-            .then(function(){
-                //if ((new Date().getTime()-startTime)>60000)
-                    //status.success("running over a minute");
-                //console.log("completed a loop");
-                //console.log(loopStartTime);
-                //console.log(new Date().getTime());
-                while((new Date().getTime()-loopStartTime)<500)
-                    1+1;
-                loopStartTime=new Date().getTime();
-                updateSharesLoop();
-            });
-    })();
+        })
+        .then(function(res){
+            return updateCount(up);
+        });
+    }
+
+    function updateCount(up){
+        note=up.get("note")
+        console.log('in uC');
+        return new Parse.Query(NotePage)
+            .equalTo("linksTo",note)
+            .equalTo("user",note.get("user"))
+            .limit(10)
+            .find()
+        .then(function(res){
+            note.set("numLinkedBy",res.length);
+            return note.save(null,{useMasterKey:true});
+        })
+        .then(function(res){
+            return up.destroy({useMasterKey:true});
+        })
+        .then(function(res){
+            return Parse.Promise.as(res);
+        },
+        function(err){
+            console.log(err.message ? err.message : err)
+            return up.save(null, {useMasterKey:true});
+        });
+    }
 });
+
+
+function myEach(query,callback,startTime,maxTime,options) {   ////////////////////////////////////////////////  LIMITED TO 100 right now!!!
+    return query.find(options)
+    .then(function(res){
+        function f(i){
+            if(i<res.length)
+                return callback(res[i])
+                    .always(function(){
+                        if ((new Date().getTime()-startTime)>maxTime)
+                            return Parse.Promise.as();
+                        else
+                            return f(i+1);
+                    });
+            else return Parse.Promise.as();
+        }
+        return f(0);
+    });
+}
+
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+//function dontKill(func,killTime,margin){
+ //   new
+//}
+

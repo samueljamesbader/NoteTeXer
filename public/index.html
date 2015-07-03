@@ -44,8 +44,8 @@
                 </div>
                 <div data-role="navbar" style="width: 20em; margin: auto" id="splash_fornew">
                     <ul>
-                        <li><a href="#aboutPage" class="hijack">About</a></li>
-                        <li><a href="#" id="splash_letsgo">Let's go</a></li>
+                        <li><a href="#aboutPage" class="hijack ui-btn ui-btn-icon-left ui-alt-icon ui-icon-info">About</a></li>
+                        <li><a href="#" id="splash_letsgo" class=" ui-btn ui-btn-icon-right ui-alt-icon ui-icon-home">Let's go</a></li>
                     </ul>
                 </div>
             </div>
@@ -234,18 +234,21 @@
                     <label for="viewNote_input">Your note:</label>
                     <textarea id="viewNote_input" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
                 </form>
-                <div class="ui-body ui-body-a ui-corner-all">
+                <div class="ui-body ui-body-a ui-corner-all" style="margin-left:auto;margin-right:auto;max-width:50em" id="viewNote_contentwrap">
                     <h3 class="whenEditingNote" style="margin-top: 5px; margin-bottom:0px">Preview</h3>
                     <hr class="whenEditingNote"/>
-                    <p id="viewNote_content"></p>
+                    <div id="viewNote_content"></div>
                 </div>
                 <div data-role="fieldcontain" style="margin-bottom: 40px; opacity: 1;" id="viewNote_tagsWrapper" class="whenEditingNote">
                     <label for="viewNote_tags">Tags:</label>
                     <textarea id="viewNote_tags"></textarea>
                 </div>
-                <p id="viewNote_tagsp" class="whenViewingNote" style="text-align:right"></p>
+                <div style="margin-left:auto;margin-right:auto;max-width:50em">
+                    <p id="viewNote_tagsp" class="whenViewingNote" style="text-align:right"></p>
+                    <p id="viewNote_ownerp" class="whenViewingNote" style="text-align:right"></p>
+                </div>
             </div>
-            <div data-role="footer" data-position="fixed" id="viewNote_footer">
+            <div data-role="footer" data-position="fixed" data-toggle="false" id="viewNote_footer">
                 <div data-role="navbar">
                     <ul id="viewNote_minefooter">
                         <li><a href="#" class="ui-btn ui-icon-cloud ui-alt-icon ui-btn-icon-top" id="viewNote_share">Share</a></li>
@@ -279,7 +282,6 @@
                         <option value="\sum_{/#/}/#/">$\sum$</option>
                         <option value="\prod_{/#/}/#/">$\prod$</option>
                     </select>
-                    <input type="submit" value="Insert"></input>
                 </form>
             </div>
             <div data-role="popup" id="popupRenameNote" data-history="false">
@@ -314,24 +316,26 @@
                     <div data-role="collapsible">
                         <h2>Macros</h2>
                         <label for="latex_preInput">Define your macros here. <a href="#" class="ui-btn ui-icon-check ui-alt-icon ui-btn-icon-left ui-btn-inline ui-corner-all ui-mini" id="latex_preview">Preview</a>
+                            <p>You can put any LaTeX here to run it, and it will be run before rendering your notes (like a preamble), so this is a good place to define macros.  You can also test the macros and the results will be shown below. Include the LaTeX delimiters (<code>$$</code> or <code>\[ \]</code>) around everything!  See MathJax documentation for what will work (eg. you can't import arbitrary packages, sorry!)</p>
 </label>
                         <textarea id="latex_preInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
                         <p id="latex_preContent"></p>
-                        <p>You can put any LaTeX above to run it, and it will be run before rendering your notes, so this is a good place to define macros.  You can also test the macros and the results will be shown below. Include the $$ around everything!  See MathJax documentation for what will work (eg. you can't import arbitrary packages, sorry!)</p>
                     </div>
                     <div data-role="collapsible">
                         <h2>Autocomplete</h2>
-                        <label for="latex_autoInput">List the LaTeX commands you want to add to the autocomplete.</label> 
+                        <label for="latex_autoInput">List the LaTeX commands you want to add to the autocomplete.<p>One autocomplete command per line.  You can use anchors (<code>/#/</code>) to mark spots you'd like to be able to quickly jump to (by pressing <code>jj</code> when editing a note).  See the tutorials for more details on anchoring.</p></label> 
                         <textarea id="latex_autoInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
-                        <p>One command per line.  If there's a space in the line, that's where the cursor will end after the command is autocompleted. So, for instance, a line <code>braket{ }{ }</code> would autocomplete the physicists' <code>braket</code> command, placing the cursor in between the (first) curly brackets. </p>
+                        
                     </div>
                     <div data-role="collapsible">
                         <h2>Shortcuts</h2>
-                        <label for="latex_autoInput">List the shortcuts you want to use.</label> 
+                        <label for="latex_autoInput">List the shortcuts you want to use.
+                        <p>One shortcut per line.  First the shortcut (eg. <code>uufr</code>), then a space, then the text which should replace it (eg. <code>\frac{/#/}{/#/}</code>).  As before, the "anchor" (<code>/#/</code>) can be used to provide convenient navigation points.  Lines beginning with space are ignored.</p>
+                        </label> 
                         <textarea id="latex_shortInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
-                        <p>One shortcut per line.  First the shortcut (eg. <code>uufr</code>), then a space, then the text which should replace it (eg. <code>\frac{/#/}{/#/}</code>).  As above, the "anchor" (<code>/#/</code>) can be used to provide convenient navigation points.  When the shortcut runs, the first anchor on the line will be selected, so that you may begin typing to replace it. Lines beginning with space are ignored.</p>
                     </div>
                 </form>
+                    <p id="latex_message"></p>
             </div>
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar">
@@ -362,7 +366,7 @@
                 <p style='font-style: italic'>Yes, literally right now!</p>
                 <p style="text-indent: 2em">If you want to try this out, go back to the home page and sign up (takes just a few seconds), and your account will automatically be populated by a series of notes that form a ten-minute tutorial on NoteTeXing efficiently.</p>
 
-                <p style="text-indent: 2em">The tool is provided free, as is, with no guarantees whatsoever.  If you have suggestions, or would like to contribute to the project, follow the link above and talk to me! If this tool becomes popular, and requires more space on the Parse server, then I may have make it donation-supported, but in the meantime, it's available at no cost, because I just love you.  </p>
+                <p style="text-indent: 2em">The tool is provided free, as is, with no guarantees whatsoever.  If you have suggestions, or would like to contribute to the project, talk to me at <a href="mailto:notetexer.help@gmail.com">notetexer.help@gmail.com</a>! If this tool becomes popular, and requires more space on the Parse server, then I may have make it donation-supported, but in the meantime, it's available at no cost, because I just love you.  </p>
                 <h3>Acknowledgements</h3>
                 <p style='font-style: italic'>Many thanks to these projects!</p>
                 <p style="text-indent: 2em">The software makes use of <a href="https://www.mathjax.org/" data-rel="external" data-ajax="false" target="_blank">MathJax</a> to live-render your LaTeX, <a href="https://jquerymobile.com/" data-rel="external" data-ajax="false" target="_blank">jQuery Mobile</a> for the smooth front-end, <a href="https://parse.com/" data-rel="external" data-ajax="false" target="_blank">Parse</a> for the simple backend, and <a href="https://github.com/yuku-t/jquery-textcomplete" data-rel="external" data-ajax="false" target="_blank">Jquery Text Complete</a> to auto-complete your LaTeX. The licenses for each of these wonderful tools can be found on their respective websites. </p>
@@ -382,7 +386,7 @@
                     <label for="user_email">Email</label>
                     <input type="text" id="user_email" placeholder="someone@something.co.uk.edu.tk"></input>
                     <label for="user_bio">One-sentence bio</label>
-                    <textarea id="user_bio" placeholder="Are you a student?  An instructor?  A researcher? Do you have some academic or corporate affiliation? Do you love LaTeX so much it hurts sometimes?  This is just for my own curiousity, so I know whom I'm developing this tool for.  I want to know you!"></textarea>
+                    <textarea id="user_bio" placeholder="Are you a student?  An instructor?  A researcher? Do you have some academic or corporate affiliation? Do you love LaTeX so much it hurts sometimes?  This is for my own curiousity, so I know whom I'm developing this tool for.  I want to know you!"></textarea>
                     <p id="user_message"></p>
                     <input type="submit" id="user_save" value="Save"></input>
                 </form>
