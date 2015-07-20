@@ -2,27 +2,57 @@
 
 var cur_user;
 var glob;
-var prodmode=false;
+var prodmode=(window.location.origin=="http://notetexer.parseapp.com");
 
 
 function initNoteTeXer(){
-
     console.log('Starting NoteTeXer');
+
+    $( "[data-role='panel']" ).panel();
+    $("#menuPanel").enhanceWithin();
+    $("#menuPanel").panel('open')
+    $("#menuPanel").on('panelbeforeopen',function(){
+        $("div[data-role='main']").css("padding-left","13.5em");
+    });
+    $("#menuPanel").on('panelbeforeclose',function(){
+        $("div[data-role='main']").css("padding-left","1em");
+    });
+
+    var win = $(window),
+    height = win.height(),
+    width = win.width();
+
+    
+    $("body").append($([
+        "<style>",
+        ".viewNote_footer { visibility: hidden; }",
+        "@media screen and (orientation: portrait) and (min-height: "
+        + (Math.max(width, height) - 10) + "px)",
+        "{ .viewNote_footer { visibility: visible; } }",
+        "</style>"
+    ].join(" ")));
+    
+
+
     configureParse();
     configureMathJax();
     configurePager();
     configureFacebook();
+    configureSketch();
 
     monkeyPatchStrings();
     monkeyPatchTextArea();
 
     Pager.initPages();
+
     Pager.takeControl("#splashPage");
+
 }
 
 var NotePage;
 var Tag;
 var Tagging;
+
 function configureParse(){
 
     if(prodmode)
@@ -41,15 +71,23 @@ function configureParse(){
 function configureMathJax(){
 
     // Monkeypatch the typeset function onto jQuery elements
-    $.fn.typeset=function(){
+    $.fn.typeset=function(callback){
         if(typeof MathJax =="undefined")
             configureMathJax();
         MathJax.Hub.Queue(["Typeset",MathJax.Hub,this.get(0)]);
+        if(callback) MathJax.Hub.Queue(callback);
     }
-    $.fn.rerender=function(){
+    $.fn.mathremove=function(){
+        if(typeof MathJax =="undefined")
+            configureMathJax();
+        $("#"+this.prop("id")+" .MathJax").map(function(ind,elt){
+            MathJax.Hub.getJaxFor(elt).Remove()});
+    }
+    $.fn.rerender=function(callback){
         if(typeof MathJax =="undefined")
             configureMathJax();
         MathJax.Hub.Queue(["Rerender",MathJax.Hub,this.get(0)]);
+        if(callback) MathJax.Hub.Queue(callback);
     }
 }
 
@@ -67,13 +105,29 @@ function configurePager(){
         "#splashPage": splashPage,
         "#viewLinkerPage": viewLinkerPage,
         "#viewNotePage": viewNotePage,
-        "#addLinkPage": addLinkPage,
         "#recycledPage": recycledPage,
         "#latexPage": latexPage,
         "#searchPage": searchPage,
         "#aboutPage": aboutPage,
         "#userPage": userPage
     });
+
+
+    var widthmql=window.matchMedia("(min-width: 800px)");
+    var setPanel=function(){
+        if (widthmql.matches)
+            setTimeout(function(){
+                console.log('about to open panel');
+                $("#menuPanel").panel('open')
+            },0);
+        else
+            setTimeout(function(){
+                console.log('about to open panel');
+                $("#menuPanel").panel('close')
+            },0);
+    };
+    Pager.setHandler(setPanel);
+    widthmql.addListener(setPanel);
 }
 
 function configureFacebook(){
@@ -87,6 +141,17 @@ function configureFacebook(){
     var js = document.createElement('script'); js.id = 'facebook-jssdk';
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     $("head")[0].appendChild(js);
+}
+
+function configureSketch(){
+    $.each(['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#000', '#fff'], function() {
+      $('#viewNote_je_imgdoodlepopup .tools').append("<a href='#viewNote_sketch' data-color='" + this + "' style='display:inline-block;width: 19px;height:19px; border: 1px solid black;background-color: " + this + ";'></a> ");
+    });
+    $.each([3, 5, 10], function() {
+      $('#viewNote_je_imgdoodlepopup .tools').append(
+          "<a href='#viewNote_sketch' data-size='"+this+"' style='display:inline-block;width: "+(11)+"px;height:"+(11)+"px;border:1px solid black;vertical-align:baseline;padding:4px;position:static;margin: 0px 2px'><span style='display:block;width: "+this+"px; height: "+this+"px; margin:auto;background-color:black;position:static;vertical-align:middle'></span></a>");
+    $('#viewNote_sketch').sketch();
+  });
 }
 
 function monkeyPatchStrings(){
@@ -105,7 +170,7 @@ function monkeyPatchStrings(){
 }
 
 function monkeyPatchTextArea(){
-    $.fn.selectRange = function(start, end) {
+    /*$.fn.selectRange = function(start, end) {
         if(!end) end = start; 
         return this.each(function() {
             if (this.setSelectionRange) {
@@ -134,16 +199,21 @@ function monkeyPatchTextArea(){
             pos = Sel.text.length - SelLength;
         }
         return pos;
-    }
+    }*/
 
 }
 
-function listFiller(listElt,makeClickHandler,makeDeleteHandler){
+function listFiller(container,makeClickHandler,makeDeleteHandler){
+    var listElt=container.children("ul");
+    var rwdElt=container.children("div");
     return function(items){
         listElt.html("");
+        rwdElt.html("");
+        if (!items) return;
         var item_ids=[];
         if (items.length==0) 
-            listElt.append($("<div style='text-align: center; margin: auto'>(No notes found)</div>"));
+            listElt.append($("<div style='text-align: center;"+
+                " margin: auto; margin-top: 40px;'>(No notes found)</div>"));
         else{
             for (var i=0;i<items.length;i++){
                 var item=items[i];
@@ -169,6 +239,21 @@ function listFiller(listElt,makeClickHandler,makeDeleteHandler){
                             .click(makeDeleteHandler(item))
                         : "")
                     );
+
+                rwdElt.append(
+                    $("<div class='rwdblock'></div>")
+                        .click(makeClickHandler(item))
+                        .append($("<a class='rwdspan'></a>")
+                            .click(function(e){e.preventDefault()})
+                            .text(item.get("name")))
+                        .addClass(item.get("type")=="linker" ?
+                            "rwdlinker" : "rwdnote")
+                    .append($("<a href='#' class='rwddel'></a>")
+                        .addClass("ui-btn ui-mini ui-alt-icon"+
+                            " ui-btn-icon-notext ui-icon-delete")
+                        .click(function(e){makeDeleteHandler(item)(e);e.stopPropagation();}))
+                    );
+
             }
         }
         return Parse.Promise.as(item_ids);
@@ -197,8 +282,11 @@ var mainPage = new function(){
     };
 
     self.onPage=function(){
+        if(!cur_user||cur_user.dirty()){ console.log('mTs');
+            Pager.goTo("#splashPage",{},{startPoint:"#mainPage",forceLogin:true});}
         self.renderPage();
         Pager.stateData.addToNP=null;
+        Pager.stateData.cur_item_id=null;
     };
 
     self.renderPage=function(){
@@ -374,28 +462,83 @@ var splashPage = new function(){
     };
 
     self.gotUser=function(){
-        localStorage["hasAccount"]=true;
+        try{
+            localStorage["hasAccount"]=true;
+        } catch(e){}
         self.fornew.css("display","none");
-        cur_user.fetch()
-        .then(function(res){
-            try{
-                return cur_user.get("mainpage").fetch()}
-            catch (err) {
-                return Parse.Promise.error(
-                    new Parse.Error(Parse.Error.INVALID_POINTER,
-                    "Couldn't get mainpage: "+err.message));}
+        $.mobile.loading("show")
+
+        new Parse.Query(Parse.User)
+            .include("mainpage")
+            .equalTo("objectId",cur_user.id)
+            .first()
+        .then(function(user){
+            if(!user)
+                return Parse.Promise.error("Bad user error");
+            cur_user=user;
+        })
+        .then(function(){
+            if(!cur_user.get("mainpage")){
+                console.log("need to sOU");
+                $("#splash_message").html(
+                    "<span style='color:green'>"
+                    +"Creating your account right now!"
+                    +"  This is so exciting!</span>");
+                return Parse.Cloud.run("startOffUser")
+                .then(function(res){
+                    return Parse.Promise.as(res);
+                },function(err){
+                    if (    err.message=="Execution timed out" ||
+                            err.message=="success/error was not called")
+                        return runCloudUpdate();
+                    else{
+                        console.log(err);
+                        return Parse.Promise.error(err);
+                    }
+                })
+                .then(function(res){
+                    return new Parse.Query(Parse.User)
+                        .include("mainpage")
+                        .equalTo("objectId",cur_user.id)
+                        .first()
+                    .then(function(user){
+                        cur_user=user;
+                    });
+                });
+            }
         }).then(
             self.continueToMain
         ,function(error){
-            alert(error.message);
+            if (error.message)
+                alert(error.message);
+            else
+                alert(error);
             Parse.User.logOut();
             self.fornew.css("display","block");
         });
     };
 
     self.continueToMain=function(){
+        $.mobile.loading("hide");
         latexPage.renderPage();
-        setTimeout(function(){Pager.goTo("#mainPage");},1500);
+        latexPage.transmitToJaxEditable();
+
+        var startPage=Pager.stateData.startPoint.split('?')[0];
+        var startQ=Pager.stateData.startPoint.split('?')[1] || "";
+
+        if(startPage!="#viewNotePage" && startPage!="#viewLinkerPage"){
+            startPage="#mainPage";
+            startQ="";
+        }
+
+        var dataEnc={};
+        startQ.split("&").map(function(encpart){
+            if(encpart){
+                var kv=encpart.split("=");
+                if (kv[0]!="pc") dataEnc[kv[0]]=kv[1];
+            }
+        });
+        setTimeout(function(){Pager.goTo(startPage,dataEnc);},1500);
     };
 
     self.presentAuth=function(){
@@ -404,7 +547,7 @@ var splashPage = new function(){
         $("#letsgo_loginerror").text("");
         $("#letsgo_fberror").text("");
         $("#resetpass_error").text("");
-        if (localStorage["hasAccount"]=="true"){
+        if (localStorage && localStorage["hasAccount"]=="true"){
             $(".login").css("display","block");
             $(".signup").css("display","none");
             $("#letsgo_logindiv").slideDown(0);
@@ -421,9 +564,34 @@ var splashPage = new function(){
     };
 
     self.onPage=function(){
+        //console.log("on splash"+window.location.hash);
+        $("#splash_message").text("");
+        console.log("startpoint:");
+        console.log(Pager.stateData.startPoint.split("?")[0]);
         cur_user=Parse.User.current();
-        if(cur_user) self.gotUser();
-        else self.fornew.css("display","block");
+        if(cur_user && !cur_user.dirty()) self.gotUser();
+        else
+            if (!Pager.stateData.forceLogin && $.inArray(
+                    Pager.stateData.startPoint.split("?")[0],
+                    ["#viewNotePage","#viewLinkerPage"])!=-1){
+                console.log('c2m w/o u');
+                cur_user=new Parse.User();
+                self.continueToMain();
+            }
+            else{
+                cur_user=new Parse.User();
+                self.fornew.css("display","block");
+
+                if(Pager.stateData.forceLogin) {
+                    console.log('inFL');
+                    if($.inArray(Pager.stateData.startPoint.split("?")[0],
+                            ["#viewNotePage","#viewLinkerPage"])!=-1)
+                        $("#splash_message").html("Hi! Sorry to bother you, "+
+                            "but you are not logged in, and the owner of that "+
+                            "note has not made it public.<br/>Nonetheless, "+
+                            "feel free to click either link above and explore!");
+                }
+            }
     };
 
 }
@@ -449,9 +617,11 @@ var viewLinkerPage = new function(){
         $("#viewLinker_link").click(function(e){
             e.preventDefault();
             if(Pager.stateData.addToNP.type=="linker")
-                Parse.Cloud.run("addLink",
-                    {fromId: Pager.stateData.addToNP.id,
-                        toId: self.cur_linker.id})
+                Parse.Cloud.run("linksTo",
+                    {   fromId: Pager.stateData.addToNP.id,
+                        toId: self.cur_linker.id,
+                        linksTo: true
+                    })
                 .then(function(){
                     Pager.goBackTo("addTo")
                 },function(error){
@@ -471,6 +641,7 @@ var viewLinkerPage = new function(){
                 Pager._historyStates[Pager._historyPointer][1].cur_item_id=res.id;
                 self.cur_linker=res;
                 self.renderPage();
+                runCloudUpdate();
             },
             function(err){
                 alert(err.message);
@@ -486,6 +657,7 @@ var viewLinkerPage = new function(){
                     $("#viewLinker_share").text("Private");
                 else
                     $("#viewLinker_share").text("Shared");
+                runCloudUpdate();
             },
             function(error){
                 alert(error.message);
@@ -533,8 +705,8 @@ var viewLinkerPage = new function(){
                 {name: name,type: type})
             .then(function(res){
                 var np=res;
-                return Parse.Cloud.run("addLink",
-                    {fromId: self.cur_linker.id, toId: np.id});
+                return Parse.Cloud.run("linksTo",
+                    {fromId: self.cur_linker.id, toId: np.id, linksTo:true});
             })
             .then(function(){
                 self.clearPage();
@@ -566,18 +738,29 @@ var viewLinkerPage = new function(){
             new Parse.Query(NotePage).get(Pager.stateData.cur_item_id)
                 .then(function(result){
                     self.cur_linker=result;
+                    Pager.stateData.cur_item_id=null;
                     self.renderPage();
                 },
-                function(){
-                    self.renderPage();
+                function(err){
+                    if(!cur_user||cur_user.dirty())
+                        Pager.goTo("#splashPage",{},
+                            {startPoint:"#viewLinkerPage", forceLogin: true});
+                    else
+                        alert(err.message);
                 });
         else {
-            self.cur_linker=cur_user.get("mainpage");
-            self.cur_linker.fetch().then(self.renderPage);
+            if(!cur_user||cur_user.dirty())
+                Pager.goTo("#splashPage",{},
+                        {startPoint:"#viewLinkerPage", forceLogin: true});
+            else {
+                self.cur_linker=cur_user.get("mainpage");
+                self.cur_linker.fetch().then(self.renderPage);
+            }
         }
     };
     self.clearPage=function(){
-        self.list.html("");
+        listFiller(self.list)();
+        $.mobile.loading("show")
         $("#viewLinkerPage form").trigger("reset");
     };
     self.renderPage=function(){
@@ -588,18 +771,18 @@ var viewLinkerPage = new function(){
         if(Pager.stateData.addToNP){
             $("#viewLinker_link").parent("li").css("display","block");
             $("#viewLinker_share").parent("li").css("display","none");
-            $("#viewLinker_copy").parent("li").css("display","none");
+            //$("#viewLinker_copy").parent("li").css("display","none");
         }
         else if(cur_owner){
             $("#viewLinker_link").parent("li").css("display","none");
             $("#viewLinker_share").parent("li").css("display","block");
-            $("#viewLinker_copy").parent("li").css("display","none");
+            //$("#viewLinker_copy").parent("li").css("display","none");
             $("#viewLinker_share").text(cur_share ? "Shared" : "Private");
         }
         else {
             $("#viewLinker_link").parent("li").css("display","none");
             $("#viewLinker_share").parent("li").css("display","none");
-            $("#viewLinker_copy").parent("li").css("display","block");
+            //$("#viewLinker_copy").parent("li").css("display","block");
         }
 
         self.cur_linker.relation("linksTo")
@@ -608,22 +791,26 @@ var viewLinkerPage = new function(){
             self.list,
             makeClickHandler,
             cur_owner? makeDeleteHandler: null))
-        .then(function(c_ids){Pager.stateData.children_ids=c_ids});
+        .then(function(c_ids){
+            Pager.stateData.children_ids=c_ids;
+            $.mobile.loading("hide")
+        });
 
         function makeClickHandler(child){
             return function(e){
                 e.preventDefault();
-                Pager.stateData.cur_item_id=child.id;
-                if(child.get("type")=="linker") Pager.goTo("#viewLinkerPage");
-                else if(child.get("type")=="note") Pager.goTo("#viewNotePage");
+                if(child.get("type")=="linker")
+                    Pager.goTo("#viewLinkerPage",{cur_item_id:child.id});
+                else if(child.get("type")=="note")
+                    Pager.goTo("#viewNotePage",{cur_item_id:child.id});
             }
         };
 
         function makeDeleteHandler(child){
             return function(e){
                 e.preventDefault();
-                Parse.Cloud.run("removeLink",
-                    {fromId: self.cur_linker.id, toId: child.id})
+                Parse.Cloud.run("linksTo",
+                    {fromId: self.cur_linker.id, toId: child.id, linksTo: false})
                     .then(self.renderPage, function(err){alert(err.message)});
             }
         };
@@ -637,181 +824,107 @@ var viewNotePage = new function(){
 
     self.init=function(){
         self.footer=$("#viewNote_footer");
-        self.editfooter=$("#viewNote_editfooter");
-        self.inp=$("#viewNote_input");
         self.editbtn=$("#viewNote_edit");
         self.content=$("#viewNote_content");
         self.tagsinp=$("#viewNote_tags");
-
-        $("#viewNote_copy").click(function(e){
-            Parse.Cloud.run("copyNotePage",{noteId:self.cur_note.id})
-            .then(function(res){
-                Pager.stateData.cur_item_id=res.id;
-                Pager._historyStates[Pager._historyPointer][1].cur_item_id=res.id;
-                self.cur_note=res;
-                self.renderPage();
-            },
-            function(err){
-                alert(err.message);
-            });
+        self.je=JaxEditable(self.content,{
+            toolbar:$("#viewNote_toolbar"),
+            imgEventHandler:function(e){
+                var thisimage=$(this);
+                var timer=0;
+                function updateImage(){
+                    clearTimeout(timer);
+                    timer = setTimeout(function(){
+                        thisimage.width($("#imgrepopup_width").val());
+                        thisimage.height($("#imgrepopup_height").val());
+                    },500);
+                };
+                $("#imgrepopup_width").val(thisimage.width());
+                $("#imgrepopup_height").val(thisimage.height());
+                $("#viewNote_je_imgrepopup").popup('open');
+                $("#imgrepopup_width").on("input",updateImage);
+                $("#imgrepopup_height").on("input",updateImage);
+            }
         });
+        $("#viewNote_je_imgrepopup submit").click(function(){
+            e.preventDefault();
+            $("#viewNote_je_imgrepopup").popup('click');
+        });
+        $("#viewNote_toolbar").find(".je-icon-save").click(function(e){
+            e.preventDefault();
+            $("#viewNote_content .MathJax_Display").dblclick();
+            $("#viewNote_content .MathJax").dblclick();
 
+            $("#viewNote_je_savingpopup").text("saving...");
+            $("#viewNote_je_savingpopup").popup("open");
+            Parse.Cloud.run("editText",
+                {noteId: self.cur_note.id,
+                newText: self.content.html(),
+                newTags: self.tagsinp.val()})
+            .then(function(res){
+                self.footer.css("display","block");
+                $("#viewNote_tagsp").html(self.tagsinp.val());
+                $(".whenEditingNote").css("display","none");
+                $(".whenViewingNote").css("display","block");
+                self.editbtn.text("Edit");
+                runCloudUpdate();
+
+                $("#viewNote_je_savingpopup").text("saved!");
+                setTimeout(function(){
+                    $("#viewNote_je_savingpopup").popup("close");},300);
+            },function(error){
+                alert(error.message);
+            });
+            self.relatex();
+        });
         (function(){
-
-            // For tracking xx -> insert
-            var prevKey=-1;
-            var prevKeyTime=0;
-            var xKeyCode=88;
-            var jKeyCode=74;
-            var kKeyCode=75;
-            var lbracKeyCode=219;
-
-            // For tracking live preview
-            var prevText=self.inp.val();
-            var prevdelay = (function(){
-              var timer = 0;
-              return function(callback, ms){
-                clearTimeout(timer);
-                timer = setTimeout(callback, ms);
-              };
+            var range;
+            $("#viewNotePage").find(".je-icon-imgupload").click(function(e){
+                e.preventDefault();
+                window.open("http://postimage.org/index.php?mode=website&areaid="+"0"+"&hash=1&lang="+"english"+"&code=&content=&forumurl="+escape(window.location.origin+"/plugins/postimage/handleimageupload.html"),"postimage","resizable=yes,width=500,height=400");
+            })
+            $("#viewNotePage").find(".je-icon-imgwww").click(function(e){
+                e.preventDefault();
+                $("#viewNote_imgsrc").val("");
+                range=rangy.getSelection().getRangeAt(0)
+                setTimeout(function(){
+                    $('#viewNote_je_imgwwwpopup').popup('open');},
+                    200);
+            });
+            (function(){
+                var timer = 0;
+                $("#viewNote_imgsrc").on("input",function(e){
+                    clearTimeout (timer);
+                    timer = setTimeout(function(){
+                        $("#viewNote_je_imgwwwpopup img")
+                            .prop("src",$("#viewNote_imgsrc").val())},
+                        500);
+                });
             })();
-
-            // keyup in the note input
-            self.inp.on("keyup",function(e){
-
-                // Ignore arrow keys
-                if([37,38,39,40].indexOf(e.keyCode)!=-1)
-                    return;
-
-                var text=self.inp.val();
-                var pos=self.inp.getCursorPosition();
-
-                // For tracking xx -> insert
-                var now = new Date().getTime();
-                if (prevKey==xKeyCode && e.keyCode==prevKey && (now-prevKeyTime)<1000){
-                    self.inp.val(text.substr(0,pos-2)+text.substr(pos));
-                    self.inp.selectRange(pos-2);
-                    prevKey=-1;
-                    $("#popupInsert").popup("open");
-                    return;
-                }
-                if (prevKey==jKeyCode && e.keyCode==prevKey && (now-prevKeyTime)<1000){
-                    self.inp.val(text.substr(0,pos-2)+text.substr(pos));
-                    self.inp.selectRange(pos-2);
-                    self.nextAnchor();
-                    prevKey=-1;
-                    return;
-                }
-                if (prevKey==kKeyCode && e.keyCode==prevKey && (now-prevKeyTime)<1000){
-                    var textBefore=text.substr(0,pos-2).replace(/\/\#\//g,"");
-                    var textAfter=text.substr(pos).replace(/\/\#\//g,"");
-                    self.inp.val(textBefore+textAfter);
-                    self.inp.selectRange(textBefore.length);
-                    prevKey=-1;
-                    return;
-                }
-                if (prevKey==lbracKeyCode && e.keyCode==prevKey && (now-prevKeyTime)<1000){
-                    Pager._historyStates[Pager._historyPointer][1].noteState={text:text,pos:pos};
-                    Pager.stateData.addToNP={
-                        id:self.cur_note.id,
-                        type:"note",
-                        text:text, pos:pos};
-                    Pager.stateData.children_ids=[];
-                    Pager.anchor("addTo");
-                    Pager.goTo("#searchPage");
-                }
-                prevKey=e.keyCode;
-                prevKeyTime=now;
-
-                // For shortcuts
-                var shortcutMatch=text.substring(0,pos)
-                    .match(latexPage.shortregex);
-                if (shortcutMatch){
-                    var shortcut=shortcutMatch[0];
-                    var rep=latexPage.shorts[shortcut];
-                    if (rep){
-                        var posbefore=pos-shortcut.length;
-                        var posafter=posbefore+rep.length;
-                        self.inp.val(
-                                text.substring(0,posbefore)
-                                +rep
-                                +text.substring(pos));
-                        if (rep.indexOf("/#/")>0){
-                            self.inp.selectRange(posbefore);
-                            self.nextAnchor();
-                        }
-                        else
-                            self.inp.selectRange(posafter);
-                   }
-                }
-                
-
-                if(prevText!=self.inp.val()){
-                    prevText=self.inp.val();
-                    prevdelay(function(){
-                        if (self.inp.val()!=self.content.html()){
-                            self.preview();
-                        }
-                    },1000);
-                }
-        })})();
-
-        // Apply jQuery Text Complete for this input
-        (function(){
-
-            // I implement my own memoization routine rather than use
-            // the one built into jQuery Text Complete, because I want
-            // to be able to clear the cache if the user changes their
-            // auto-complete preferences.
-            var memo={};
-            var memsearch=function(term,callback){
-                if (!memo[term])
-                    memo[term]=
-                        latexPage.latexmath.filter(function(elt,ind,arr){
-                            return elt.startsWith(term);});
-                callback(memo[term]);
-            };
-            self.memclear=function(){
-                memo={};
-            };
-
-            // Autocomplete selected commands starting with a backslash
-            self.inp.textcomplete([{
-                match: /\\(\w*)$/,
-                search: memsearch,
-                replace: function(value){
-                    var sp=value.indexOf("/#/");
-                    if (sp==-1)
-                        return "\\"+value;
-                    else
-                        return ["\\"+value.substring(0,sp),
-                            value.substring(sp+3)];
-                },
-                index: 1,
-                cache: false
-        }])})();
+            $("#viewNote_imgwwwsubmit").click(function(e){
+                e.preventDefault();
+                $("#viewNote_je_imgwwwpopup").popup("close");
+                self.je.insertImage($("#viewNote_imgsrc").val(),range);
+            });
+            $("#viewNotePage").find(".je-icon-imgdoodle").click(function(e){
+                e.preventDefault();
+                range=rangy.getSelection().getRangeAt(0)
+                setTimeout(function(){
+                    $('#viewNote_je_imgdoodlepopup').popup('open');},
+                    200);
+            });
+            $("#viewNote_imgdoodlesubmit").click(function(e){
+                e.preventDefault();
+                $("#viewNote_je_imgdoodlepopup").popup("close");
+                self.je.insertImage($("#viewNote_sketch").get(0).toDataURL(),range);
+            });
+        })();
 
         $("#viewNote_insert").click(function(e){
             e.preventDefault();
             $("#popupInsert").popup("open");
         });
 
-        $("#viewNote_save").click(function(e){
-            e.preventDefault();
-            Parse.Cloud.run("editText",
-                {noteId: self.cur_note.id, newText: self.inp.val(), newTags: self.tagsinp.val()})
-            .then(function(res){
-                self.editfooter.css("display","none");
-                self.footer.css("display","block");
-                $("#viewNote_tagsp").html("<strong>Tags</strong>: "+self.tagsinp.val());
-                $(".whenEditingNote").css("display","none");
-                $(".whenViewingNote").css("display","block");
-                self.editbtn.text("Edit");
-                self.preview();
-            },function(error){
-                alert(error.message);
-            });
-        });
         $("#viewNote_share").click(function(e){
             e.preventDefault();
             var cur_share=($("#viewNote_share").text()=="Shared");
@@ -822,74 +935,12 @@ var viewNotePage = new function(){
                     $("#viewNote_share").text("Private");
                 else
                     $("#viewNote_share").text("Shared");
+                runCloudUpdate();
             },
             function(error){
                 alert(error.message);
             });
         });
-        self.editbtn.click(function(e){
-            e.preventDefault();
-            if(self.editbtn.text()=="Edit"){
-                self.footer.css("display","none");
-                self.editfooter.css("display","block");
-                $(".whenEditingNote").css("display","block");
-                $(".whenViewingNote").css("display","none");
-                self.inp.trigger("keyup");
-                self.editbtn.text("Cancel");
-            }
-            else if(self.editbtn.text()=="Cancel"){
-                self.editfooter.css("display","none");
-                self.footer.css("display","block");
-                $(".whenEditingNote").css("display","none");
-                $(".whenViewingNote").css("display","block");
-                self.editbtn.text("Edit");
-                self.inp.val(self.inp.text());
-                self.preview();
-            }
-        });
-
-
-        (function(){
-            var toPos=self.inp.getCursorPosition();
-            $("#popupInsert").on("popupafteropen",function(){
-                $("#popupInsert form").trigger("reset");
-
-                self.inp.on("focus",function(e){
-                    e.preventDefault();
-                    self.inp.off("focus");
-                    self.inp.selectRange(toPos);
-                });
-            });
-            $("#popupInsert select").on("change",function(e){
-                e.preventDefault();
-                self.insert($(this).val());
-                self.preview();
-                $("#popupInsert").popup("close");
-                self.inp.focus();
-                self.inp.on("click",function(e){
-                    e.preventDefault();
-                    self.inp.off("click");
-                    self.inp.selectRange(toPos);
-                });
-
-
-            });
-            self.insert=function(toInsert){
-                var posbefore=self.inp.getCursorPosition();
-                var posafter=posbefore+toInsert.length;
-                var text=self.inp.val();
-                self.inp.val(text.substr(0,posbefore)
-                        +toInsert
-                        +text.substr(posbefore));
-                if (toInsert.indexOf("/#/")>0){
-                    self.inp.selectRange(posbefore);
-                    self.nextAnchor();
-                }
-                else
-                    self.inp.selectRange(posafter);
-                self.preview();
-            }
-        })();
 
         $("#viewNote_title").click(function(e){
             $("#renameNote_newname").val( self.cur_note.get("name"));
@@ -912,9 +963,11 @@ var viewNotePage = new function(){
             e.preventDefault();
             console.log('vnl');
             if(Pager.stateData.addToNP.type=="linker"){console.log('tl');
-                Parse.Cloud.run("addLink",
+                Parse.Cloud.run("linksTo",
                     {   fromId: Pager.stateData.addToNP.id,
-                        toId: self.cur_note.id})
+                        toId: self.cur_note.id,
+                        linksTo: true
+                    })
                 .then(function(){
                     Pager.goBackTo("addTo",{})
                 },function(error){
@@ -932,13 +985,7 @@ var viewNotePage = new function(){
 
     }
 
-    self.nextAnchor=function(){
-        var toPos=self.inp.val().indexOf("/#/",self.inp.getCursorPosition());
-        if (toPos>0)
-            self.inp.selectRange(toPos,toPos+3);
-    }
-
-    self.preview=function(){
+    /*self.preview=function(){
         var cont=self.inp.val();
 
         var firstline=cont.split('\n')[0];
@@ -948,22 +995,31 @@ var viewNotePage = new function(){
         if(htmlmode||(!latexmode)||(!previewmode))
             cont=cont.substring(cont.indexOf('\n')+1);
 
-        console.log(cont);
-        console.log([htmlmode,latexmode,previewmode]);
+        //console.log(cont);
+        //console.log([htmlmode,latexmode,previewmode]);
         if(previewmode || self.editbtn.text()=="Edit"){
             $("#viewNote_contentwrap").css("display","block");
+
+            $("#viewNote_macros").text(
+                (self.cur_note.get("user").get("preamble")||"")
+                    .replace(/\\endgroup/g,"\\\\end group"));
+            $("#viewNote_begingroup").text("$\\begingroup$");
+            $("#viewNote_endgroup").text("$\\endgroup$");
+
             if(!htmlmode)
                 cont=$("<div></div>").text(cont).html()
                     .replace(/\n/g,"<br/>")
-                    .replace(/''''(.+?)''''/g,"<h3 style='margin-bottom:0'>$1</h3>")
+                    .replace(/''''(.+?)''''/g,
+                        "<h3 style='margin-top:0px;margin-bottom:0'>$1</h3>")
                     .replace(/'''(.+?)'''/g,"<strong>$1</strong>")
                     .replace(/''(.+?)''/g  ,"<em>$1</em>");
             cont=cont
                 .replace(/\[\[([^\|]+)\|([^\|]+)\|([^\]]+)\]\]/g,
-                    '<a class="internal" href="#view$1Page?id=$2">$3</a>');
+                    '<a class="internal" href="#view$1Page?id=$2">$3</a>')
+                .replace(/\\endgroup/g,"\\\\end group");
             self.content.html(cont); 
-            if(latexmode)
-                self.content.typeset();
+            $("#viewNote_content a:not(.internal)")
+                .prop("target","_blank");
             $(".internal").click(function(e){
                 e.preventDefault();
                 try {
@@ -974,14 +1030,23 @@ var viewNotePage = new function(){
                         " or maybe you you should try recreating the link?");
                 }
             });
+
+            if(latexmode) self.relatex();
         }
         else
             $("#viewNote_contentwrap").css("display","none");
+    }*/
+
+    self.relatex=function(){
+        self.je.reLatex();
     }
     
     self.onPage=function(){
+        $("#viewNote_je_savingpopup")
+            .popup("option","positionTo",".je-icon-save");
         self.clearPage();
-        new Parse.Query(NotePage).include("user").get(Pager.stateData.cur_item_id)
+        new Parse.Query(NotePage)
+            .include("user").get(Pager.stateData.cur_item_id)
         .then(function(result){
             self.cur_note=result;
             return new Parse.Query(Tagging)
@@ -993,17 +1058,23 @@ var viewNotePage = new function(){
             console.log(result);
             glob=result;
             self.cur_tags=result.map(function(t){return t.get('tag').get('name')});
+            Pager.stateData.cur_item_id=null;
             self.renderPage();
         },
         function(error){
-            alert(error.message);
+            if(!cur_user||cur_user.dirty())
+                Pager.goTo("#splashPage",{},
+                        {startPoint:"#viewNotePage", forceLogin: true});
+            else
+                alert(error.message);
         });
     }
 
     self.clearPage=function(){
-        self.inp.val("");
-        self.inp.text("");
+        $.mobile.loading("show")
         self.content.html("");
+        $("#viewNote_tagsp").html("");
+        $("#viewNote_ownerp").html("");
         $(".whenEditingNote").css("display","none");
         $(".whenViewingNote").css("display","block");
         if(self.editbtn.text()=="Cancel")
@@ -1013,13 +1084,22 @@ var viewNotePage = new function(){
     self.renderPage=function(){
         $("#viewNote_title").text( self.cur_note.get("name"));
         self.tagsinp.val(self.cur_tags.join("; "));
-        $("#viewNote_tagsp")
-            .html("<strong>Tags</strong>: "+self.tagsinp.val());
-        $("#viewNote_ownerp")
-            .html("<strong>Owner</strong>: "+self.cur_note.get("user").get("displayname"));
+        $("#viewNote_tagsp").html(self.tagsinp.val());
+        $("#viewNote_ownerp").html(
+                "<strong>Owner</strong>: "
+                +self.cur_note.get("user").get("displayname"));
+        $("#viewNote_content").html( self.cur_note.get("content"));
+        self.je.handle();
+        $("#viewNote_macros").text(
+            (self.cur_note.get("user").get("preamble")||"")
+                .replace(/\\endgroup/g,"\\\\end group"));
+        $("#viewNote_begingroup").text("$\\begingroup$");
+        $("#viewNote_endgroup").text("$\\endgroup$");
+        self.relatex();
 
         var cur_share=self.cur_note.getACL().getPublicReadAccess();
-        var cur_owner=(self.cur_note.get('user').id==cur_user.id);
+        var cur_owner=(self.cur_note.get('user') &&
+                self.cur_note.get('user').id==cur_user.id);
         if (cur_owner)
             self.editbtn.css("display","block")
         else
@@ -1027,21 +1107,19 @@ var viewNotePage = new function(){
         if(Pager.stateData.addToNP){
             $("#viewNote_link").parent("li").css("display","block");
             $("#viewNote_share").parent("li").css("display","none");
-            $("#viewNote_copy").parent("li").css("display","none");
+            //$("#viewNote_copy").parent("li").css("display","none");
         }
         else if(cur_owner){
             $("#viewNote_link").parent("li").css("display","none");
             $("#viewNote_share").parent("li").css("display","block");
-            $("#viewNote_copy").parent("li").css("display","none");
+            //$("#viewNote_copy").parent("li").css("display","none");
             $("#viewNote_share").text(cur_share?"Shared" : "Private");
         }
         else {
             $("#viewNote_link").parent("li").css("display","none");
             $("#viewNote_share").parent("li").css("display","none");
-            $("#viewNote_copy").parent("li").css("display","block");
+            //$("#viewNote_copy").parent("li").css("display","block");
         }
-        self.inp.text( self.cur_note.get("content"));
-        self.inp.val(  self.cur_note.get("content"));
 
         if(Pager.stateData.noteState){
             console.log('has nS');
@@ -1055,72 +1133,20 @@ var viewNotePage = new function(){
                     Pager.stateData.toPage.id+
                     "|"+Pager.stateData.toPage.name+"]]"
                     : "";
-            self.inp.val(textBefore+linkText+textAfter);
+            //self.inp.val(textBefore+linkText+textAfter);
             self.editbtn.click();
-            self.inp.selectRange(pos+linkText.length);
+            //self.inp.selectRange(pos+linkText.length);
             Pager.stateData.noteState=null;
             Pager.stateData.toPage=null;
             Pager._historyStates[Pager._historyPointer][1].noteState=null;
             Pager._historyStates[Pager._historyPointer][1].toPage=null;
         }
 
-
-
-        self.preview();
+        $.mobile.loading("hide");
+        self.content.focus();
     }
 }
 
-////////////////
-
-
-var addLinkPage = new function(){
-    var self=this;
-
-    self.init=function(){
-        self.list=$("#addLink_list");
-    };
-
-    self.onPage=function(){
-        self.clearPage();
-        self.cur_linker=cur_user.get("mainpage");
-        if(Pager.stateData.cur_item_id)
-            new Parse.Query(NotePage).get(Pager.stateData.cur_item_id)
-                .then(function(result){
-                    self.cur_linker=result;
-                    self.renderPage();
-                },
-                function(){
-                    self.renderPage();
-                });
-        else
-            self.renderPage();
-    };
-
-    self.clearPage=function(){
-        self.list.html("");
-    };
-
-    self.renderPage=function(){
-        new Parse.Query(NotePage)
-        .equalTo("user",cur_user)
-        .select("name")
-        .select("type")
-        .notContainedIn("objectId",
-                Pager.stateData.children_ids.concat(
-                    [self.cur_linker.id,cur_user.get("mainpage")]))
-        .find()
-        .then(listFiller(self.list,makeClickHandler,false));
-    
-        function makeClickHandler(item){
-            return function(e){
-                e.preventDefault();
-                Parse.Cloud.run("addLink",
-                    {fromId: self.cur_linker.id, toId: item.id})
-                .then(Pager.goBack,function(error){alert(error.message);});
-            }
-        }
-    }
-};
 
 var recycledPage = new function(){
     var self = this;
@@ -1130,30 +1156,40 @@ var recycledPage = new function(){
     };
 
     self.onPage=function(){
-        self.clearPage();
-        self.renderPage();
+        if(!cur_user||cur_user.dirty())
+            Pager.goTo("#splashPage",{},
+                    {startPoint:"#recycledPage"});
+        else{
+            self.clearPage();
+            self.renderPage();
+        }
     };
 
     self.clearPage=function(){
-        self.list.html("");
+        listFiller(self.list)();
+        $.mobile.loading("show")
     };
 
 
     self.renderPage=function(){
         new Parse.Query(NotePage)
         .equalTo("user",cur_user)
-        .equalTo("numLinkedBy",0)
+        .equalTo("lost",true)
         .select("name")
         .select("type")
         .find()
-        .then(listFiller(self.list,makeClickHandler,makeDeleteHandler));
+        .then(function(res){
+            listFiller(self.list,makeClickHandler,makeDeleteHandler)(res);
+            $.mobile.loading("hide");
+        });
 
         function makeClickHandler(item){
             return function(e){
                 e.preventDefault();
-                Pager.stateData.cur_item_id=item.id;
-                if(item.get("type")=="linker") Pager.goTo("#viewLinkerPage");
-                else if(item.get("type")=="note") Pager.goTo("#viewNotePage");
+                if(item.get("type")=="linker")
+                    Pager.goTo("#viewLinkerPage",{cur_item_id:item.id});
+                else if(item.get("type")=="note")
+                    Pager.goTo("#viewNotePage",{cur_item_id:item.id});
             }
         }
 
@@ -1182,32 +1218,26 @@ var latexPage = new function() {
 
         self.preview.click(function(e){
             e.preventDefault();
-            self.pre_content.html(self.pre_input.val());
+            self.pre_content.html(
+                "$\\begingroup$"
+                +self.pre_input.val().replace(/\\endgroup/g,"\\\\end group")
+                +"$\\endgroup$");
             self.pre_content.typeset();
             self.latexmath=
                 canonicalLatexMath.concat(
-                    self.auto_input.val().split("\n"));
+                    self.auto_input.val().split("\n")
+                    .map(function(s){return s.substring(1)}));
 
             self.shorts={};
-            self.shortregex="(?:";
             var shortlines=self.short_input.val().split("\n");
-            var atLeastOne=false;
             for(var l=0; l<shortlines.length; l++) try {
                 var splitline=shortlines[l].split(/\s+/,2);
                 var shortcut=splitline[0];
                 var rep=(splitline.length>1) ? splitline[1] : "";
                 if (shortcut=="" || rep=="") continue;
                 self.shorts[shortcut]=rep;
-                self.shortregex+=
-                    (atLeastOne ? "|" : "")
-                    +shortcut.escapeRegExp();
-                atLeastOne=true;
             } catch (e) {alert(e)}
-            self.shortregex+=")$";
-            if(atLeastOne) self.shortregex=RegExp(self.shortregex);
-            else self.shortregex=false;
 
-            viewNotePage.memclear();
         });
 
         self.save.click(function(e){
@@ -1220,6 +1250,7 @@ var latexPage = new function() {
                 $("#latex_message")
                     .html("<span style='color:green'>Changes saved</span>");
                 setTimeout(function(){Pager.goTo("#mainPage");},500);
+                self.transmitToJaxEditable();
             },function(err){
                 $("#latex_message")
                     .html("<span style='color:red'>"+err.message+"</span>");
@@ -1230,8 +1261,21 @@ var latexPage = new function() {
 
     };
 
+    self.transmitToJaxEditable=function(){
+        viewNotePage.je.setPreamble(self.pre_input.val());
+        viewNotePage.je.setAutocompletes(self.auto_input.val().split("\n"));
+        viewNotePage.je.setShortcuts(self.shorts,
+            {prevLatexPoint:"jj",nextLatexPoint:"kk",reLatex:"yy"});
+    }
+
     self.onPage=function(){
-        self.renderPage();
+        if(!cur_user||cur_user.dirty())
+            Pager.goTo("#splashPage",{},
+                    {startPoint:"#latexPage"});
+        else{
+            $.mobile.loading("show");
+            self.renderPage();
+        }
     };
 
     self.renderPage=function(){
@@ -1240,6 +1284,7 @@ var latexPage = new function() {
         self.short_input.val(cur_user.get("shortcuts"));
         $("#latex_message").html("");
         self.preview.click();
+        $.mobile.loading("hide");
     }
 
 };
@@ -1313,13 +1358,19 @@ var searchPage = new function(){
     };
 
     self.onPage=function(){
-        self.clearPage();
-        self.renderPage();
-        self.memclear();
+        if(!cur_user||cur_user.dirty())
+            Pager.goTo("#splashPage",{},
+                    {startPoint:"#searchPage"});
+        else{
+            self.clearPage();
+            self.renderPage();
+            self.memclear();
+        }
     };
 
     self.clearPage=function(){
-        self.list.html("");
+        listFiller(self.list)();
+        $.mobile.loading("show");
     };
 
     self.renderPage=function(){
@@ -1356,14 +1407,18 @@ var searchPage = new function(){
                     return Parse.Promise.as(
                         tags.map(function(t){return t.get('note')}))});
         })()
-        .then(listFiller(self.list,makeClickHandler,false));
+        .then(function(res){
+            listFiller(self.list,makeClickHandler,false)(res);
+            $.mobile.loading("hide");
+        });
     
         function makeClickHandler(item){
             return function(e){
                 e.preventDefault();
-                Pager.stateData.cur_item_id=item.id;
-                if(item.get("type")=="linker") Pager.goTo("#viewLinkerPage");
-                else if(item.get("type")=="note") Pager.goTo("#viewNotePage");
+                if(item.get("type")=="linker")
+                    Pager.goTo("#viewLinkerPage",{cur_item_id:item.id});
+                else if(item.get("type")=="note")
+                    Pager.goTo("#viewNotePage",{cur_item_id:item.id});
             }
         }
     }
@@ -1401,7 +1456,11 @@ var userPage= new function(){
         });
     };
     self.onPage=function(){
-        self.renderPage();
+        if(!cur_user||cur_user.dirty())
+            Pager.goTo("#splashPage",{},
+                    {startPoint:"#userPage"});
+        else
+            self.renderPage();
     };
     self.renderPage=function(){
         $("#user_name").val(cur_user.get('displayname'));
@@ -1410,6 +1469,25 @@ var userPage= new function(){
         $("#user_message").html("");
     };
 };
+
+function runCloudUpdate(){
+    function doit(){
+        console.log('about to run cU');
+        return Parse.Cloud.run("checkUpdates")
+        .then(function(res){
+            return Parse.Promise.as(res);
+        },function(err){
+            if (err.message=="Execution timed out" ||
+                err.message=="success/error was not called")
+                return doit();
+            else{
+                console.log(err);
+                return Parse.Promise.error(err);
+            }
+        });
+    }
+    return doit();
+}
 
 
 //fordebugging

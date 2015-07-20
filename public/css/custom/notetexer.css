@@ -1,3 +1,121 @@
+
+#viewNote_content p {
+    text-indent: 1em;
+}
+
+div[data-role='main'] > div {
+    max-width: 40em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-role='main'] > div.rwdlist {
+    max-width:none;
+}
+
+div.ui-panel-dismiss {
+    display:none;
+}
+
+.ui-panel {
+    width: 13em !important;
+}
+
+.rwdlist {
+    text-align:center;
+}
+
+.rwdlist>ul {
+    display:block;
+}
+.rwdlist>div {
+    display:none;
+}
+@media (min-width: 800px) {
+    /*div[data-role='main'] {
+        padding-left: 13.5em;
+    }*/
+
+    /*.ui-panel-closed {
+        width: 13em !important;
+        visibility: visible !important;
+    }*/
+    .rwdlist>ul {
+        display:none;
+    }
+    .rwdlist>div {
+        display:block;
+    }
+
+}
+
+.rwdblock {
+    display: inline-block;
+    width: 200px;
+    height: 112px;
+    background-size: 100% 100%;
+    overflow: hidden;
+    text-align: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.rwdblock.rwdlinker {
+    background-image: url(images/folder.svg);
+}
+.rwdblock.rwdnote {
+    background-image: url(images/note.svg);
+    box-shadow: 2px 2px 5px #b3b3b3;
+}
+.rwdspan {
+    display: inline-block;
+    margin-top: 20px;
+    color: #012612 !important;
+}
+.rwddel{
+    float:right;
+    margin: 0px;
+    background-color: transparent !important;
+    border: none;
+}
+
+/* Panel */
+#menuPanel a {
+    color: white;
+    text-shadow: none;
+    border-top:0px;
+    border-bottom:1px solid grey;
+    moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+#menuPanel li[data-role='data-divider'] {
+    margin-top: 10px;
+    moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+
+}
+
+.ui-panel .ui-panel-inner {
+    overflow: auto;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;  
+    -webkit-overflow-scrolling: touch;
+}
+/* Fix scrolling issue with panel 
+div[data-role='page'] {
+    max-height: 100%;
+    overflow: auto;
+}
+body {
+    overflow: hidden;
+}*/
+.ui-panel {
+    position:fixed;
+}
+
+/* Icons */
 .ui-icon-fb:after {
     background-size: 18px;
     moz-border-radius: 0px;
@@ -6,6 +124,100 @@
     background-image: url("images/FB.png");
 }
 
-#viewNote_content p {
-    text-indent: 1em;
+.ui-btn.ui-mini.ui-btn-inline.ui-corner-all.ui-btn-icon-notext.je-btn {
+    moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: 3px;
+}
+
+.ui-btn.ui-mini.ui-btn-inline.ui-corner-all.je-btn {
+    margin:2px;
+}
+.je-btn-icon-notext:after {
+    background-size: 14px;
+    moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent
+}
+.je-btn-icon-left:after {
+    background-size: 14px;
+    moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent
+}
+.je-icon-hyperlink:after {
+    background-image: url("images/link63.svg");
+}
+.je-icon-img:after {
+    background-image: url("images/mountain35.svg");
+}
+.je-icon-justify:after {
+    background-image: url("images/alignment.svg");
+}
+.je-icon-leftalign:after {
+    background-image: url("images/alignment.svg");
+}
+.je-icon-centeralign:after {
+    background-image: url("images/alignment1.svg");
+}
+.je-icon-rightalign:after {
+    background-image: url("images/right-alignment.svg");
+}
+.je-icon-save:after {
+    background-image: url("images/save27.svg");
+}
+.je-icon-font:after {
+    background-image: url("images/letter119.svg");
+}
+.je-icon-math:after {
+    background-image: url("images/pi2.svg");
+}
+.je-icon-list:after {
+    background-image: url("images/list2.svg");
+}
+.je-icon-bullets:after {
+    background-image: url("images/list2.svg");
+}
+.je-icon-numbers:after {
+    background-image: url("images/numbered5.svg");
+}
+.je-icon-imgupload:after {
+    background-image: url("images/uploading25.svg");
+}
+.je-icon-imgwww:after {
+    background-image: url("images/domain2.svg");
+}
+.je-icon-imgdoodle:after {
+    background-image: url("images/doodle4.svg");
+}
+.je-icon-eraser:after {
+    background-image: url("images/erase16.svg");
+    moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent;
+}
+.je-icon-marker:after {
+    background-image: url("images/pencils6.svg");
+    moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent;
+}
+.je-icon-straight:after {
+    background-image: url("images/math1.svg");
+    moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent;
+}
+.je-icon-clear:after {
+    background-image: url("images/erase20.svg");
+    moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-color: transparent;
 }

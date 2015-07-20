@@ -1,35 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html manifest='cache.manifest'>
     <head>
         <meta charset="UTF-8">
         <title>NoteTeXer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/jqm_themes/notetexer_jquerytheme.min.css" />
     <link rel="stylesheet" href="css/jqm_themes/jquery.mobile.icons.min.css" />     
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
         <link rel="stylesheet" href="plugins/jquery.textcomplete/jquery.textcomplete.css" />
         <link rel="stylesheet" href="css/custom/notetexer.css" />
-        <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-        <script src="https://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script>
+            $( document ).on( "mobileinit", function() {
+                console.log('mobileinit');
+              //$.mobile.defaultPageTransition = "none";
+            $( "[data-role='panel']" ).panel();
+            });
+        </script>
+        <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="//www.parsecdn.com/js/parse-1.4.2.min.js"></script>
         <script src="plugins/jquery.textcomplete/jquery.textcomplete.min.js"></script>
-        <script src ="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="plugins/rangy/rangy-core.js"></script>
+        <script src="plugins/rangy/rangy-textrange.js"></script>
+        <!--<script src ="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+        <script src="plugins/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="plugins/sketch/sketch.js"></script>
         <script>
         MathJax.Hub.Config({
           tex2jax: {
             inlineMath: [['$','$'], ['\\\\(','\\\\)']],
-            processEscapes: true},
+            processEscapes: true
+          },
+          "HTML-CSS": {
+            scale: 90,
+            availableFonts: [],
+            preferredFont: null,
+            webFont: "TeX"
+          },
+          TeX: {
+            extensions: ["begingroup.js"]
+          },
           messageStyle: "none",
           imageFont: null,
         });
         </script>
-
         <script src="js/pager.js"></script>
         <script src="js/latexcommands.js"></script>
+        <script src="js/jaxeditable.js"></script>
         <script src="js/notetexer.js"></script>
 
     </head>
-    <body>
+    <body style="display:none">
 
         <div id="splashPage" data-role="page">
             <div data-role="header">
@@ -39,21 +60,22 @@
                 <div id="splash_welcome">
                     <h2>Welcome!</h2>
                     <p>to your new</p>
-                    <p>quick-reference</p>
+                    <p>knowledge-web</p>
                     <p><strong>solution</strong></p>
                 </div>
                 <div data-role="navbar" style="width: 20em; margin: auto" id="splash_fornew">
                     <ul>
-                        <li><a href="#aboutPage" class="hijack ui-btn ui-btn-icon-left ui-alt-icon ui-icon-info">About</a></li>
-                        <li><a href="#" id="splash_letsgo" class=" ui-btn ui-btn-icon-right ui-alt-icon ui-icon-home">Let's go</a></li>
+                        <li><a href="#aboutPage" class="hijack ui-btn ui-btn-icon-left ui-alt-icon ui-icon-info">Find out more?</a></li>
+                        <li><a href="#" id="splash_letsgo" class=" ui-btn ui-btn-icon-right ui-alt-icon ui-icon-home">Join the fun!</a></li>
                     </ul>
                 </div>
+                <p style="color:red" id="splash_message"></p>
             </div>
             <div data-role="popup" id="popupLetsGo" data-history="false" class="ui-corner-all">
                 <div style="padding:10px 20px;">
                         <button type="button" id="fb-connect" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-fb authbtn">Connect with Facebook</button>
                     <form>
-                        <fieldset style="border-top: 1px solid black"><legend style="text-align:center">Or</legend>
+                        <fieldset style="border-top: 1px solid black"><legend style="text-align:center" align="center">Or</legend>
                         <span class="login">New user?...<a href="#" style="margin: 5px;min-height:1em" id="letsgo_showsignup">Sign up here</a></span><h3 style="margin: 5px;min-height:1em" class="signup">Sign up</h3>
                         <div id="letsgo_signupdiv">
                             <p id="letsgo_signuperror" style="width: 100%;margin: 0 auto;text-align:center;color:red;overflow:auto;word-wrap:break-word;"></p>
@@ -67,7 +89,7 @@
                         </div>
                     </form>
                     <form>
-                        <fieldset style="border-top: 1px solid black"><legend style="text-align:center">Or</legend>
+                        <fieldset style="border-top: 1px solid black"><legend style="text-align:center" align="center">Or</legend>
                             <span style="margin: 5px;min-height:1em" class="signup">Returning user?...<a href="#" id="letsgo_showlogin">Log in</a></span><h3 style="margin: 5px;min-height:1em" class="login">Log in</span></h3>
                             <div id="letsgo_logindiv">
                             <p id="letsgo_loginerror" style="margin: 0 auto;text-align:center;color:red;overflow:auto;"></p>
@@ -103,6 +125,9 @@
 
         <!-- HOMEPAGE -->
         <div id="mainPage" data-role="page" style="background-color:#012612">
+            <!--<div data-role="panel" id="mainMenu" data-position="left" data-display="push">
+                Hi there
+        </div>-->
             <div data-role="header">
                 <!--<a href="#" class="ui-btn-left">Back</a>-->
                 <a href="#helpPage" class="ui-btn-left ui-btn  ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-info">Help</a>
@@ -112,9 +137,9 @@
             </div>
 
             <div data-role="main" class="ui-content" style="padding-left:0px;padding-right:0px">
-                <ul data-role="listview" style="max-width:700px;margin-left:auto;margin-right:auto;">
+                <ul data-role="listview">
                     <li data-role="data-divider" style="background-color: #b3b3b3;color:#013e22;"><h2 style="margin:0px;">Notes:</h2></li>
-                    <li><a href="#viewLinkerPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-bullets hijack">View/edit your notes<span style="color:green; font-size:small; margin-left:.5em;background-color:white; display: none" id="main_starthere">Start here!</span></a></li>
+                    <li><a href="#viewLinkerPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-bullets hijack">Take notes<span style="color:green; font-size:small; margin-left:.5em;background-color:white; display: none" id="main_starthere">Start here!</span></a></li>
                     <li><a href="#searchPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-search hijack">Search Notes</a></li>
                     <li><a href="#recycledPage" class="ui-btn ui-alt-icon ui-btn-icon-left ui-icon-recycle hijack">Recycle Bin</a></li>
                     <li data-role="data-divider" style="background-color: #b3b3b3;color:#013e22;"><h2 style="margin:0px;">Settings:</h2></li>
@@ -127,15 +152,20 @@
         </div>
         <div data-role="page" id="viewLinkerPage">
             <div data-role="header" >
-                <a data-rel="back" href="#">Back</a>
+                <!--<a href="#mainPage" class="hijack ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-home">Home</a>-->
+                <a href="#menuPanel" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-home" data-rel="panel">Menu</a>
                 <h1 id="viewLinker_title">View Linker</h1>
                 <a id="viewLinker_add" href="#popupNew" data-rel="popup" class="ui-btn-right ui-btn  ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-plus">Add</a>
             </div>
             <div data-role="main" class="ui-content">
-                <ul data-role="listview" id="viewLinker_list">
-                </ul>
+                <div id="viewLinker_list" class="rwdlist">
+                    <ul data-role="listview">
+                    </ul>
+                    <div></div>
+                </div>
+                <!--<p id="viewLinker_ownerp" style="text-align:right;margin-top:0px;padding-top:0px;">OWNER</p>-->
             </div>
-            <div data-role="footer" data-position="fixed" id="viewLinker_footer">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="viewLinker_footer">
                 <div data-role="navbar">
                     <ul id="viewLinker_minefooter">
                         <li><a href="#" class="ui-btn ui-icon-cloud ui-alt-icon ui-btn-icon-top" id="viewLinker_share">Private</a></li>
@@ -205,53 +235,118 @@
             <div data-role="main" class="ui-content">
                 <input id="search_name" data-type="search" placeholder="Name?"/>
                 <input id="search_tag" type="text" data-type="search" placeholder="Tags?"/>
-                    <fieldset data-role="controlgroup" data-type="horizontal" style="display: block; text-align: center; min-height: 3em;" id="search_fieldset">
+                    <fieldset data-role="controlgroup" data-type="horizontal" style="display: block; text-align: center; min-height: 3em;border-bottom: 1px solid black" id="search_fieldset">
                     <label for="search_sourceMine">My notes</label>
                     <input type="radio" name="search_source" value="mine" id="search_sourceMine" checked="checked" data-mini="true"/>
                     <label for="search_sourceShared">Shared notes</label>
                     <input type="radio" name="search_source" value="shared" id="search_sourceShared" data-mini="true"/>
                 </fieldset>
-                <ul data-role="listview" id="search_list"> <!--data-input="#search_filter">-->
-                </ul>
+
+                <div id="search_list" class="rwdlist">
+                    <ul data-role="listview" id="search_list"> <!--data-input="#search_filter">-->
+                    </ul>
+                    <div></div>
+                </div>
             </div>
         </div>
 
 
         <div data-role="page" id="viewNotePage">
-            <div data-role="header" data-position="fixed">
-                <a data-rel="back" href="#">Back</a>
+            <div data-role="header" data-position="fixed" data-fullscreen="true">
+                <a href="#menuPanel" data-rel="panel" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-notext ui-icon-bars">Menu</a>
                 <h1 id="viewNote_title">View Note</h1>
                 <a id="viewNote_edit" href="#" data-rel="popup" class="ui-btn-right ui-btn  ui-btn-inline ui-mini ui-corner-all ui-alt-icon ui-btn-icon-left ui-icon-edit">Edit</a>
-                <div data-role="navbar">
-                    <ul id="viewNote_editfooter" style="display: none">
-                        <li><a href="#" class="ui-btn" data-mini="true" id="viewNote_insert">Insert</a></li>
-                        <li><a href="#" class="ui-btn" data-mini="true" id="viewNote_save">Save</a></li>
-                    </ul>
-                </div>
             </div>
-            <div data-role="main" class="ui-content">
-                <form class="whenEditingNote">
-                    <label for="viewNote_input">Your note:</label>
-                    <textarea id="viewNote_input" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
-                </form>
-                <div class="ui-body ui-body-a ui-corner-all" style="margin-left:auto;margin-right:auto;max-width:50em" id="viewNote_contentwrap">
-                    <h3 class="whenEditingNote" style="margin-top: 5px; margin-bottom:0px">Preview</h3>
-                    <hr class="whenEditingNote"/>
-                    <div id="viewNote_content"></div>
+            <div data-role="main" class="ui-content" style="margin-top:60px">
+
+<div style=" margin-bottom:0px;padding:0px 1em;background-color: #e8e8e8; border: 1px solid #7f7f7f; border-top-left-radius: 15px;  border-top-right-radius: 15px; text-align:center" data-role="fieldcontain" id="viewNote_toolbar">
+
+    <div style="display:inline-block; min-width: 45%; text-align:center"><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all je-btn je-icon-bold" ><strong>B</strong></a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all je-btn je-icon-italic" ><em>I</em></a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all je-btn je-icon-underline" style="text-decoration:underline !important">U</a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-btn je-btn-icon-notext je-icon-font">font</a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-btn je-btn-icon-notext je-icon-justify" data-rel="popup" href="#viewNote_je_justpopup" data-transition="pop">just</a><!--
+    --></div><div style="display:inline-block; min-width: 45%; text-align:center"><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-btn je-btn-icon-notext je-icon-list" data-rel="popup" href="#viewNote_je_listpopup" data-transition="pop">list</a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-btn je-btn-icon-notext je-icon-hyperlink">link</a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-btn je-btn-icon-notext je-icon-img" data-rel="popup" href="#viewNote_je_imgpopup" data-transition="pop">img</a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-btn je-btn-icon-notext je-icon-math">math</a><!--
+    --><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-btn je-btn-icon-notext je-icon-save">save</a><!--
+    -->
+    <div id="viewNote_je_justpopup" data-role="popup" data-history="false">
+        <ul data-role="listview">
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-leftalign" onclick="$('#viewNote_je_justpopup').popup('close')">left</a></li>
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-centeralign" onclick="$('#viewNote_je_justpopup').popup('close')">center</a></li>
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-rightalign" onclick="$('#viewNote_je_justpopup').popup('close')">right</a></li>
+        </ul>
+    </div>
+    <div id="viewNote_je_listpopup" data-role="popup" data-history="false">
+        <ul data-role="listview">
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-bullets" onclick="$('#viewNote_je_listpopup').popup('close')">bullets</a></li>
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-numbers" onclick="$('#viewNote_je_listpopup').popup('close')">numbers</a></li>
+        </ul>
+    </div>
+    <div id="viewNote_je_imgpopup" data-role="popup" data-history="false">
+        <ul data-role="listview">
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-imgupload" onclick="$('#viewNote_je_listpopup').popup('close')">upload</a></li>
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-imgwww" onclick="$('#viewNote_je_imgpopup').popup('close')">from web</a></li>
+            <li><a class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-left je-btn-icon-left je-icon-imgdoodle" onclick="$('#viewNote_je_imgpopup').popup('close')">doodle</a></li>
+        </ul>
+    </div>
+    <div id="viewNote_je_imgwwwpopup" data-role="popup" data-history="false"
+        style="padding:1em;">
+        <label for="viewNote_imgsrc">Image URL:</label>
+        <input type="text" id="viewNote_imgsrc"></input>
+        <div>Preview:</div>
+        <div style="text-align:center">
+            <img src="" style="width: 50px; height:50px"/>
+        </div>
+        <input type="submit" value="Use" id="viewNote_imgwwwsubmit"></input>
+    </div>
+    <div id="viewNote_je_imgdoodlepopup" data-role="popup" data-history="false" style="padding:1em;">
+        <div class="tools" style="text-align:center">
+            <div>
+            <a href='#viewNote_sketch' data-clear='true' class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-icon-clear" style="padding: 2px">Clear</a>
+            <a href='#viewNote_sketch' data-tool='marker' class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-icon-marker" style="padding: 2px">Marker</a>
+            <a href='#viewNote_sketch' data-tool='straight' class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-icon-straight" style="padding: 2px">Straight</a>
+            <a href='#viewNote_sketch' data-tool='eraser' class="ui-btn ui-mini ui-btn-inline ui-corner-all ui-btn-icon-notext je-icon-eraser" style="padding: 2px">Eraser</a>
+            </div>
+        </div>
+        <canvas id="viewNote_sketch" width="300" height="300" style="border: 1px solid black"></canvas>
+        <input type="submit" value="Use" id="viewNote_imgdoodlesubmit"></input>
+    </div>
+    <div id="viewNote_je_savingpopup" data-role="popup" data-history="false" style="padding: .5em; opacity: .8">
+    </div>
+    </div>
+</div>
+
+                <div class="ui-body ui-body-a ui-corner-all" style="border-top-left-radius:0px;border-top-right-radius:0px; overflow-x:auto" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="viewNote_content">
                 </div>
+                <div id="viewNote_je_imgrepopup" data-role="popup" data-history="false" style="padding: 1em; opacity: .9">
+                    <div data-role="fieldcontain">
+                        <label for="imgrepopup_width">Width:</label>
+                        <input type="text" id="imgrepopup_width"></input>
+                        <label for="imgrepopup_height">Height:</label>
+                        <input type="text" id="imgrepopup_height"></input>
+                    </div>
+                    <input type="submit" value="Done"></input>
+                </div>
+
+
                 <div data-role="fieldcontain" style="margin-bottom: 40px; opacity: 1;" id="viewNote_tagsWrapper" class="whenEditingNote">
                     <label for="viewNote_tags">Tags:</label>
                     <textarea id="viewNote_tags"></textarea>
                 </div>
-                <div style="margin-left:auto;margin-right:auto;max-width:50em">
-                    <p id="viewNote_tagsp" class="whenViewingNote" style="text-align:right"></p>
-                    <p id="viewNote_ownerp" class="whenViewingNote" style="text-align:right"></p>
+                <div>
+                    <div style="text-align:right;margin-bottom:0px;padding-bottom:0px;"><strong>Tags:</strong><p id="viewNote_tagsp" contenteditable="true" style="display:inline"></p></div>
+                    <p id="viewNote_ownerp" class="whenViewingNote" style="text-align:right;margin-top:0px;padding-top:0px;"></p>
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-toggle="false" id="viewNote_footer">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-fullscreen="true"  id="viewNote_footer">
                 <div data-role="navbar">
                     <ul id="viewNote_minefooter">
-                        <li><a href="#" class="ui-btn ui-icon-cloud ui-alt-icon ui-btn-icon-top" id="viewNote_share">Share</a></li>
+                        <li><a id="viewNote_bigsave" class="ui-btn ui-mini ui-alt-icon" >Save</a></li>
                     </ul>
                     <ul id="viewNote_sharedfooter">
                         <li style="display:none"><a href="#" class="ui-btn ui-icon-carat-d ui-alt-icon ui-btn-icon-top" id="viewNote_copy">Copy To Own</a></li>
@@ -302,8 +397,11 @@
                 <form class="ui-filterable">
                     <input id="recycled_filter" data-type="search" placeholder="Find one"/>
                 </form>
-                <ul data-role="listview" id="recycled_list" data-filter="true" data-input="#recycled_filter">
-                </ul>
+                <div id="recycled_list" class="rwdlist">
+                    <ul data-role="listview" data-filter="true" data-input="#recycled_filter">
+                    </ul>
+                    <div></div>
+                </div>
             </div>
         </div>
         <div data-role="page" id="latexPage">
@@ -311,7 +409,8 @@
                 <a data-rel="back" href="#">Back</a>
                 <h1>LaTeX Settings</h1>
             </div>
-            <div data-role="main" class="ui-content" style="margin-bottom: 40px">
+            <div data-role="main" class="ui-content" style="margin-bottom: 40px; padding: 5px;">
+                <p style="text-align:center">Customize the different settings for autocomplete, macros, and shortcuts below:</p>
                 <form>
                     <div data-role="collapsible">
                         <h2>Macros</h2>
@@ -323,21 +422,20 @@
                     </div>
                     <div data-role="collapsible">
                         <h2>Autocomplete</h2>
-                        <label for="latex_autoInput">List the LaTeX commands you want to add to the autocomplete.<p>One autocomplete command per line.  You can use anchors (<code>/#/</code>) to mark spots you'd like to be able to quickly jump to (by pressing <code>jj</code> when editing a note).  See the tutorials for more details on anchoring.</p></label> 
+                        <label for="latex_autoInput">List the LaTeX commands you want to add to the autocomplete.<p>One autocomplete command per line.</p></label> 
                         <textarea id="latex_autoInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
                         
                     </div>
                     <div data-role="collapsible">
                         <h2>Shortcuts</h2>
-                        <label for="latex_autoInput">List the shortcuts you want to use.
-                        <p>One shortcut per line.  First the shortcut (eg. <code>uufr</code>), then a space, then the text which should replace it (eg. <code>\frac{/#/}{/#/}</code>).  As before, the "anchor" (<code>/#/</code>) can be used to provide convenient navigation points.  Lines beginning with space are ignored.</p>
+                        <label for="latex_autoInput"><p>List the shortcuts you want to use. One shortcut per line.  First the shortcut (eg. <code>uufr</code>), then a space, then the text which should replace it (eg. <code>\frac{}{}</code>).</p>
                         </label> 
                         <textarea id="latex_shortInput" style="font-family: 'Lucida Console', Monaco, monospace"></textarea>
                     </div>
                 </form>
                     <p id="latex_message"></p>
             </div>
-            <div data-role="footer" data-position="fixed">
+            <div data-role="footer" data-tap-toggle="false" data-fullscreen="true" data-position="fixed">
                 <div data-role="navbar">
                     <ul id="latex_footer">
                         <li><a href="#" class="ui-btn ui-icon-check ui-alt-icon ui-btn-icon-top" id="latex_save">Save</a></li>
@@ -350,26 +448,36 @@
                 <a data-rel="back" href="#">Back</a>
                 <h1>About</h1>
             </div>
-            <div data-role="main" class="ui-content" style="max-width: 800px; margin: auto;">
+            <div data-role="main" class="ui-content" style="max-width:700px;margin: auto;">
                 <div id="about_tagline" style="text-align: center; text-indent: 0">
                 <h2>Note$\TeX$er</h2>
-                <p style='font-style: italic'>Make your own formula quick-reference.<br/>
-                Search your knowledge web in seconds.<br/>
-                Speedtype LaTeX by laptop or phone.</p>
+                <p style='font-style: italic'>
+                Create a knowledge web in seconds.<br/>
+                Speedtype $\LaTeX$, even by phone.</br>
+                Share with classmates.<p/>
                 </div>
                 <h3>What is this?</h3>
-                <p style='font-style: italic'>This is a tool for quickly taking notes with LaTeX, on both desktop and mobile devices.</p>
+                <p style='font-style: italic'>A tool for taking interlinked notes (especially with LaTeX) on desktop and mobile devices.</p>
+                <h3>Why NoteTeXer?</h3>
+                <p style='font-style: italic'>Note$\TeX$er is distinguished from other note-taking apps by two core principles:
+                <ul>
+                    <li><strong>Notes are webs, not binders!</strong> Notes should link to one another, forming  a dense network of knowledge.  So it's less like having a set of binders on the internet, and more like having your own personal mini-Wikipedia. Real subjects rarely organize neatly into closed subtopics, but rather have important connections throughout, and the structure of Note$\TeX$er represents this.</li>
+                    <li><strong>Notes are rich content!</strong> Notes are more than just text.  The visual aspects of a note are important for triggering memory recall.  Note$\TeX$er recognizes this, and provides a simple interface for styling your note, including images, rich-text formatting, and live-rendered $\LaTeX$ in-place for your beautiful mathematics.  (Not to mention a suite of shortcuts for rapid $\LaTeX$ input, even on mobile devices!)</li>
+                </ul>
+                </p>
+                <h3>Who made this?</h3>
                 <p style="text-indent: 2em">Hi, I'm <a href="http://sambader.net">Sam Bader</a>, a soon-to-be PhD student in Engineering Physics, and I designed Note$\TeX$er as a resource for students in the math and science community. I started this project because I couldn't find any free tools out there which would let me build my own LaTeX-based quick-references, to have with me anywhere, on any device.</p>
-                <p style="text-indent: 2em">That's really all this is, a simple note-taking app, with live LaTeX rendering built in. It includes an autocomplete and a user-configurable mobile-friendly array of shortcuts, so you can even type LaTeX quickly on your phone's native keyboard.  In addition, there's a note-sharing feature so you can make selected formulas searchable to others and save them some effort! :)</p>
 
-                <h3>Can I try?</h3>
+                <h3>Hey, can I try?</h3>
                 <p style='font-style: italic'>Yes, literally right now!</p>
                 <p style="text-indent: 2em">If you want to try this out, go back to the home page and sign up (takes just a few seconds), and your account will automatically be populated by a series of notes that form a ten-minute tutorial on NoteTeXing efficiently.</p>
 
                 <p style="text-indent: 2em">The tool is provided free, as is, with no guarantees whatsoever.  If you have suggestions, or would like to contribute to the project, talk to me at <a href="mailto:notetexer.help@gmail.com">notetexer.help@gmail.com</a>! If this tool becomes popular, and requires more space on the Parse server, then I may have make it donation-supported, but in the meantime, it's available at no cost, because I just love you.  </p>
                 <h3>Acknowledgements</h3>
                 <p style='font-style: italic'>Many thanks to these projects!</p>
-                <p style="text-indent: 2em">The software makes use of <a href="https://www.mathjax.org/" data-rel="external" data-ajax="false" target="_blank">MathJax</a> to live-render your LaTeX, <a href="https://jquerymobile.com/" data-rel="external" data-ajax="false" target="_blank">jQuery Mobile</a> for the smooth front-end, <a href="https://parse.com/" data-rel="external" data-ajax="false" target="_blank">Parse</a> for the simple backend, and <a href="https://github.com/yuku-t/jquery-textcomplete" data-rel="external" data-ajax="false" target="_blank">Jquery Text Complete</a> to auto-complete your LaTeX. The licenses for each of these wonderful tools can be found on their respective websites. </p>
+                <p style="text-indent: 2em">The software makes use of <a href="https://www.mathjax.org/" data-rel="external" data-ajax="false" target="_blank">MathJax</a> to live-render your LaTeX, <a href="https://jquerymobile.com/" data-rel="external" data-ajax="false" target="_blank">jQuery Mobile</a> for the smooth front-end, <a href="https://parse.com/" data-rel="external" data-ajax="false" target="_blank">Parse</a> for the simple backend, and <a href="https://github.com/yuku-t/jquery-textcomplete" data-rel="external" data-ajax="false" target="_blank">Jquery Text Complete</a> to auto-complete your LaTeX. 
+                Icons for the editor made by <a href="http://www.flaticon.com/authors/icon-works" title="Icon Works">Icon Works</a> and <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">Flaticon</a>.             
+                The licenses for each of these wonderful tools can be found on their respective websites. </p>
             </div>
         </div>
         <div data-role="page" id="userPage">
@@ -377,8 +485,8 @@
                 <a data-rel="back" href="#">Back</a>
                 <h1>Profile</h1>
             </div>
-            <div data-role="main" class="ui-content">
-                <form style="max-width:500px; margin-left: auto; margin-right:auto;">
+            <div data-role="main" class="ui-content" style="max-width:700px;margin:auto">
+                <form >
                     <label for="user_name">Username</label>
                     <input type="text" id="user_name" placeholder="Who am I?"></input>
                     <label for="user_pass">Password</label>
@@ -391,6 +499,18 @@
                     <input type="submit" id="user_save" value="Save"></input>
                 </form>
             </div>
+        </div>
+        <div data-role="panel" id="menuPanel" data-position="left" data-display="overlay" data-history="false" style="color:white; background-color:#012612; text-shadow:none"> 
+            <ul data-role="listview">
+                <li data-role="data-divider" style="background-color: #b3b3b3;color:#013e22;"><h2 style="margin:0px;">Notes:</h2></li>
+                <li><a href="#viewLinkerPage" class="ui-btn ui-btn-icon-left ui-icon-bullets hijack">Take notes<span style="color:green; font-size:small; margin-left:.5em;background-color:white; display: none" id="main_starthere">Start here!</span></a></li>
+                <li><a href="#searchPage" class="ui-btn ui-btn-icon-left ui-icon-search hijack">Search Notes</a></li>
+                <li><a href="#recycledPage" class="ui-btn ui-btn-icon-left ui-icon-recycle hijack">Recycle Bin</a></li>
+                <li data-role="data-divider" style="background-color: #b3b3b3;color:#013e22;"><h2 style="margin:0px;">Settings:</h2></li>
+                <li><a href="#userPage" class="ui-btn ui-btn-icon-left ui-icon-user hijack">Your Profile<span style="color:green; font-size:small; margin-left:.5em;background-color:white; display: none" id="main_addbio">Add info</span></a></a></li>
+                <li><a href="#latexPage" class="ui-btn ui-btn-icon-left ui-icon-gear hijack">LaTeX Settings</a></li>
+                <li><a href="#aboutPage" class="ui-btn ui-btn-icon-left ui-icon-carat-r hijack">About NoteTeXer</a></li>
+            </ul>
         </div>
     </body>
 </html>

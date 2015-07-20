@@ -16,20 +16,22 @@ window.Pager= window.Pager || new function(){
                 self._pageHandlers[page].init();
     };
 
-    self.goTo=function(page){
+    self.goTo=function(page,dataEnc,data){
         self._counter++;
-        console.log(page+"?"+self._counter.toString());
-        $.mobile.navigate(page+"?"+self._counter.toString(),{});
+        /*console.log(page+"?"+self._counter.toString());
+        $.mobile.navigate(page+"?"+self._counter.toString(),{});*/
 
-        /*
-        var qstring="?"
-        for (k in data)
+        var qstring="?pc="+self._counter.toString();
+        for (var k in dataEnc)
+            if (dataEnc.hasOwnProperty(k))
+                qstring+="&"+k+"="+dataEnc[k];
+        for (var k in data)
             if (data.hasOwnProperty(k))
-                qstring+=k+"="+data[k];
+                self.stateData[k]=data[k];
 
-        console.log(page+qstring);
+        //console.log(page+qstring);
         $.mobile.navigate(page+qstring,{});
-        */
+        
     };
 
     self.goBack=function(){
@@ -40,14 +42,13 @@ window.Pager= window.Pager || new function(){
         console.log('gbt');
         var target=self._historyAnchors[anchor];
         if (target){
-           for ( var k in dataUpdate){console.log(k);
+           for ( var k in dataUpdate)
                if (dataUpdate.hasOwnProperty(k))
                    self._historyStates[target][1][k]=dataUpdate[k];
-           }
 
            self._historyPointer=target+1;
-           console.log('historystates')
-           console.log(self._historyStates);
+           //console.log('historystates')
+           //console.log(self._historyStates);
            window.history.go(target-self._historyPointer-1);
         }
 
@@ -58,9 +59,14 @@ window.Pager= window.Pager || new function(){
     };
 
     self.navHandler=function(event,data){
+        if (self.extraHandler)
+            self.extraHandler();
         var page=window.location.hash;
         var hash=window.location.hash.split("?")[0];
+        var qstring=window.location.hash.split("?")[1]||"";
         var prevPointer=self._historyPointer;
+        //console.log("nH "+page);
+        $("body").css("display","block");
 
         // Use *our* history to determine whether this move is forward or
         // backward, because relying on data.state.direction fails
@@ -89,6 +95,11 @@ window.Pager= window.Pager || new function(){
                 page,
                 JSON.parse(JSON.stringify(self.stateData))
             ];
+            qstring.split("&").slice(1).map(function(str){
+                var kv=str.split("=");
+                self._historyStates[self._historyPointer][1][kv[0]]=kv[1];
+                self.stateData[kv[0]]=kv[1];
+            });
         }
 
         var handler=self._pageHandlers[hash];
@@ -100,12 +111,19 @@ window.Pager= window.Pager || new function(){
     };
 
     self.takeControl=function(page){
+        //console.log('taking control');
+        $.mobile.loading("hide");
         $( window ).on( "navigate", self.navHandler);
 
         var curLoc=window.location.hash.split("?");
-        if (curLoc.length==2 && curLoc[1]==0 && curLoc[0]==page)
+        if (curLoc.length==2 && curLoc[1]=="pc=0" && curLoc[0]==page)
             self._counter++;
+        self.stateData.startPoint=window.location.hash;
         self.goTo(page);
+    };
+
+    self.setHandler=function(f){
+        self.extraHandler=f;
     };
 
 };

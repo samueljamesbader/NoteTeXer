@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+cd public
+rm cache.manifest
+find * -type f ! -name '*.sw*' > cache.manifest.tmp
+echo "CACHE MANIFEST" > cache.manifest
+echo '#' `date` >> cache.manifest
+echo "CACHE:" >> cache.manifest
+cat cache.manifest.tmp >> cache.manifest
+rm cache.manifest.tmp
+cat >> cache.manifest << EOM
+//code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css
+//code.jquery.com/jquery-1.11.2.min.js
+//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js
+//www.parsecdn.com/js/parse-1.4.2.min.js
+#//connect.facebook.net/en_US/sdk.js
+plugins/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+NETWORK:
+*
+EOM
+sed -i 's/\.woff/\.woff?rev=2.5.3/g' cache.manifest

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PostImage -> NoteTeXer</title>
+        <script>
+function postimage_query_string(postimage_search_name){
+    if(window.location.hash){
+        postimage_query=window.location.hash.substring(1).split("&");
+        for(postimage_i=0;postimage_i<postimage_query.length;postimage_i++){
+            postimage_string_data=postimage_query[postimage_i].split("=");
+            if(postimage_string_data[0]==postimage_search_name){
+                postimage_string_data.shift();
+                return unescape(postimage_string_data.join("="));
+            }
+        }
+    }
+    return void(0);
+}
+var url=postimage_query_string("postimage_text")
+    .match(/\[[^\]]+\]\[[^\]]+\]([^\]]+)\[\/[^\]]+\]\[\/[^\]]+\]/)[1];
+window.opener.viewNotePage.je.insertImage(url);
+window.opener.focus();
+window.close();
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
+
